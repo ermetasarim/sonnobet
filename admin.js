@@ -196,16 +196,17 @@ const AdminPanel = (() => {
         const btn = $("openAdminBtn");
         if (!btn) return;
         if (!allowed) clearAdminSessionFlag();
-        // Herkese görünür
         btn.classList.remove("hidden");
         btn.removeAttribute("hidden");
         btn.style.display = "";
         btn.setAttribute("aria-hidden", "false");
-        // is_admin değilse tıklanamaz
-        btn.disabled = !allowed;
+        // Her zaman tıklanabilir — yetki openAdmin içinde kontrol edilir
+        btn.disabled = false;
+        btn.removeAttribute("disabled");
         btn.setAttribute("aria-disabled", allowed ? "false" : "true");
         btn.title = allowed ? "Admin paneli" : "Yalnızca admin üyeler girebilir";
         btn.classList.toggle("menuToolBtnDisabled", !allowed);
+        btn.style.pointerEvents = "auto";
     }
 
     function updateAdminButtonVisibility() {
@@ -332,20 +333,35 @@ async function tryLogin() {
         showAdminScreen("adminHubScreen");
     }
 
-    function openAdmin() {
-        updateAdminButtonVisibility();
+    async function openAdmin() {
+        try {
+            if (window.SNSupabase) {
+                if (typeof SNSupabase.refreshProfile === "function") {
+                    await SNSupabase.refreshProfile();
+                } else if (typeof SNSupabase.init === "function") {
+                    await SNSupabase.init();
+                }
+            }
+        } catch (e) {}
+
+        applyAdminButtonState(isEmailAdmin());
+
         if (!isEmailAdmin()) {
-            try { flash("Admin paneline yalnızca is_admin yetkili üyeler girebilir."); } catch (e) {}
-            try { alert("Admin paneline yalnızca admin üyeler girebilir."); } catch (e) {}
             clearAdminSessionFlag();
+            const msg = "Admin paneline yalnızca is_admin=true olan üyeler girebilir. Supabase profiles tablosunda hesabınızı kontrol edin.";
+            try { flash(msg); } catch (e) {}
+            try { alert(msg); } catch (e) {}
             return;
         }
-        if (typeof show === "function") show("adminRoot");
-        else {
+
+        // adminRoot görünür
+        if (typeof show === "function") {
+            show("adminRoot");
+        } else {
             document.querySelectorAll(".screen").forEach((s) => s.classList.add("hidden"));
-            $("adminRoot")?.classList.remove("hidden");
+            const root = $("adminRoot");
+            if (root) root.classList.remove("hidden");
         }
-        // Şifre ekranı yok — yalnızca güncel admin hesabı
         enterAdminWorkspace();
         if (typeof SFX !== "undefined" && SFX.click) SFX.click();
     }
@@ -1110,6 +1126,7 @@ async function tryLogin() {
         };
         $("openAdminBtn")?.addEventListener("click", (e) => {
             e.preventDefault();
+            e.stopPropagation();
             openAdmin();
         });
 

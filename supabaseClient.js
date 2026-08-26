@@ -77,7 +77,9 @@
             if (data) {
                 if (data.display_name) dbName = data.display_name;
                 if (data.email) dbEmail = data.email;
-                if (data.is_admin === true) dbAdmin = true;
+                if (data.is_admin === true || data.is_admin === "true" || data.is_admin === 1 || data.is_admin === "1" || data.is_admin === "t") {
+                    dbAdmin = true;
+                }
             }
         } catch (e) {
             try {

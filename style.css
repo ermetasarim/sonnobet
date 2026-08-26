@@ -6959,12 +6959,13 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
     margin-bottom: 4px;
 }
 
-#menuScreen .menuToolBtn.menuToolBtnDisabled,
-#openAdminBtn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    filter: grayscale(0.35);
-    pointer-events: none;
+#menuScreen .menuToolBtn.menuToolBtnDisabled {
+    opacity: 0.55;
+    filter: grayscale(0.25);
+}
+#openAdminBtn {
+    pointer-events: auto !important;
+    cursor: pointer !important;
 }
 
 
