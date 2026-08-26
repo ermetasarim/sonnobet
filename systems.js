@@ -5,7 +5,7 @@
    prosedür, TTS, soruşturma finali, ending, istatistik, mod
    ========================================================= */
 
-const LEADERBOARD_KEY = "security_game_leaderboard_v4"; /* liderlik tekrar sıfırlandı */
+const LEADERBOARD_KEY = "security_game_leaderboard_v6"; /* Genel: online öncelikli */
 const CUSTOM_EVENTS_KEY = "security_game_custom_events";
 const CAREER_KEY = "security_game_career";
 const STATS_KEY = "security_game_lifetime_stats";
@@ -111,17 +111,19 @@ function saveCustomEvents(list) {
 
 (function clearOldLeaderboardsOnce() {
     try {
-        if (localStorage.getItem("son_nobet_lb_reset_v4") === "1") return;
+        if (localStorage.getItem("son_nobet_lb_reset_v6") === "1") return;
         localStorage.removeItem("security_game_leaderboard");
         localStorage.removeItem("security_game_leaderboard_v2");
         localStorage.removeItem("security_game_leaderboard_v3");
+        localStorage.removeItem("security_game_leaderboard_v4");
+        localStorage.removeItem("security_game_leaderboard_v5");
         localStorage.removeItem("son_nobet_weekly_lb_v1");
         localStorage.removeItem("son_nobet_weekly_lb_v2");
         localStorage.removeItem("son_nobet_weekly_lb_v3");
         localStorage.removeItem("son_nobet_monthly_lb_v1");
         localStorage.removeItem("son_nobet_monthly_lb_v2");
         localStorage.removeItem("son_nobet_monthly_lb_v3");
-        localStorage.setItem("son_nobet_lb_reset_v4", "1");
+        localStorage.setItem("son_nobet_lb_reset_v6", "1");
     } catch (e) {}
 })();
 function getLeaderboard() {
@@ -177,16 +179,17 @@ function renderLeaderboard(preferOnline) {
         ).join("");
     };
 
-    // Önce yerel
+    // Yerel (geçici); online cevap gelince üzerine yazar
     paint(getLeaderboard(), false);
 
-    // Online varsa üzerine yaz
     try {
         if (window.SNSupabase && typeof SNSupabase.fetchTopScores === "function") {
             listEl.dataset.loading = "1";
             SNSupabase.fetchTopScores(20).then((rows) => {
                 listEl.dataset.loading = "0";
-                if (rows && rows.length) paint(rows, true);
+                // Online başarıyla geldiyse (boş dahil) Genel = online
+                // Eski yerel skorlar online boşken görünmesin
+                paint(rows || [], true);
             }).catch(() => { listEl.dataset.loading = "0"; });
         }
     } catch (e) {}
