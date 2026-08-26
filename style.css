@@ -6979,3 +6979,14 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
     font-size: 13px !important;
     letter-spacing: 0.04em !important;
 }
+
+#menuScreen #openDuelBtn.toolRed,
+#menuScreen .menuToolBtn.toolRed {
+    background: linear-gradient(135deg, #3b1020 0%, #1a0a12 100%);
+    border-color: #e11d48;
+    box-shadow: 0 0 0 1px rgba(225, 29, 72, 0.35);
+}
+#menuScreen #openDuelBtn.toolRed:hover:not(:disabled) {
+    border-color: #fb7185;
+    background: linear-gradient(135deg, #4c1528 0%, #220e16 100%);
+}

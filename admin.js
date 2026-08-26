@@ -5,10 +5,6 @@
 
 const ADMIN_BANK_KEY = "son_nobet_admin_bank_v1";
 const ADMIN_PASS_HASH = "bef54cbb7cc3123db036cb17b8e23e0861d4099bc69c361dc89883c0c4521803";
-    /** Bu e-postalarla Supabase girişi = admin (şifre sorulmaz, buton sadece onlara görünür) */
-    const ADMIN_EMAILS = [
-        "ermetasarim@gmail.com"
-    ];
 const ADMIN_FAIL_KEY = "son_nobet_admin_fail_v1";
 const ADMIN_MAX_FAIL = 8;
 const ADMIN_AUTH_KEY = "son_nobet_admin_auth_v1";
