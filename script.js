@@ -433,11 +433,16 @@ function applyLoggedInUI() {
     }
     // Admin butonu: güncel oturuma göre (script admin.js sırası sorunu yok)
     try {
-        if (typeof window.updateAdminButtonVisibility === "function") {
-            window.updateAdminButtonVisibility();
-        } else if (window.AdminPanel && typeof AdminPanel.updateAdminButtonVisibility === "function") {
-            AdminPanel.updateAdminButtonVisibility();
-        }
+        const run = () => {
+            if (typeof window.updateAdminButtonVisibility === "function") {
+                window.updateAdminButtonVisibility();
+            } else if (window.AdminPanel && typeof AdminPanel.updateAdminButtonVisibility === "function") {
+                AdminPanel.updateAdminButtonVisibility();
+            }
+        };
+        run();
+        setTimeout(run, 500);
+        setTimeout(run, 1500);
     } catch (e) {}
 }
 

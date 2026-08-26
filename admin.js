@@ -171,22 +171,18 @@ const AdminPanel = (() => {
 
     /** Sadece O AN giriş yapmış kullanıcının admin olup olmadığı (eski oturum yok) */
     function isEmailAdmin() {
+        // Sadece profiles.is_admin === true (giriş yapmış kullanıcı)
         try {
             if (!window.SNSupabase || !SNSupabase.isLoggedIn || !SNSupabase.isLoggedIn()) {
                 return false;
             }
-            // SNSupabase.isAdmin varsa kullan
-            if (typeof SNSupabase.isAdmin === "function" && SNSupabase.isAdmin()) {
-                return true;
+            if (typeof SNSupabase.isAdmin === "function") {
+                return !!SNSupabase.isAdmin();
             }
             const p = SNSupabase.getProfile && SNSupabase.getProfile();
-            if (p && (p.is_admin === true || p.is_admin === "true" || p.is_admin === 1)) {
-                return true;
-            }
-            const em = normalizeEmail((p && p.email) || getLoggedInEmail());
-            if (em && ADMIN_EMAILS.map(normalizeEmail).filter(Boolean).includes(em)) {
-                return true;
-            }
+            if (!p) return false;
+            const flag = p.is_admin;
+            return flag === true || flag === "true" || flag === 1 || flag === "1";
         } catch (e) {}
         return false;
     }
@@ -196,19 +192,38 @@ const AdminPanel = (() => {
         return isEmailAdmin();
     }
 
-    function updateAdminButtonVisibility() {
+    function applyAdminButtonState(allowed) {
         const btn = $("openAdminBtn");
         if (!btn) return;
-        const allowed = isEmailAdmin();
         if (!allowed) clearAdminSessionFlag();
+        // Herkese görünür
         btn.classList.remove("hidden");
         btn.removeAttribute("hidden");
         btn.style.display = "";
         btn.setAttribute("aria-hidden", "false");
+        // is_admin değilse tıklanamaz
         btn.disabled = !allowed;
         btn.setAttribute("aria-disabled", allowed ? "false" : "true");
-        btn.title = allowed ? "Admin paneli" : "Sadece admin erişebilir";
+        btn.title = allowed ? "Admin paneli" : "Yalnızca admin üyeler girebilir";
         btn.classList.toggle("menuToolBtnDisabled", !allowed);
+    }
+
+    function updateAdminButtonVisibility() {
+        applyAdminButtonState(isEmailAdmin());
+        // Profil gecikmeli yüklenebilir — birkaç kez yeniden dene
+        (async () => {
+            try {
+                if (window.SNSupabase && typeof SNSupabase.refreshProfile === "function") {
+                    await SNSupabase.refreshProfile();
+                } else if (window.SNSupabase && typeof SNSupabase.init === "function") {
+                    await SNSupabase.init();
+                }
+            } catch (e) {}
+            applyAdminButtonState(isEmailAdmin());
+        })();
+        setTimeout(() => applyAdminButtonState(isEmailAdmin()), 400);
+        setTimeout(() => applyAdminButtonState(isEmailAdmin()), 1200);
+        setTimeout(() => applyAdminButtonState(isEmailAdmin()), 2500);
     }
 
     function setAuthed(on) {
@@ -320,7 +335,8 @@ async function tryLogin() {
     function openAdmin() {
         updateAdminButtonVisibility();
         if (!isEmailAdmin()) {
-            try { flash("Admin paneli sadece yetkili hesaplara açık."); } catch (e) {}
+            try { flash("Admin paneline yalnızca is_admin yetkili üyeler girebilir."); } catch (e) {}
+            try { alert("Admin paneline yalnızca admin üyeler girebilir."); } catch (e) {}
             clearAdminSessionFlag();
             return;
         }

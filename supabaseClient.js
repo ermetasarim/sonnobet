@@ -87,7 +87,7 @@
         }
         const display = (metaName || dbName || stored || email.split("@")[0] || "Görevli").trim();
         // Bootstrap: listede tanımlı e-posta otomatik admin
-        const bootAdmin = ["ermetasarim@gmail.com"].includes(String(email).toLowerCase());
+        const bootAdmin = BOOTSTRAP_ADMIN_EMAILS.includes(String(email).toLowerCase());
         const isAdmin = dbAdmin || bootAdmin;
         profile = {
             id: uid,
@@ -192,15 +192,22 @@
         return !!(session && session.user);
     }
 
+    const BOOTSTRAP_ADMIN_EMAILS = ["ermetasarim@gmail.com"];
+
     function isAdmin() {
-        if (profile && (profile.is_admin === true || profile.is_admin === "true" || profile.is_admin === 1)) {
-            return true;
-        }
+        // Tek kaynak: profiles.is_admin (loadProfile bootstrap e-postaya is_admin yazar)
         try {
-            const em = (session && session.user && session.user.email) || (profile && profile.email) || "";
-            if (String(em).trim().toLowerCase() === "ermetasarim@gmail.com") return true;
+            if (!profile) return false;
+            const flag = profile.is_admin;
+            return flag === true || flag === "true" || flag === 1 || flag === "1" || flag === "t";
         } catch (e) {}
         return false;
+    }
+
+    async function refreshProfile() {
+        await init();
+        if (session) await loadProfile();
+        return profile;
     }
 
     function getDisplayName() {
@@ -309,6 +316,7 @@
         isLoggedIn,
         getDisplayName,
         isAdmin,
+        refreshProfile,
         getUserId,
         getProfile: () => profile,
         getSession: () => session,
