@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-color" content="#0b1524">
+    <meta name="description" content="Son Nöbet — gece vardiyası güvenlik görevlisi karar simülasyonu">
+    <link rel="manifest" href="manifest.webmanifest">
+    <title>Son Nöbet — Güvenlik Simülasyonu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Basic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2582945796090029"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="bgGlow" aria-hidden="true"></div>
+<div id="fxFlash" class="fxFlash" aria-hidden="true"></div>
+<div id="feedbackToast" class="feedbackToast hidden" aria-live="polite" aria-hidden="true"></div>
+<div id="app">
+
+
+    <!-- İlk giriş: KVKK + aydınlatma onayı -->
+    <!-- İlk giriş: KVKK + açık rıza + kullanım koşulları -->
+    <section id="consentScreen" class="screen hidden" aria-labelledby="consentTitle">
+        <h2 id="consentTitle">Yasal bilgilendirme</h2>
+        <p class="sectionHint">Oyuna devam etmeden önce metinleri okuyup onaylaman gerekir.</p>
+        <div class="consentScroll" tabindex="0">
+            <h3>1. KVKK aydınlatma metni</h3>
+            <p><strong>PARS STUDİO MOBİL UYGULAMA KİŞİSEL VERİLERİN İŞLENMESİNE İLİŞKİN AYDINLATMA METNİ</strong></p>
+            <p>
+                İşbu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu’nun (“KVKK”) 10. maddesi ile
+                Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ kapsamında,
+                veri sorumlusu sıfatıyla <strong>Pars Studio</strong>
+                (İletişim: <a href="mailto:ermetasarim@gmail.com">ermetasarim@gmail.com</a>,
+                Web: <a href="https://ermetasarim.github.io/parsstudio/" target="_blank" rel="noopener noreferrer">ermetasarim.github.io/parsstudio</a>)
+                tarafından hazırlanmıştır.
+            </p>
+            <p><strong>1. İşlenen kişisel verileriniz ve toplanma yöntemleri</strong></p>
+            <p>Mobil oyunumuzu kullanımınız sırasında aşağıdaki kişisel verileriniz dijital ortamda otomatik yöntemlerle toplanmaktadır:</p>
+            <ul>
+                <li><strong>Kimlik ve hesap bilgileri:</strong> Seçtiğiniz kullanıcı adı; üçüncü taraf giriş sağlayıcıları aracılığıyla (Apple ile Giriş, Google Play Games, Facebook ile Giriş) iletilen benzersiz kullanıcı kimlik numarası (User ID) ve profille ilişkili temel bilgiler.</li>
+                <li><strong>Cihaz ve bağlantı bilgileri:</strong> IP adresiniz, cihaz modeli, işletim sistemi versiyonu, cihaz dili, ağ durumu ve benzersiz cihaz tanımlayıcıları.</li>
+                <li><strong>Kullanım ve reklam verileri:</strong> Oyun içi etkinlikler, skorlar, oyun süresi, crash (çökme) raporları (Firebase Analytics SDK aracılığıyla) ile reklam etkileşimlerine ilişkin reklam kimliği (IDFA / GAID).</li>
+                <li><strong>Finansal / satın alma işlem bilgileri:</strong> Oyun içi satın almalara (reklam kaldırma vb.) ilişkin Apple App Store veya Google Play Store tarafından doğrulama amacıyla iletilen dijital makbuz ve işlem kimlikleri. Kredi kartı/banka bilgileri tarafımızca hiçbir şekilde toplanmaz ve işlenmez.</li>
+            </ul>
+            <p><strong>2. Kişisel verilerin işlenme amaçları ve hukuki sebepleri</strong></p>
+            <p>Toplanan kişisel verileriniz, KVKK’nın 5. maddesinde belirtilen hukuki sebeplere dayanarak işlenmektedir:</p>
+            <ul>
+                <li><strong>Sözleşmenin kurulması ve ifası (KVKK m.5/2-c):</strong> Oyun hizmetinin sunulması, oyuncu profilinin oluşturulması, çevrimiçi/çevrimdışı oyun modlarının çalıştırılması, skorbordların tutulması ve satın alınan oyun içi içeriklerin (reklam kaldırma) tanımlanması.</li>
+                <li><strong>Veri sorumlusunun meşru menfaatleri (KVKK m.5/2-f):</strong> Oyunun performansının artırılması, teknik hataların ve çökmelerin tespiti (Firebase Analytics), hile ve yetkisiz erişimlerin önlenmesi, oyun güvenliğinin sağlanması.</li>
+                <li><strong>Açık rıza (KVKK m.5/1):</strong> Cihazınızda kişiselleştirilmiş reklamların gösterilmesi ve reklam kimliğinizin Google AdMob ile paylaşılması.</li>
+            </ul>
+            <p><strong>3. Kişisel verilerin aktarılması</strong></p>
+            <p>Verileriniz, yukarıda belirtilen amaçların gerçekleştirilmesi doğrultusunda ve KVKK’nın 8. ve 9. maddelerine uygun olarak yalnızca aşağıdaki üçüncü taraf hizmet sağlayıcılara aktarılmaktadır:</p>
+            <ul>
+                <li><strong>Analiz:</strong> Firebase Analytics (Google LLC)</li>
+                <li><strong>Reklam:</strong> Google AdMob (Google LLC)</li>
+                <li><strong>Giriş:</strong> Apple Inc., Google LLC, Meta Platforms Inc. (Facebook)</li>
+                <li><strong>Yasal yükümlülükler:</strong> Yetkili kamu kurum ve kuruluşları ile adli makamlardan gelen bağlayıcı talepler doğrultusunda yetkili mercilere.</li>
+            </ul>
+            <p><strong>4. KVKK kapsamındaki haklarınız</strong></p>
+            <p>
+                KVKK’nın 11. maddesi uyarınca kişisel veri sahibi olarak; verilerinizin işlenip işlenmediğini öğrenme,
+                işlenmişse bilgi talep etme, silinmesini veya düzeltilmesini isteme haklarına sahipsiniz.
+                Taleplerinizi <a href="mailto:ermetasarim@gmail.com">ermetasarim@gmail.com</a> adresine e-posta göndererek iletebilirsiniz.
+            </p>
+
+            <h3>2. Açık rıza metni</h3>
+            <p><strong>KİŞİSEL VERİLERİN İŞLENMESİNE İLİŞKİN AÇIK RIZA METNİ</strong></p>
+            <p>Pars Studio tarafından sunulan mobil oyunu kullanırken;</p>
+            <ul>
+                <li>Cihazıma ait Reklam Kimliği (IDFA/GAID), IP adresi ve oyun kullanım istatistiklerimin Google AdMob reklam ağına aktarılarak tarafıma kişiselleştirilmiş reklamlar gösterilmesi,</li>
+                <li>Oyun performansının ölçülmesi ve analiz edilmesi amacıyla Firebase Analytics SDK’sı aracılığıyla analiz verilerimin işlenmesi</li>
+            </ul>
+            <p>
+                hususlarında KVKK Aydınlatma Metni’ni okuduğumu, anladığımı ve kişisel verilerimin yukarıda belirtilen amaçlarla
+                işlenmesine ve yurt içi/yurt dışındaki üçüncü taraf hizmet sağlayıcılarına aktarılmasına özgür irademle
+                <strong>RIZA GÖSTERDİĞİMİ</strong> kabul ve beyan ederim.
+            </p>
+
+            <h3>3. Kullanım koşulları ve kullanıcı sözleşmesi (EULA)</h3>
+            <p><strong>PARS STUDİO MOBİL OYUN KULLANICI SÖZLEŞMESİ VE KULLANIM KOŞULLARI</strong></p>
+            <p>
+                İşbu Kullanım Koşulları ve Kullanıcı Sözleşmesi (“Sözleşme”), Pars Studio tarafından geliştirilen ve yayınlanan
+                mobil oyunun (“Oyun”) kullanımına ilişkin şartları düzenler. Oyunu indirerek, yükleyerek veya oynayarak
+                işbu Sözleşme şartlarını kabul etmiş sayılırsınız.
+            </p>
+            <p><strong>1. Lisans ve kullanım hakkı</strong></p>
+            <p>
+                Pars Studio, kullanıcılara Oyun’u kişisel, ticari olmayan ve devredilemez bir şekilde kullanmak üzere sınırlı bir
+                lisans hakkı tanır. Oyun’un kaynak kodları, görsel/işitsel tasarımları ve markası Pars Studio’ya aittir.
+            </p>
+            <p><strong>2. Hesap ve kullanıcı adı</strong></p>
+            <ul>
+                <li>Kullanıcılar, Oyun içinde seçecekleri kullanıcı adlarının genel ahlaka, kamu düzenine ve üçüncü kişilerin haklarına aykırı olmayacağını kabul eder.</li>
+                <li>Pars Studio, uygunsuz, hakaret içeren veya ihlal oluşturan kullanıcı adlarını değiştirme veya hesabı askıya alma hakkını saklı tutar.</li>
+                <li>Apple ile Giriş, Google Play Games veya Facebook ile Giriş yöntemleriyle oluşturulan hesapların güvenliğinden kullanıcı kendisi sorumludur.</li>
+            </ul>
+            <p><strong>3. Oyun içi satın almalar (reklam kaldırma vb.)</strong></p>
+            <ul>
+                <li>Oyun içerisinde sunulan “Reklam Kaldırma” vb. dijital içerik satın alımları Apple App Store ve Google Play Store altyapıları üzerinden gerçekleşir.</li>
+                <li>Satın alınan dijital içerikler anında ifa edilen hizmet kapsamında olup, ilgili mağazaların (Apple/Google) iade politikaları geçerlidir.</li>
+            </ul>
+            <p><strong>4. Yasaklanmış davranışlar ve hile</strong></p>
+            <p>
+                Oyun içinde hile, bot, emülatör manipülasyonu, veri paketlerini değiştirme veya tersine mühendislik yapılması
+                kesinlikle yasaktır. Bu tür eylemlerde bulunan kullanıcıların erişimleri tek taraflı olarak sonlandırılabilir.
+            </p>
+            <p><strong>5. Hizmet değişiklikleri ve sorumluluk sınırı</strong></p>
+            <p>
+                Pars Studio, Oyun’un içeriğini, çevrimiçi sunucu özelliklerini veya güncellemelerini dilediği zaman değiştirme
+                ya da sonlandırma hakkına sahiptir. Oyun’un kesintisiz veya hatasız çalışacağına dair mutlak bir garanti verilmemektedir.
+            </p>
+            <p><strong>6. İletişim</strong></p>
+            <p>
+                Sözleşmeyle ilgili her türlü soru, talep ve bildiriminiz için
+                <a href="mailto:ermetasarim@gmail.com">ermetasarim@gmail.com</a>
+                e-posta adresi üzerinden Pars Studio ile iletişime geçebilirsiniz.
+            </p>
+            <p class="consentDate">Pars Studio · Son Nöbet · Sürüm v1 · 2026-08-24</p>
+        </div>
+
+        <label class="consentCheckRow" for="consentCheckTerms">
+            <input id="consentCheckTerms" type="checkbox">
+            <span>KVKK Aydınlatma Metni’ni ve Kullanım Koşulları’nı okudum, anladım ve kabul ediyorum.</span>
+        </label>
+        <label class="consentCheckRow" for="consentCheckAds">
+            <input id="consentCheckAds" type="checkbox">
+            <span>Açık Rıza Metni’ni okudum; kişiselleştirilmiş reklam (AdMob) ve analiz (Firebase) verilerinin işlenmesine rıza gösteriyorum.</span>
+        </label>
+        <button id="consentAcceptBtn" class="primaryBtn" type="button" disabled>Kabul et ve devam et</button>
+        <p id="consentError" class="saveStatus error hidden" role="alert">Devam etmek için her iki onay kutusunu da işaretle.</p>
+        <p class="appVersion">Yasal onay · zorunlu</p>
+    </section>
+
+    <section id="menuScreen" class="screen">
+        <div class="menuBrand">
+            <img id="menuLogo" class="menuLogo" src="logo.png" width="380" height="auto" alt="Son Nöbet — Güvenlik Görevlisi Simülasyonu">
+        </div>
+        <div id="versionNotice" class="versionNotice" role="status">
+            <strong>Sürüm 6.0</strong>
+            <span>Yeni arayüz, kariyer kaydı, yasal onay ve daha fazlası. İyi eğlenceler.</span>
+            <button type="button" id="versionNoticeClose" class="versionNoticeClose" aria-label="Kapat">×</button>
+        </div>
+        <p id="pwaStatus" class="pwaStatus">Bağlantı kontrol ediliyor…</p>
+
+        <label class="fieldLabel" for="playerName">Görevli adı</label>
+        <input id="playerName" type="text" placeholder="ADINI GİR" maxlength="24" autocomplete="off">
+
+        <!-- Zorluk seçimi kaldırıldı; varsayılan Normal -->
+        <select id="difficultySelect" class="hidden" aria-hidden="true" hidden>
+            <option value="1" selected>Normal</option>
+        </select>
+
+        <details class="modeToggles optionsDrawer settingsTable">
+            <summary class="optionsDrawerSummary">
+                <span class="modeTogglesLabel">Oyun seçenekleri</span>
+                <span class="optionsDrawerChevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="settingsTableBody optionsDrawerBody">
+                <label class="settingsRow" for="ttsToggle">
+                    <input id="ttsToggle" type="checkbox">
+                    <span class="settingsRowText">
+                        <strong>Sesli Okuma</strong>
+                        <small>Soru metnini oku</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
+                <label class="settingsRow" for="a11yVibrateToggle">
+                    <input id="a11yVibrateToggle" type="checkbox" checked>
+                    <span class="settingsRowText">
+                        <strong>Titreşim</strong>
+                        <small>Doğru / yanlış</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
+                <label class="settingsRow" for="voiceBriefToggle">
+                    <input id="voiceBriefToggle" type="checkbox">
+                    <span class="settingsRowText">
+                        <strong>Sesli Brifing</strong>
+                        <small>Vardiya başı</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
+                <label class="settingsRow" for="timerToggle">
+                    <input id="timerToggle" type="checkbox" checked>
+                    <span class="settingsRowText">
+                        <strong>Geri Sayım Sayacı</strong>
+                        <small>Soru süresi</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
+                <label class="settingsRow hidden" for="a11yColorToggle" aria-hidden="true" hidden>
+                    <input id="a11yColorToggle" type="checkbox">
+                    <span class="settingsRowText"><strong>Renk körü</strong></span>
+                </label>
+            </div>
+        </details>
+
+        <div class="menuHeroStack">
+            <button id="startBtn" class="menuHeroBtn menuHeroBlue" type="button">
+                <span class="menuHeroIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg>
+                </span>
+                <span class="menuHeroLabel">BAŞLA</span>
+                <span class="menuHeroChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="continueBtn" class="menuHeroBtn menuHeroNavy" type="button" disabled>
+                <span class="menuHeroIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 10 9 10"/></svg>
+                </span>
+                <span class="menuHeroLabel">KAYITTAN DEVAM ET</span>
+            </button>
+            <button id="careerContinueBtn" class="menuHeroBtn menuHeroGreen" type="button" disabled>
+                <span class="menuHeroIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+                </span>
+                <span class="menuHeroLabel" id="careerContinueLabel">KARİYERE DEVAM</span>
+            </button>
+        </div>
+        <p id="careerMenuStatus" class="sectionHint careerMenuStatus">Kayıtlı kariyer kontrol ediliyor…</p>
+        <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
+        <p id="saveStatus" class="saveStatus hidden"></p>
+
+        <div class="menuToolsGrid">
+            <button id="soundToggleBtn" class="menuToolBtn toolSun" type="button">
+                <span class="menuToolIcon" aria-hidden="true">☀️</span>
+                <span class="menuToolLabel" id="soundToggleLabel">Efekt: Açık</span>
+            </button>
+            <button id="musicToggleBtn" class="menuToolBtn toolNote" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🎵</span>
+                <span class="menuToolLabel" id="musicToggleLabel">Müzik: Açık</span>
+            </button>
+            <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🏆</span>
+                <span class="menuToolLabel">Liderlik</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
+                <span class="menuToolIcon" aria-hidden="true">📊</span>
+                <span class="menuToolLabel">İstatistik</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openBadgesBtn" class="menuToolBtn toolMedal" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🎖️</span>
+                <span class="menuToolLabel">Rozetler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🛡️</span>
+                <span class="menuToolLabel">Görevler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openDuelBtn" class="menuToolBtn toolRed" type="button">
+                <span class="menuToolIcon" aria-hidden="true">⚔️</span>
+                <span class="menuToolLabel">Düello</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openAdminBtn" class="menuToolBtn toolPurple" type="button">
+                <span class="menuToolIcon" aria-hidden="true">⚙️</span>
+                <span class="menuToolLabel">Admin</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+        </div>
+        <p class="appVersion" id="appVersion">v6.0</p>
+    </section>
+
+    <!-- Admin kök ekranı -->
+    <section id="adminRoot" class="screen hidden">
+        <p id="adminFlash" class="saveStatus hidden" role="status"></p>
+        <p id="adminDirtyHint" class="adminDirtyHint hidden"></p>
+
+        
+        <div id="adminLoginScreen">
+            <h2>Admin Giriş</h2>
+            <p class="sectionHint">Yönetim paneline erişmek için şifre girin.</p>
+            <label class="fieldLabel" for="adminPasswordInput">Şifre</label>
+            <input id="adminPasswordInput" type="password" placeholder="Şifre" maxlength="64" autocomplete="current-password">
+            <p id="adminLoginError" class="saveStatus error hidden" role="alert"></p>
+            <button id="adminLoginBtn" class="primaryBtn" type="button">Giriş yap</button>
+            <button id="adminLoginCancelBtn" class="ghostBtn" type="button">← Geri dön (Menü)</button>
+            <p class="appVersion">Admin · güvenli giriş</p>
+        </div>
+
+        <div id="adminInstScreen">
+            <h2>Admin · Kurum Seç</h2>
+            <p class="sectionHint">Düzenlemek istediğin kurumu seç. Senaryo ve sorular sonraki ekranda açılır.</p>
+            <div id="adminInstGrid" class="adminInstGrid"></div>
+            <div class="adminFooterActions adminInstActions">
+                <button id="adminSaveBtn" class="adminActionBtn adminActionTeal" type="button">KAYDET</button>
+                <button id="adminExportBtn" class="adminActionBtn adminActionTeal" type="button">İNDİR</button>
+                <label class="adminActionBtn adminActionGray adminImportLabel" for="adminImportFile">YÜKLE
+                    <input id="adminImportFile" type="file" accept="application/json,.json" hidden>
+                </label>
+                <button id="adminBackToMenuBtn" class="ghostBtn" type="button">← Geri dön (Menü)</button>
+            </div>
+            <p class="appVersion">Admin · v6.0</p>
+        </div>
+
+        <div id="adminScenarioScreen" class="hidden">
+            <h2 id="adminScenarioTitle">Senaryolar</h2>
+            <p class="sectionHint">Bir senaryoya dokunarak soruları düzenle.</p>
+            <div id="adminScenarioList" class="panelTable adminScenarioList"></div>
+            <div class="adminScenarioActions">
+                <button id="adminAddScenarioBtn" class="adminActionBtn adminActionTeal" type="button">YENİ</button>
+                <button id="adminResetInstBtn" class="adminActionBtn adminActionGray" type="button">SIFIRLA</button>
+                <button id="adminSaveBtn2" class="adminActionBtn adminActionTeal" type="button">KAYDET</button>
+            </div>
+            <div class="adminFooterActions">
+                <button id="adminBackToInstBtn" class="ghostBtn" type="button">← Geri dön (Kurumlar)</button>
+            </div>
+            <p class="appVersion">Admin · senaryo listesi</p>
+        </div>
+
+        <div id="adminQuestionScreen" class="hidden">
+            <div id="adminQuestionHead" class="adminQuestionHead"></div>
+            <div id="adminQuestionBody" class="adminQuestionBody"></div>
+            <div class="adminQuestionActions">
+                <button type="button" id="adminAddQuestionBtn" class="adminActionBtn adminActionTeal">EKLE</button>
+                <button id="adminDeleteScenarioBtn" class="adminActionBtn adminActionDanger" type="button">SİL</button>
+                <button id="adminSaveBtn3" class="adminActionBtn adminActionBlue" type="button">KAYDET</button>
+            </div>
+            <div class="adminFooterActions">
+                <button id="adminBackToScenariosBtn" class="ghostBtn" type="button">← Geri dön (Senaryolar)</button>
+            </div>
+            <p class="appVersion">Admin · soru düzenleyici</p>
+        </div>
+    </section>
+
+    <section id="institutionScreen" class="screen hidden">
+        <h2>Kurumunu Seç</h2>
+        <p class="sectionHint">Her kurumun bölgeleri, riskleri ve hikâye hattı farklıdır.</p>
+        <!-- Gizli varsayılan: shiftType her zaman day (gece/gündüz seçimi kaldırıldı) -->
+        <select id="shiftTypeSelect" class="hidden" aria-hidden="true" hidden>
+            <option value="day" selected>Gündüz</option>
+        </select>
+        <div class="institutionGrid">
+            <button class="institutionBtn" data-institution="Site" type="button"><span class="instIcon">🏢</span><strong>Site</strong><small>Giriş · gürültü · gece misafiri</small></button>
+            <button class="institutionBtn" data-institution="AVM" type="button"><span class="instIcon">🏬</span><strong>AVM</strong><small>Kalabalık · kayıp · mağaza</small></button>
+            <button class="institutionBtn" data-institution="Fabrika" type="button"><span class="instIcon">🏭</span><strong>Fabrika</strong><small>Makine · sevkiyat · iş güvenliği</small></button>
+            <button class="institutionBtn" data-institution="Banka" type="button"><span class="instIcon">🏦</span><strong>Banka</strong><small>Gişe · kasa · alarm</small></button>
+            <button class="institutionBtn" data-institution="Belediye" type="button"><span class="instIcon">🏛️</span><strong>Belediye</strong><small>Vatandaş · belge · kamu alanı</small></button>
+            <button class="institutionBtn" data-institution="Hastane" type="button"><span class="instIcon">🏥</span><strong>Hastane</strong><small>Acil · ziyaretçi · kısıtlı alan</small></button>
+            <button class="institutionBtn" data-institution="Havalimanı" type="button"><span class="instIcon">✈️</span><strong>Havalimanı</strong><small>Bagaj · terminal · yüksek prosedür</small></button>
+        </div>
+        <button id="backToMenuBtn" class="ghostBtn" type="button">← Menüye Dön</button>
+        <p class="appVersion">v6.0</p>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+        <header class="gameHeader">
+            <!-- 2x2: Görevli | Rütbe / Kurum | Vardiya -->
+            <div class="infoTable infoTable2x2">
+                <div class="infoCell"><span class="idLabel">Görevli</span><strong id="playerDisplay">—</strong></div>
+                <div class="infoCell"><span class="idLabel">Rütbe</span><strong id="rankDisplay">Aday Güvenlik</strong></div>
+                <div class="infoCell"><span class="idLabel">Kurum</span><strong id="institutionDisplay">—</strong></div>
+                <div class="infoCell"><span class="idLabel">Vardiya</span><strong id="shiftTypeDisplay">—</strong></div>
+            </div>
+            <!-- JS uyumluluğu için gizli stublar -->
+            <div class="hudStubs hidden" aria-hidden="true" hidden>
+                <span class="entryApproved">Giriş Onaylandı</span>
+                <img id="officerAvatar" class="officerAvatar" src="sec.png" alt="" width="28" height="28">
+                <span id="careerBadge" class="chip">V1</span>
+                <span id="eventNumber" class="chip chipStrong">0/15</span>
+                <strong id="shiftTime">22:00</strong>
+            </div>
+            <div class="progressWrap slim hidden" aria-hidden="true" hidden><div id="shiftProgress" class="progressBar"></div></div>
+        </header>
+
+        <div class="stats">
+            <div data-stat="score"><span>Puan</span><strong id="score">0</strong></div>
+            <div data-stat="reputation"><span>İtibar</span><strong id="reputation">50</strong></div>
+            <div data-stat="stress"><span>Stres</span><strong id="stress">0</strong></div>
+            <div data-stat="money"><span>Para</span><strong id="money">0 ₺</strong></div>
+        </div>
+
+        <!-- Gizli / sade: meter değerleri JS için korunuyor, görsel sade -->
+        <div class="meters compactMeters">
+            <div class="meter"><div class="meterLabel"><span>İtibar</span><span id="repMeterVal">50</span></div><div class="meterTrack"><div id="repMeter" class="meterFill rep"></div></div></div>
+            <div class="meter"><div class="meterLabel"><span>Stres</span><span id="stressMeterVal">0</span></div><div class="meterTrack"><div id="stressMeter" class="meterFill stress"></div></div></div>
+            <div class="meter"><div class="meterLabel"><span>Risk</span><span id="riskMeterVal">20</span></div><div class="meterTrack"><div id="riskMeter" class="meterFill risk"></div></div></div>
+        </div>
+
+        <!-- Bölge & Kamera UI kaldırıldı; JS için gizli stub -->
+        <div id="zoneCameraStubs" class="hidden" aria-hidden="true" hidden>
+            <div id="zoneMap"></div>
+            <div id="cameraMonitor">
+                <span id="cameraMeta"></span>
+                <span id="weatherBadge"></span>
+                <span id="procedureBadge"></span>
+                <span id="coopBadge"></span>
+                <div id="cameraFeedText"></div>
+                <div id="cameraChannels"></div>
+                <div id="coopHint"></div>
+            </div>
+            <span id="scenarioDisplay"></span>
+            <span id="packDisplay"></span>
+        </div>
+
+        <strong id="momentumDisplay" class="hidden" aria-hidden="true">0</strong>
+
+        <main id="eventArea">
+            <div id="storyTag" class="storyTag hidden">HİKÂYE</div>
+            <div class="eventHead">
+                <span id="eventIcon" class="eventIcon">📡</span>
+                <div>
+                    <div class="eventHeadRow">
+                    <h2 id="eventTitle">Olay bekleniyor...</h2>
+                    <span id="criticalBadge" class="criticalBadge hidden">KRİTİK</span>
+                </div>
+                    <div id="eventZoneLabel" class="eventZone"></div>
+                </div>
+            </div>
+            <div id="radioMessage" class="radio hidden" aria-hidden="true"></div>
+            <p id="eventDescription">Yeni olayı başlatmak için butona bas.</p>
+            <div id="feedbackBox" class="feedback hidden"></div>
+            <div class="hintRow timerRow">
+                <div id="timerBox" class="ghostBtn timerBar hidden" aria-live="polite">
+                    <span class="timerBarIcon" aria-hidden="true">⏱</span>
+                    <span class="timerBarLabel">Geri sayım · <strong id="timerValue">20</strong>s</span>
+                </div>
+            </div>
+            <div class="hintRow">
+                <button id="hintBtn" class="ghostBtn hintBtn" type="button">💡 İpucu · 100 ₺</button>
+            </div>
+            <div id="choices"></div>
+            <button id="nextEventBtn" class="nextEventBtn">VARDİYA BAŞLAT</button>
+            <button id="manualSaveBtn" class="ghostBtn saveShiftBtn" type="button">KAYDET</button>
+            <button id="backToInstBtn" class="ghostBtn" type="button">← Kurum Seç</button>
+        </main>
+
+        <div id="reportArea" class="hidden">
+            <h2>VARDİYA RAPORU</h2>
+            <div id="reportText"></div>
+            <div id="adRewardPanel" class="adRewardPanel hidden">
+                <div class="adRewardTitle">2× Kazanç</div>
+                <p id="adRewardStatus">Reklam izleyerek 2 katı kazanmak ister misiniz?</p>
+                <button id="watchAdBtn" type="button">▶ Reklam İzle · 2× Kazan</button>
+                <small class="adRewardHint">İsteğe bağlıdır; izlemezsen vardiya yine tamamlanır.</small>
+            </div>
+            <p id="storyBeatNote" class="storyBeatNote hidden"></p>
+            <button id="shareReportBtn" class="secondaryBtn hidden" type="button">📤 Raporu Paylaş</button>
+            <button id="shareCardBtn" class="secondaryBtn hidden" type="button">🖼️ Rapor Kartı</button>
+            <div id="debriefBox" class="debriefBox hidden"></div>
+            <div id="chapterEpilog" class="chapterEpilog hidden"></div>
+            <button id="continueCareerBtn" class="secondaryBtn hidden" type="button">KARİYERDE SONRAKİ VARDİYA</button>
+            <button id="restartBtn">YENİ VARDİYA</button>
+            <button id="menuFromReportBtn" class="ghostBtn" type="button">Ana Menü</button>
+        </div>
+        <p class="appVersion" id="appVersionGame">v6.0</p>
+    </section>
+</div>
+
+<!-- Modals -->
+<div id="leaderboardModal" class="modal hidden">
+    <div class="modalCard">
+        <div class="modalHead"><h3>Liderlik Tablosu</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
+        <div class="lbTabs" role="tablist">
+            <button type="button" class="lbTab active" data-lb-tab="all" role="tab" aria-selected="true">Genel</button>
+            <button type="button" class="lbTab" data-lb-tab="weekly" role="tab" aria-selected="false">Haftalık</button>
+            <button type="button" class="lbTab" data-lb-tab="monthly" role="tab" aria-selected="false">Aylık</button>
+        </div>
+        <div id="lbPaneAll" class="lbPane" data-lb-pane="all">
+            <p class="adminMuted">Tüm zamanlar</p>
+            <div id="leaderboardList" class="panelTable"></div>
+        </div>
+        <div id="lbPaneWeekly" class="lbPane hidden" data-lb-pane="weekly">
+            <p class="adminMuted">Hafta: <span id="weeklyWeekLabel">—</span></p>
+            <div id="weeklyLeaderboardList" class="panelTable"></div>
+        </div>
+        <div id="lbPaneMonthly" class="lbPane hidden" data-lb-pane="monthly">
+            <p class="adminMuted">Ay: <span id="monthlyMonthLabel">—</span></p>
+            <div id="monthlyLeaderboardList" class="panelTable"></div>
+        </div>
+    </div>
+</div>
+
+<div id="adOverlay" class="adOverlay hidden" aria-hidden="true">
+    <div class="adOverlayCard">
+        <div class="adOverlayBadge">TEST REKLAM</div>
+        <h3>Ödüllü reklam simülasyonu</h3>
+        <p>Canlıda burada gerçek reklam ağı çalışır. Test için süre dolunca ödülü alabilirsin.</p>
+        <div class="adOverlayTimerWrap">
+            <span id="adOverlayTimer">5</span> sn
+        </div>
+        <button id="adOverlayClose" type="button" disabled>Ödül için bekleyin…</button>
+        <small>Bu panel yalnızca test modundadır (ads.js → provider: "test").</small>
+    </div>
+</div>
+
+<div id="retryAdModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <h3 id="retryAdTitle">Tekrar hakkı</h3>
+        <p id="retryAdBody" class="tutorialBody">Bu soruyu yeniden denemek için kısa bir reklam izleyebilirsin. İstemezsen bir sonraki soruya geçersin.</p>
+        <div class="adminFooterActions" style="margin-top:12px">
+            <button id="retryAdWatchBtn" class="adminActionBtn adminActionTeal" type="button">Reklam izle · Tekrar dene</button>
+            <button id="retryAdSkipBtn" class="adminActionBtn adminActionGray" type="button">Sonraki Soru</button>
+        </div>
+    </div>
+</div>
+<div id="fakeAdOverlay" class="modal hidden" aria-hidden="true">
+    <div class="modalCard" style="text-align:center">
+        <p class="sectionHint">Reklam</p>
+        <h3>Örnek reklam gösterimi</h3>
+        <p id="fakeAdCountdown" class="tutorialBody">3</p>
+        <p class="adminMuted">Gerçek reklam SDK’sı bağlandığında burada yayınlanır.</p>
+    </div>
+</div>
+<div id="briefingModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <div class="modalHead">
+            <h3 id="briefingTitle">Brifing</h3>
+            <span id="briefingMeta" class="adminBadge">—</span>
+        </div>
+        <p id="briefingBody" class="tutorialBody"></p>
+        <button id="briefingStartBtn" type="button">VARDIYAYA BAŞLA</button>
+    </div>
+</div>
+
+
+
+<div id="tutorialModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <div class="modalHead">
+            <h3 id="tutorialTitle">Hoş geldin</h3>
+            <span id="tutorialStepLabel" class="adminBadge">1 / 3</span>
+        </div>
+        <p id="tutorialBody" class="tutorialBody"></p>
+        <div class="menuRow">
+            <button id="tutorialSkipBtn" class="ghostBtn" type="button">Atla</button>
+            <button id="tutorialNextBtn" type="button">Devam</button>
+        </div>
+    </div>
+</div>
+
+<div id="badgesModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <div class="modalHead">
+            <h3>Rozetler</h3>
+            <button type="button" class="ghostBtn" data-close-modal="badgesModal">Kapat</button>
+        </div>
+        <div id="badgesGrid" class="badgesGrid"></div>
+    </div>
+</div>
+
+
+<div id="duelModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <div class="modalHead">
+            <h3>Yerel Düello</h3>
+            <button type="button" class="ghostBtn" data-close-modal="duelModal">Kapat</button>
+        </div>
+        <p class="adminMuted">Aynı telefonda 2 oyuncu, 5 soru. Sırayla oynayın.</p>
+        <label class="fieldLabel">Oyuncu 1</label>
+        <input id="duelP1" type="text" maxlength="16" placeholder="İsim 1">
+        <label class="fieldLabel">Oyuncu 2</label>
+        <input id="duelP2" type="text" maxlength="16" placeholder="İsim 2">
+        <button id="duelStartBtn" type="button">Düelloyu Başlat</button>
+        <div id="duelStatus" class="duelStatus hidden"></div>
+        <div id="duelChoices" class="duelChoices"></div>
+        <div id="duelResult" class="duelResult hidden"></div>
+    </div>
+</div>
+
+<div id="chainModal" class="modal hidden" aria-hidden="true">
+    <div class="modalCard">
+        <div class="modalHead">
+            <h3>Haftalık Görev Zinciri</h3>
+            <button type="button" class="ghostBtn" data-close-modal="chainModal">Kapat</button>
+        </div>
+        <p class="adminMuted">Bu hafta: <span id="chainWeekLabel">—</span></p>
+        <div id="chainList" class="panelTable chainList"></div>
+        <p id="chainBonusNote" class="adminMuted"></p>
+    </div>
+</div>
+
+<div id="statsModal" class="modal hidden">
+    <div class="modalCard">
+        <div class="modalHead"><h3>İstatistik & Sonlar</h3><button type="button" class="ghostBtn" data-close-modal="statsModal">Kapat</button></div>
+        <div id="statsPanelList" class="panelTable"></div>
+    </div>
+</div>
+
+<script src="senaryo_soru_bankasi.js"></script>
+<script src="admin.js"></script>
+<script src="ads.js"></script>
+<script src="script.js"></script>
+<script src="systems.js"></script>
+<script src="features.js"></script>
+</body>
+</html>
