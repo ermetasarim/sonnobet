@@ -175,12 +175,18 @@ const AdminPanel = (() => {
             if (!window.SNSupabase || !SNSupabase.isLoggedIn || !SNSupabase.isLoggedIn()) {
                 return false;
             }
+            // SNSupabase.isAdmin varsa kullan
+            if (typeof SNSupabase.isAdmin === "function" && SNSupabase.isAdmin()) {
+                return true;
+            }
             const p = SNSupabase.getProfile && SNSupabase.getProfile();
-            // Önce profil is_admin (DB)
-            if (p && p.is_admin === true) return true;
-            // Sonra e-posta bootstrap listesi (sadece mevcut session e-postası)
+            if (p && (p.is_admin === true || p.is_admin === "true" || p.is_admin === 1)) {
+                return true;
+            }
             const em = normalizeEmail((p && p.email) || getLoggedInEmail());
-            if (em && ADMIN_EMAILS.map(normalizeEmail).filter(Boolean).includes(em)) return true;
+            if (em && ADMIN_EMAILS.map(normalizeEmail).filter(Boolean).includes(em)) {
+                return true;
+            }
         } catch (e) {}
         return false;
     }
@@ -1076,8 +1082,10 @@ async function tryLogin() {
         applyOverridesToRuntime();
 
         updateAdminButtonVisibility();
-        setTimeout(updateAdminButtonVisibility, 500);
-        setTimeout(updateAdminButtonVisibility, 1500);
+        setTimeout(updateAdminButtonVisibility,
+        isEmailAdmin, 500);
+        setTimeout(updateAdminButtonVisibility,
+        isEmailAdmin, 1500);
         const _prevOnSNAuth = window.onSNAuthChange;
         window.onSNAuthChange = function (logged, profile) {
             try { if (typeof _prevOnSNAuth === "function") _prevOnSNAuth(logged, profile); } catch (e) {}
@@ -1248,12 +1256,15 @@ async function tryLogin() {
         applyOverridesToRuntime();
     } catch (e) {}
 
-    return {
+    window.updateAdminButtonVisibility = updateAdminButtonVisibility;
+    window.AdminPanel = {
         open: openAdmin,
         updateAdminButtonVisibility,
+        isEmailAdmin,
         applyOverrides: applyOverridesToRuntime,
         loadOverrides
     };
+
+    return window.AdminPanel;
 })();
 
-window.AdminPanel = AdminPanel;

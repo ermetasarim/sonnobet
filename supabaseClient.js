@@ -192,6 +192,17 @@
         return !!(session && session.user);
     }
 
+    function isAdmin() {
+        if (profile && (profile.is_admin === true || profile.is_admin === "true" || profile.is_admin === 1)) {
+            return true;
+        }
+        try {
+            const em = (session && session.user && session.user.email) || (profile && profile.email) || "";
+            if (String(em).trim().toLowerCase() === "ermetasarim@gmail.com") return true;
+        } catch (e) {}
+        return false;
+    }
+
     function getDisplayName() {
         if (profile && profile.display_name) return profile.display_name;
         if (session && session.user) {
@@ -297,6 +308,7 @@
         signOut,
         isLoggedIn,
         getDisplayName,
+        isAdmin,
         getUserId,
         getProfile: () => profile,
         getSession: () => session,

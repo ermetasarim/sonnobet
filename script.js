@@ -431,6 +431,14 @@ function applyLoggedInUI() {
         if (strip) strip.classList.add("hidden");
         if (guestWrap) guestWrap.classList.remove("hidden");
     }
+    // Admin butonu: güncel oturuma göre (script admin.js sırası sorunu yok)
+    try {
+        if (typeof window.updateAdminButtonVisibility === "function") {
+            window.updateAdminButtonVisibility();
+        } else if (window.AdminPanel && typeof AdminPanel.updateAdminButtonVisibility === "function") {
+            AdminPanel.updateAdminButtonVisibility();
+        }
+    } catch (e) {}
 }
 
 function showAuthError(msg) {
@@ -582,6 +590,11 @@ function initAuthScreen() {
 
     window.onSNAuthChange = function (logged, profile) {
         applyLoggedInUI();
+        try {
+            if (typeof window.updateAdminButtonVisibility === "function") {
+                window.updateAdminButtonVisibility();
+            }
+        } catch (e) {}
     };
 }
 
