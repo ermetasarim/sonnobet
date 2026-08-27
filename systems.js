@@ -668,6 +668,8 @@ function applyCareerMetaToGame(meta) {
 }
 
 function refreshCareerMenuUI() {
+    try { if (typeof fillOfficerCard === "function") fillOfficerCard(); } catch (e) {}
+
     const meta = loadCareerMeta();
     const careerBtn = el("careerContinueBtn");
     const status = el("careerMenuStatus");

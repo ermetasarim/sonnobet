@@ -208,13 +208,32 @@
         </div>
         <p id="pwaStatus" class="pwaStatus">Bağlantı kontrol ediliyor…</p>
 
-        <div id="accountStrip" class="accountStrip hidden">
-            <span class="accountStripLabel">Görevli</span>
-            <div class="accountStripIdentity">
-                <span class="accountAvatar" id="accountAvatar" aria-hidden="true">👤</span>
-                <strong id="accountNameDisplay">—</strong>
+        <div id="accountStrip" class="accountStrip officerCard hidden">
+            <span class="officerLabel">GÖREVLİ</span>
+            <div class="officerMain">
+                <div class="officerAvatarWrap" aria-hidden="true">
+                    <span class="accountAvatar officerAvatar" id="accountAvatar">
+                        <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+                            <circle cx="24" cy="18" r="8" fill="#7c3aed"/>
+                            <path d="M10 40c2.5-9 8-13 14-13s11.5 4 14 13" fill="#6d28d9"/>
+                        </svg>
+                    </span>
+                    <span class="officerStar">★</span>
+                </div>
+                <div class="officerInfo">
+                    <strong id="accountNameDisplay" class="officerName">—</strong>
+                    <span class="officerRole">Güvenlik Görevlisi</span>
+                    <span class="officerMetaLine"><span class="officerIco">🛡️</span> Rütbe: <span id="officerRank">Acemi</span></span>
+                    <span class="officerMetaLine"><span class="officerIco">📅</span> Görev Süresi: <span id="officerDays">0</span> gün</span>
+                </div>
+                <div class="officerLevelBox">
+                    <span class="officerLevelHead"><span class="officerIco">★</span> Seviye</span>
+                    <strong id="officerLevel">1</strong>
+                    <div class="officerXpTrack" aria-hidden="true"><i id="officerXpBar"></i></div>
+                    <span id="officerXpLabel" class="officerXpLabel">0 / 100 XP</span>
+                </div>
             </div>
-            <button type="button" id="logoutBtn" class="ghostBtn accountLogout" title="Çıkış">Çıkış</button>
+            <button type="button" id="logoutBtn" class="officerLogout" title="Çıkış">↗ ÇIKIŞ</button>
         </div>
         <div id="guestNameWrap">
             <label class="fieldLabel" for="playerName">Görevli adı</label>

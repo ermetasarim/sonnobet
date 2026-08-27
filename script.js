@@ -413,6 +413,43 @@ function clearRadio() {
    ========================================================= */
 let __authMode = "login"; // login | register
 
+
+function fillOfficerCard() {
+    const nameEl = $("accountNameDisplay");
+    const rankEl = $("officerRank");
+    const daysEl = $("officerDays");
+    const lvlEl = $("officerLevel");
+    const bar = $("officerXpBar");
+    const xpLab = $("officerXpLabel");
+    let rank = "Acemi";
+    let score = 0;
+    let days = 0;
+    try {
+        if (window.game) {
+            if (game.rank) rank = game.rank;
+            score = Number(game.lifetimeScore || 0);
+        }
+        if (window.GameHooks && typeof GameHooks.loadCareerMeta === "function") {
+            const meta = GameHooks.loadCareerMeta();
+            if (meta) {
+                if (meta.rank) rank = meta.rank;
+                if (typeof meta.lifetimeScore === "number") score = meta.lifetimeScore;
+                if (meta.startedAt) {
+                    const t = new Date(meta.startedAt).getTime();
+                    if (!isNaN(t)) days = Math.max(0, Math.floor((Date.now() - t) / 86400000));
+                }
+            }
+        }
+    } catch (e) {}
+    const level = Math.max(1, Math.floor(score / 100) + 1);
+    const xp = score % 100;
+    if (rankEl) rankEl.textContent = rank;
+    if (daysEl) daysEl.textContent = String(days);
+    if (lvlEl) lvlEl.textContent = String(level);
+    if (bar) bar.style.width = Math.min(100, xp) + "%";
+    if (xpLab) xpLab.textContent = xp + " / 100 XP";
+}
+
 function applyLoggedInUI() {
     const logged = window.SNSupabase && SNSupabase.isLoggedIn();
     const name = logged ? SNSupabase.getDisplayName() : "";
@@ -426,6 +463,7 @@ function applyLoggedInUI() {
         if (nameInput) nameInput.value = name;
         if (accName) accName.textContent = name;
         if (strip) strip.classList.remove("hidden");
+        try { fillOfficerCard(); } catch (e) {}
         if (guestWrap) guestWrap.classList.add("hidden");
     } else {
         if (strip) strip.classList.add("hidden");
