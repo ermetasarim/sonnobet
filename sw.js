@@ -1,4 +1,4 @@
-const CACHE = "son-nobet-v74";
+const CACHE = "son-nobet-v75";
 const ASSETS = [
   "./",
   "./index.html",

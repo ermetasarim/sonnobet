@@ -475,7 +475,42 @@ function setAuthMode(mode) {
     showAuthError("");
 }
 
+
+const SESSION_AT_KEY = "son_nobet_last_login_at_v1";
+const SESSION_TTL_MS = 24 * 60 * 60 * 1000; // 24 saat (son girişten itibaren)
+
+function touchLoginSession() {
+    try { localStorage.setItem(SESSION_AT_KEY, String(Date.now())); } catch (e) {}
+}
+
+function clearLoginSessionStamp() {
+    try { localStorage.removeItem(SESSION_AT_KEY); } catch (e) {}
+}
+
+function isLoginSessionFresh() {
+    try {
+        const raw = localStorage.getItem(SESSION_AT_KEY);
+        const at = Number(raw || 0);
+        if (!at) return false;
+        return (Date.now() - at) < SESSION_TTL_MS;
+    } catch (e) {
+        return false;
+    }
+}
+
+async function expireLoginIfStale() {
+    if (isLoginSessionFresh()) return false;
+    clearLoginSessionStamp();
+    try {
+        if (window.SNSupabase && SNSupabase.isLoggedIn && SNSupabase.isLoggedIn()) {
+            await SNSupabase.signOut();
+        }
+    } catch (e) {}
+    return true;
+}
+
 async function enterAppAfterAuth() {
+    touchLoginSession();
     applyLoggedInUI();
     show("menuScreen");
     try {
@@ -586,6 +621,7 @@ function initAuthScreen() {
         try {
             if (window.SNSupabase) await SNSupabase.signOut();
         } catch (e) {}
+        clearLoginSessionStamp();
         game.playerName = "";
         if ($("playerName")) $("playerName").value = "";
         applyLoggedInUI();
@@ -675,6 +711,12 @@ function gateConsentOnBoot() {
             if (window.SNSupabase) {
                 await SNSupabase.init();
                 if (SNSupabase.isLoggedIn()) {
+                    if (!isLoginSessionFresh()) {
+                        await expireLoginIfStale();
+                        applyLoggedInUI();
+                        show("authScreen");
+                        return;
+                    }
                     applyLoggedInUI();
                     show("menuScreen");
                     return;

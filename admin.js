@@ -5,6 +5,10 @@
 
 const ADMIN_BANK_KEY = "son_nobet_admin_bank_v1";
 const ADMIN_PASS_HASH = "bef54cbb7cc3123db036cb17b8e23e0861d4099bc69c361dc89883c0c4521803";
+    /** Bu e-postalarla Supabase girişi = admin (şifre sorulmaz, buton sadece onlara görünür) */
+    const ADMIN_EMAILS = [
+        "ermetasarim@gmail.com"
+    ];
 const ADMIN_FAIL_KEY = "son_nobet_admin_fail_v1";
 const ADMIN_MAX_FAIL = 8;
 const ADMIN_AUTH_KEY = "son_nobet_admin_auth_v1";
@@ -167,18 +171,20 @@ const AdminPanel = (() => {
 
     /** Sadece O AN giriş yapmış kullanıcının admin olup olmadığı (eski oturum yok) */
     function isEmailAdmin() {
-        // Sadece profiles.is_admin === true (giriş yapmış kullanıcı)
+        // Yalnızca Erdem hesabı
         try {
             if (!window.SNSupabase || !SNSupabase.isLoggedIn || !SNSupabase.isLoggedIn()) {
                 return false;
             }
-            if (typeof SNSupabase.isAdmin === "function") {
-                return !!SNSupabase.isAdmin();
-            }
             const p = SNSupabase.getProfile && SNSupabase.getProfile();
-            if (!p) return false;
-            const flag = p.is_admin;
-            return flag === true || flag === "true" || flag === 1 || flag === "1";
+            const name = String(
+                (p && p.display_name) ||
+                (typeof SNSupabase.getDisplayName === "function" && SNSupabase.getDisplayName()) ||
+                ""
+            ).trim().toLocaleLowerCase("tr-TR");
+            const em = normalizeEmail((p && p.email) || getLoggedInEmail());
+            if (name === "erdem") return true;
+            if (em && ADMIN_EMAILS.map(normalizeEmail).includes(em)) return true;
         } catch (e) {}
         return false;
     }
@@ -192,17 +198,27 @@ const AdminPanel = (() => {
         const btn = $("openAdminBtn");
         if (!btn) return;
         if (!allowed) clearAdminSessionFlag();
-        btn.classList.remove("hidden");
-        btn.removeAttribute("hidden");
-        btn.style.display = "";
-        btn.setAttribute("aria-hidden", "false");
-        // Her zaman tıklanabilir — yetki openAdmin içinde kontrol edilir
-        btn.disabled = false;
-        btn.removeAttribute("disabled");
-        btn.setAttribute("aria-disabled", allowed ? "false" : "true");
-        btn.title = allowed ? "Admin paneli" : "Yalnızca admin üyeler girebilir";
-        btn.classList.toggle("menuToolBtnDisabled", !allowed);
-        btn.style.pointerEvents = "auto";
+        // Diğer kullanıcılara buton tamamen gizli
+        if (allowed) {
+            btn.classList.remove("hidden");
+            btn.removeAttribute("hidden");
+            btn.style.display = "";
+            btn.setAttribute("aria-hidden", "false");
+            btn.disabled = false;
+            btn.removeAttribute("disabled");
+            btn.setAttribute("aria-disabled", "false");
+            btn.title = "Admin paneli";
+            btn.classList.remove("menuToolBtnDisabled");
+            btn.style.pointerEvents = "auto";
+        } else {
+            btn.classList.add("hidden");
+            btn.setAttribute("hidden", "hidden");
+            btn.style.display = "none";
+            btn.setAttribute("aria-hidden", "true");
+            btn.disabled = true;
+            btn.setAttribute("aria-disabled", "true");
+            btn.title = "";
+        }
     }
 
     function updateAdminButtonVisibility() {

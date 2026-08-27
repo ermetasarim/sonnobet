@@ -186,6 +186,7 @@
         try {
             sessionStorage.removeItem("son_nobet_admin_auth_v1");
             sessionStorage.removeItem("son_nobet_admin_authed");
+            localStorage.removeItem("son_nobet_last_login_at_v1");
         } catch (e) {}
         return { ok: true };
     }
