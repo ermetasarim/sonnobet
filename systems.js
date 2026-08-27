@@ -624,16 +624,22 @@ function renderStatsPanel() {
     const st = g.lifetimeStats || {};
     const endings = g.endingsUnlocked || [];
     const rows = [
-        ["Toplam vardiya", st.shifts || 0],
-        ["Mükemmel vardiya", st.perfectShifts || 0],
-        ["Süre aşımı", st.timedFails || 0],
-        ["Hikâye adımı", st.storyBeats || 0],
-        ["En iyi skor", st.bestScore || 0],
-        ["Açılan sonlar", endings.length ? endings.join(", ") : "—"],
-        ["NPC notu", Object.keys(g.npcs || {}).length]
+        ["Toplam Vardiya", st.shifts || 0],
+        ["Mükemmel Vardiya", st.perfectShifts || 0],
+        ["Süre Aşımı", st.timedFails || 0],
+        ["Hikâye Adımı", st.storyBeats || 0],
+        ["En İyi Skor", st.bestScore || 0],
+        ["Açılan Sonlar", endings.length || 0],
+        ["NPC Notu", Object.keys(g.npcs || {}).length],
+        ["Kariyer Vardiyası", g.careerShift || 1],
+        ["Toplam Puan", g.lifetimeScore || 0],
+        ["Para", (typeof g.money === "number" ? g.money : 0) + " ₺"],
+        ["Rütbe", g.rank || "—"],
+        ["İtibar", g.reputation != null ? g.reputation : "—"]
     ];
-    statsEl.innerHTML = rows.map(([label, val]) =>
+    statsEl.innerHTML = rows.map(([label, val], i) =>
         `<div class="panelRow">
+            <span class="panelRank">#${i + 1}</span>
             <span class="panelRowText"><strong>${escapeHtml(String(label))}</strong></span>
             <span class="panelValue">${escapeHtml(String(val))}</span>
         </div>`

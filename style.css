@@ -6990,3 +6990,54 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
     border-color: #fb7185;
     background: linear-gradient(135deg, #4c1528 0%, #220e16 100%);
 }
+
+
+/* İstatistik & Sonlar — 4 sütun × 3 satır */
+#statsPanelList.statsGrid43 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 10px;
+    width: 100%;
+}
+#statsPanelList.statsGrid43 .statsCell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    min-height: 64px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #314866;
+    background: #0a1322;
+    box-sizing: border-box;
+}
+#statsPanelList.statsGrid43 .statsCellLabel {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+#statsPanelList.statsGrid43 .statsCellValue {
+    font-size: 16px;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1.2;
+    word-break: break-word;
+}
+@media (max-width: 420px) {
+    #statsPanelList.statsGrid43 {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: none;
+    }
+}
+
+#chainList.statsGrid43 .chainCell.on {
+    border-color: rgba(34, 197, 94, 0.45);
+    background: rgba(20, 83, 45, 0.28);
+}
+#chainList.statsGrid43 .chainCell.on .statsCellValue {
+    color: #86efac;
+}

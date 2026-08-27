@@ -11,8 +11,6 @@ const ASSETS = [
   "./music1.mp3",
   "./music2.mp3",
   "./music3.mp3",
-  "./music4.mp3",
-  "./music5.mp3",
   "./systems.js",
   "./ads.js",
   "./supabaseClient.js",

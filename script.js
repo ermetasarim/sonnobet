@@ -203,7 +203,7 @@ const SFX = (() => {
         }
 
         try {
-            const tracks = ["music1.mp3", "music2.mp3", "music3.mp3", "music4.mp3", "music5.mp3"];
+            const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
             const pick = tracks[Math.floor(Math.random() * tracks.length)];
 
             if (musicAudio) {

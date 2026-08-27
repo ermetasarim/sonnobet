@@ -1459,12 +1459,18 @@ window.Features = Features;
     const VOICE_KEY = "son_nobet_voice_brief_v1";
 
     const CHAIN_DEFS = [
-        { id: "c1", label: "1 vardiya bitir", check: (s) => s.shifts >= 1 },
-        { id: "c2", label: "2 vardiya bitir", check: (s) => s.shifts >= 2 },
-        { id: "c3", label: "2 farklı kurum", check: (s) => Object.keys(s.inst || {}).length >= 2 },
-        { id: "c4", label: "%80+ doğruluk", check: (s) => s.highAcc >= 1 },
-        { id: "c5", label: "3 vardiya toplam", check: (s) => s.shifts >= 3 },
-        { id: "c6", label: "3 farklı kurum", check: (s) => Object.keys(s.inst || {}).length >= 3 }
+        { id: "c1", label: "1 Vardiya Bitir", check: (s) => s.shifts >= 1 },
+        { id: "c2", label: "2 Vardiya Bitir", check: (s) => s.shifts >= 2 },
+        { id: "c3", label: "2 Farklı Kurum", check: (s) => Object.keys(s.inst || {}).length >= 2 },
+        { id: "c4", label: "%80+ Doğruluk", check: (s) => s.highAcc >= 1 },
+        { id: "c5", label: "3 Vardiya Bitir", check: (s) => s.shifts >= 3 },
+        { id: "c6", label: "3 Farklı Kurum", check: (s) => Object.keys(s.inst || {}).length >= 3 },
+        { id: "c7", label: "4 Vardiya Bitir", check: (s) => s.shifts >= 4 },
+        { id: "c8", label: "4 Farklı Kurum", check: (s) => Object.keys(s.inst || {}).length >= 4 },
+        { id: "c9", label: "2 Kez Yüksek Doğruluk", check: (s) => s.highAcc >= 2 },
+        { id: "c10", label: "1 Gece Vardiyası", check: (s) => s.nights >= 1 },
+        { id: "c11", label: "1 Gündüz Vardiyası", check: (s) => s.days >= 1 },
+        { id: "c12", label: "5 Vardiya Toplam", check: (s) => s.shifts >= 5 }
     ];
 
     function $(id) { return document.getElementById(id); }
@@ -1525,20 +1531,14 @@ window.Features = Features;
         const list = $("chainList");
         if (list) {
             if ($("chainWeekLabel")) $("chainWeekLabel").textContent = c.week;
-            list.innerHTML = CHAIN_DEFS.map((d) => {
+            list.innerHTML = CHAIN_DEFS.map((d, i) => {
                 const ok = c.done.includes(d.id);
                 return `<div class="panelRow chainRow ${ok ? "on" : ""}">
-                    <span class="panelRank">${ok ? "✓" : "○"}</span>
+                    <span class="panelRank">${ok ? "✓" : "#" + (i + 1)}</span>
                     <span class="panelRowText"><strong>${escape(d.label)}</strong></span>
                     <span class="panelValue">${ok ? "Tamam" : "Açık"}</span>
                 </div>`;
             }).join("");
-        }
-        const note = $("chainBonusNote");
-        if (note) {
-            note.textContent = c.claimed
-                ? "Bu haftanın zinciri tamamlandı. Ödül işlendi."
-                : (c.done.length + " / " + CHAIN_DEFS.length + " görev");
         }
     }
 
