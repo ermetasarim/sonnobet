@@ -7143,7 +7143,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
 #menuScreen .officerCard .officerLabel,
 #menuScreen .officerCard .officerMain,
 #menuScreen .officerCard .officerLogout {
-    position: relative;
+    position: static;
     z-index: 1;
 }
 #menuScreen .officerMain {
