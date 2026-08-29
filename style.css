@@ -7056,7 +7056,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
     border: 1px solid #314866;
     background:
         linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(8, 15, 28, 0.96));
-    position: relative;
+    position: center;
     overflow: hidden;
 }
 #menuScreen .officerLabel {
