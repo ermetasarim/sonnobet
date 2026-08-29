@@ -730,12 +730,12 @@
 <script src="features.js?v=75"></script>
 
 <!-- 5. Service Worker Kaydı -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
-    });
-  }
-</script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
+        });
+      }
+    </script>
 </body>
 </html>
