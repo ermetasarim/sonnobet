@@ -1,86 +1,66 @@
-const CACHE = "son-nobet-v76";
+const CACHE_NAME = 'son-nobet-v1';
 const ASSETS = [
-  "./",
-  "./index.html",
-  "./ads.txt",
-  "./style.css",
-  "./script.js",
-  "./senaryo_soru_bankasi.js",
-  "./admin.js",
-  "./music.mp3",
-  "./music1.mp3",
-  "./music2.mp3",
-  "./music3.mp3",
-  "./systems.js",
-  "./ads.js",
-  "./supabaseClient.js",
-  "./features.js",
-  "./manifest.webmanifest",
-  "./logo.png",
-  "./sec.png"
+    '/',
+    '/index.html',
+    '/style.css',
+    '/script.js',
+    '/manifest.json'
 ];
 
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-
-  // Supabase, Google Ads veya dış servis isteklerini SW önbelleğine sokma, direkt ağa gönder
-  if (url.origin.includes('supabase.co') || 
-      url.origin.includes('googlesyndication.com') || 
-      url.origin.includes('pagead2')) {
-    return; // respondWith ÇAĞIRMAYIN, tarayıcı varsayılan ağ isteği yapsın.
-  }
-
-  // Normal fetch mantığı buraya devam eder...
-});
-
-self.addEventListener('fetch', (event) => {
-  // Safari'de chrome-extension, supabase auth veya 3. parti URL'leri bypass edin
-  if (!event.request.url.startsWith('http')) return;
-
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request)
-        .then((networkResponse) => {
-          // Geçersiz veya hatalı yanıtları kontrol edin
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-            return networkResponse;
-          }
-          return networkResponse;
+// Kurulum: Statik varlıkları önbelleğe al
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(ASSETS);
         })
-        .catch((error) => {
-          console.error('Fetch hatası yakalandı (Safari bypass):', error);
-          // Safari'nin çökmesini önlemek için boş/kontrollü bir yanıt döndürün
-          return new Response('Ağ hatası veya çevrimdışı durum.', {
-            status: 408,
-            headers: { 'Content-Type': 'text/plain' }
-          });
-        });
-    })
-  );
-});
-
-self.addEventListener("fetch", (event) => {
-  const url = event.request.url;
-  // JS ve HTML her zaman ağdan (eski liderlik kodu kalmasın)
-  if (url.includes(".js") || url.includes("index.html") || event.request.mode === "navigate") {
-    event.respondWith(
-      fetch(event.request)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(event.request, copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match(event.request).then((c) => c || caches.match("./index.html")))
     );
-    return;
-  }
-  event.respondWith(
-    caches.match(event.request).then((cached) =>
-      cached || fetch(event.request).catch(() => caches.match("./index.html"))
-    )
-  );
+    self.skipWaiting();
+});
+
+// Aktivasyon: Eski cache'leri temizle
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(
+                keys.map((key) => {
+                    if (key !== CACHE_NAME) {
+                        return caches.delete(key);
+                    }
+                })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+// Tek Gelişmiş Fetch Dinleyicisi (Cache-First / Network-First)
+self.addEventListener('fetch', (event) => {
+    const url = new URL(event.request.url);
+
+    // Dynamic / API Istekleri için Network-First (Örn: Supabase)
+    if (url.origin !== location.origin || url.pathname.startsWith('/rest/v1')) {
+        event.respondWith(
+            fetch(event.request).catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
+    // Statik Varlıklar için Cache-First (Ağ Yedekli)
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            return fetch(event.request).then((networkResponse) => {
+                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                    return networkResponse;
+                }
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+                return networkResponse;
+            });
+        })
+    );
 });
