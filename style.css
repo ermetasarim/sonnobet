@@ -1653,17 +1653,20 @@ body {
     }
 }
 
-/* Oyuncu kimliği — tablo hücreleri yan yana */
+/* style.css içindeki üst blokta birleştirin */
 .headerLeft h2 {
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--accent-blue);
+    margin-bottom: 10px; /* Buraya ekle */
 }
 
 .playerIdentityTable {
     display: grid;
-    grid-template-columns: 1.2fr 0.9fr;
+    grid-template-columns: 1fr 1fr; /* 1.2fr yerine eşit ve esnek dağılım */
     gap: 8px;
     width: 100%;
-    max-width: 360px;
     margin-top: 4px;
 }
 
@@ -1671,12 +1674,12 @@ body {
     background: #0b1524;
     border: 1px solid #1e2f45;
     border-radius: 12px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    min-height: 58px;
+    gap: 4px;
     justify-content: center;
+    /* min-height kaldırıldı, içeriğe göre doğal yükseklik alacak */
 }
 
 .playerCell .shiftCellLabel {
