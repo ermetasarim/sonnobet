@@ -20,23 +20,46 @@ const ASSETS = [
   "./sec.png"
 ];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting())
-  );
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Supabase, Google Ads veya dış servis isteklerini SW önbelleğine sokma, direkt ağa gönder
+  if (url.origin.includes('supabase.co') || 
+      url.origin.includes('googlesyndication.com') || 
+      url.origin.includes('pagead2')) {
+    return; // respondWith ÇAĞIRMAYIN, tarayıcı varsayılan ağ isteği yapsın.
+  }
+
+  // Normal fetch mantığı buraya devam eder...
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.map((k) => {
-          if (k !== CACHE) {
-            return caches.delete(k);
+self.addEventListener('fetch', (event) => {
+  // Safari'de chrome-extension, supabase auth veya 3. parti URL'leri bypass edin
+  if (!event.request.url.startsWith('http')) return;
+
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          // Geçersiz veya hatalı yanıtları kontrol edin
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            return networkResponse;
           }
+          return networkResponse;
         })
-      )
-    ).then(() => self.clients.claim())
+        .catch((error) => {
+          console.error('Fetch hatası yakalandı (Safari bypass):', error);
+          // Safari'nin çökmesini önlemek için boş/kontrollü bir yanıt döndürün
+          return new Response('Ağ hatası veya çevrimdışı durum.', {
+            status: 408,
+            headers: { 'Content-Type': 'text/plain' }
+          });
+        });
+    })
   );
 });
 
