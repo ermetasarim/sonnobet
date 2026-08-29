@@ -721,21 +721,30 @@
     </div>
 </div>
 
-<script src="senaryo_soru_bankasi.js"></script>
-<script src="admin.js?v=75"></script>
-<script src="ads.js"></script>
-<script src="supabaseClient.js?v=75"></script>
-<script src="script.js?v=75"></script>
-<script src="systems.js?v=75"></script>
-<script src="features.js?v=75"></script>
+<!-- Kütüphaneler ve Oyun Kodları Sıralaması -->
+<!-- 1. Dış Bağımlılıklar / SDK'lar -->
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="supabaseClient.js?v=76"></script>
+
+<!-- 2. Yardımcı & Modüller -->
+<script defer src="senaryo_soru_bankasi.js"></script>
+<script defer src="ads.js"></script>
+
+<!-- 3. Ana Uygulama Mantığı -->
+<script defer src="script.js?v=76"></script>
+
+<!-- 4. Ek Özellikler & Admin Modülleri -->
+<script defer src="admin.js?v=76"></script>
+<script defer src="systems.js?v=76"></script>
+<script defer src="features.js?v=76"></script>
 
 <!-- 5. Service Worker Kaydı -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
-        });
-      }
-    </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
+    });
+  }
+</script>
 </body>
 </html>
