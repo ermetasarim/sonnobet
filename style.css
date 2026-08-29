@@ -1649,10 +1649,9 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
     .shiftCell:nth-child(4) {
-        /* Tür - 3rd visible after hidden momentum: Saat,Olay,Tür are 2,3,4 */
+        grid-column: span 2;
     }
 }
-
 
 /* Oyuncu kimliği — tablo hücreleri yan yana */
 .headerLeft h2 {
@@ -1710,10 +1709,6 @@ body {
 .appVersion {
     margin-top: 18px;
     text-align: center;
-    font-size: 12px;
-    color: #64748b;
-    letter-spacing: 0.06em;
-    font-weight: 600;
 }
 
 #gameScreen > .appVersion {
