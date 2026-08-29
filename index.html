@@ -15,10 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Basic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <!-- Google AdSense -->
-    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=WK3WCJoXkI3hmZwUGsAcGkJkeWC7-rYhcwu6S6a_nRnlEmIGzcKVcolqgbZ02SbfUGL14V-Jrj1FlpFUhugH0AOgEVc_7GdJpqF7F0q1HDK3vrkuWmXiWdNHN2xM2dF95p6Y6MV7w7cwL4a4_JUpt-cOtFKIf5LldG5LKCLFm1BvkEVXe2--hRkWoaRZGe9xpGcIVC0jvHTDRIMPmJkCF9DYkl4z3MHg3oDH08BoLwp2DCvK55IJgVDc0N_2nWyyTyy-inLGFAMDTfHds4jCUg" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGU0MjA4MWY0OTg3OWNhY2RmZTA1YWQwZiZ0cz00OTY2NDMmcD1mcyZjaWQ9MSZzaWc9NTI2YjM3MGM1MzA2NzQ0N2JhZTI1YzY2MzhiZDEyNTc3Mzg2OGQ5ZWI3YjJhY2UzMDM2ZmM3MzM2ZjgyY2RlNiZ2PTA"/><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2582945796090029"
-         crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2582945796090029" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="bgGlow" aria-hidden="true"></div>
@@ -721,12 +720,30 @@
     </div>
 </div>
 
-<script src="senaryo_soru_bankasi.js"></script>
-<script src="admin.js?v=75"></script>
-<script src="ads.js"></script>
-<script src="supabaseClient.js?v=75"></script>
-<script src="script.js?v=75"></script>
-<script src="systems.js?v=75"></script>
-<script src="features.js?v=75"></script>
+<!-- Kütüphaneler ve Oyun Kodları Sıralaması -->
+<!-- 1. Dış Bağımlılıklar / SDK'lar -->
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="supabaseClient.js?v=76"></script>
+
+<!-- 2. Yardımcı & Modüller -->
+<script defer src="senaryo_soru_bankasi.js"></script>
+<script defer src="ads.js"></script>
+
+<!-- 3. Ana Uygulama Mantığı -->
+<script defer src="script.js?v=76"></script>
+
+<!-- 4. Ek Özellikler & Admin Modülleri -->
+<script defer src="admin.js?v=76"></script>
+<script defer src="systems.js?v=76"></script>
+<script defer src="features.js?v=76"></script>
+
+<!-- 5. Service Worker Kaydı -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
+    });
+  }
+</script>
 </body>
 </html>
