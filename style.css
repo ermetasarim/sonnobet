@@ -7127,8 +7127,8 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
 }
 #menuScreen .officerBadgeArt {
     position: relative;
-    right: -10px;
-    top: -8px;
+    right: -5px;
+    top: -2px;
     width: 86px;
     height: 118px;
     opacity: 0.28;
