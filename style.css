@@ -7128,7 +7128,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
 #menuScreen .officerBadgeArt {
     position: absolute;
     right: 10px;
-    top: -20px;
+    top: 8px;
     width: 86px;
     height: 118px;
     opacity: 0.28;
@@ -7192,4 +7192,196 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
         width: 64px;
         height: 88px;
     }
+}
+
+/* Menü araç butonları — verilen HEX paleti */
+#menuScreen .menuToolBtn .menuToolLabel {
+    color: #FFFFFF !important;
+}
+
+/* Sound / Efekt */
+#menuScreen .menuToolBtn.toolSun {
+    background: #065F73 !important;
+    border-color: #0891B2 !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolSun .menuToolIcon,
+#menuScreen .menuToolBtn.toolSun .menuToolLabel,
+#menuScreen .menuToolBtn.toolSun .menuToolChevron {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolSun:hover:not(:disabled) {
+    border-color: #0891B2 !important;
+    background: #0891B2 !important;
+    color: #FFFFFF !important;
+}
+
+/* Music / Müzik */
+#menuScreen .menuToolBtn.toolNote {
+    background: #3B1B7D !important;
+    border-color: #5B21B6 !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolNote .menuToolIcon,
+#menuScreen .menuToolBtn.toolNote .menuToolLabel,
+#menuScreen .menuToolBtn.toolNote .menuToolChevron {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolNote:hover:not(:disabled) {
+    border-color: #7C3AED !important;
+    background: #7C3AED !important;
+    color: #FFFFFF !important;
+}
+
+/* Leadership / Liderlik */
+#menuScreen .menuToolBtn.toolGold {
+    background: #B45309 !important;
+    border-color: #D97706 !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolGold .menuToolIcon,
+#menuScreen .menuToolBtn.toolGold .menuToolLabel {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolGold .menuToolChevron {
+    color: #FDE68A !important;
+}
+#menuScreen .menuToolBtn.toolGold:hover:not(:disabled) {
+    border-color: #D97706 !important;
+    background: #D97706 !important;
+    color: #FFFFFF !important;
+}
+
+/* Statistics / İstatistik */
+#menuScreen .menuToolBtn.toolGreen {
+    background: #3B82F6 !important;
+    border-color: #2563EB !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolGreen .menuToolIcon,
+#menuScreen .menuToolBtn.toolGreen .menuToolLabel {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolGreen .menuToolChevron {
+    color: #DBEAFE !important;
+}
+#menuScreen .menuToolBtn.toolGreen:hover:not(:disabled) {
+    border-color: #2563EB !important;
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+}
+
+/* Badges / Rozetler */
+#menuScreen .menuToolBtn.toolMedal {
+    background: #EC4899 !important;
+    border-color: #DB2777 !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolMedal .menuToolIcon,
+#menuScreen .menuToolBtn.toolMedal .menuToolLabel {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolMedal .menuToolChevron {
+    color: #FCE7F3 !important;
+}
+#menuScreen .menuToolBtn.toolMedal:hover:not(:disabled) {
+    border-color: #DB2777 !important;
+    background: #DB2777 !important;
+    color: #FFFFFF !important;
+}
+
+/* Tasks / Görevler */
+#menuScreen .menuToolBtn.toolShield {
+    background: #10B981 !important;
+    border-color: #059669 !important;
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolShield .menuToolIcon,
+#menuScreen .menuToolBtn.toolShield .menuToolLabel {
+    color: #FFFFFF !important;
+}
+#menuScreen .menuToolBtn.toolShield .menuToolChevron {
+    color: #D1FAE5 !important;
+}
+#menuScreen .menuToolBtn.toolShield:hover:not(:disabled) {
+    border-color: #059669 !important;
+    background: #059669 !important;
+    color: #FFFFFF !important;
+}
+
+/* —— Menü araç butonları: tek renk (accountAvatar ile aynı) —— */
+#menuScreen .menuToolBtn,
+#menuScreen .menuToolBtn.toolSun,
+#menuScreen .menuToolBtn.toolNote,
+#menuScreen .menuToolBtn.toolGold,
+#menuScreen .menuToolBtn.toolGreen,
+#menuScreen .menuToolBtn.toolMedal,
+#menuScreen .menuToolBtn.toolShield,
+#menuScreen .menuToolBtn.toolRed,
+#menuScreen .menuToolBtn.toolPurple {
+    background: #152238 !important;
+    border: 1px solid #314866 !important;
+    color: #FFFFFF !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+#menuScreen .menuToolBtn .menuToolIcon,
+#menuScreen .menuToolBtn .menuToolLabel,
+#menuScreen .menuToolBtn.toolSun .menuToolIcon,
+#menuScreen .menuToolBtn.toolSun .menuToolLabel,
+#menuScreen .menuToolBtn.toolNote .menuToolIcon,
+#menuScreen .menuToolBtn.toolNote .menuToolLabel,
+#menuScreen .menuToolBtn.toolGold .menuToolIcon,
+#menuScreen .menuToolBtn.toolGold .menuToolLabel,
+#menuScreen .menuToolBtn.toolGreen .menuToolIcon,
+#menuScreen .menuToolBtn.toolGreen .menuToolLabel,
+#menuScreen .menuToolBtn.toolMedal .menuToolIcon,
+#menuScreen .menuToolBtn.toolMedal .menuToolLabel,
+#menuScreen .menuToolBtn.toolShield .menuToolIcon,
+#menuScreen .menuToolBtn.toolShield .menuToolLabel,
+#menuScreen .menuToolBtn.toolRed .menuToolIcon,
+#menuScreen .menuToolBtn.toolRed .menuToolLabel,
+#menuScreen .menuToolBtn.toolPurple .menuToolIcon,
+#menuScreen .menuToolBtn.toolPurple .menuToolLabel {
+    color: #FFFFFF !important;
+    background: transparent !important;
+}
+
+#menuScreen .menuToolBtn .menuToolChevron,
+#menuScreen .menuToolBtn.toolSun .menuToolChevron,
+#menuScreen .menuToolBtn.toolNote .menuToolChevron,
+#menuScreen .menuToolBtn.toolGold .menuToolChevron,
+#menuScreen .menuToolBtn.toolGreen .menuToolChevron,
+#menuScreen .menuToolBtn.toolMedal .menuToolChevron,
+#menuScreen .menuToolBtn.toolShield .menuToolChevron,
+#menuScreen .menuToolBtn.toolRed .menuToolChevron,
+#menuScreen .menuToolBtn.toolPurple .menuToolChevron {
+    color: #60a5fa !important;
+    opacity: 1 !important;
+}
+
+#menuScreen .menuToolBtn:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolSun:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolNote:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolGold:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolGreen:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolMedal:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolShield:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolRed:hover:not(:disabled),
+#menuScreen .menuToolBtn.toolPurple:hover:not(:disabled) {
+    background: #0f172a !important;
+    border-color: #314866 !important;
+    color: #FFFFFF !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+#menuScreen .menuToolBtn:hover:not(:disabled) .menuToolIcon,
+#menuScreen .menuToolBtn:hover:not(:disabled) .menuToolLabel {
+    color: #FFFFFF !important;
+}
+
+#menuScreen .menuToolBtn:hover:not(:disabled) .menuToolChevron {
+    color: #60a5fa !important;
 }
