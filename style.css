@@ -17,7 +17,7 @@
 }
 
 body {
-    font-family: "Basic", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -54,8 +54,9 @@ body::-webkit-scrollbar {
 
 /* —— Tipografi: Basic (v5.17.1) —— */
 :root {
-    --font-body: "Basic", "Segoe UI", system-ui, sans-serif;
-    --font-display: "Basic", "Segoe UI", system-ui, sans-serif;
+    --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --font-display: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 h1, h2, h3,
@@ -973,7 +974,7 @@ header {
     min-height: 180px;
     padding: 0;
     color: #86efac;
-    font-family: ui-monospace, monospace;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 13px;
     background: #030806;
     overflow: hidden;
@@ -4101,7 +4102,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
 .ghostBtn, .primaryBtn, .secondaryBtn, .chip, .fieldLabel,
 .menuSubtitle, .choice, .choiceText, .institutionBtn,
 .panelRow, .modalCard, .appVersion {
-    font-family: "Basic", "Segoe UI", system-ui, sans-serif !important;
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
 }
 
 /* —— Admin panel —— */
@@ -8257,4 +8258,56 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
     font-style: normal;
     font-weight: 600;
     color: inherit;
+}
+
+:root {
+    --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --font-display: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+html, body, button, input, select, textarea {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+}
+.panelValue,
+#leaderboardModal .panelValue,
+#moneyDisplay,
+#scorePopupValue,
+.heroDateHint em,
+#careerStartDate {
+    font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.toastChips {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+}
+.toastChip {
+    display: flex !important;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 8px !important;
+}
+
+.toastChips {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr 1fr !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    width: 100%;
+}
+.toastChip {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: auto !important;
+    min-width: 0;
+    padding: 6px 4px !important;
+    border-radius: 8px !important;
 }

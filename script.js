@@ -2405,15 +2405,16 @@ function showChoiceFeedback(choice) {
     if (!toast) return;
 
     const sign = (n) => (n > 0 ? `+${n}` : `${n}`);
-    const chips = [];
-    if (choice.score) chips.push(`<span class="toastChip">Puan <strong>${sign(choice.score)}</strong></span>`);
-    if (choice.reputation) chips.push(`<span class="toastChip">İtibar <strong>${sign(choice.reputation)}</strong></span>`);
-    if (choice.stress) chips.push(`<span class="toastChip">Stres <strong>${sign(choice.stress)}</strong></span>`);
-    if (choice.money) chips.push(`<span class="toastChip">Para <strong>${sign(choice.money)} ₺</strong></span>`);
+    const chips = [
+        `<span class="toastChip">Puan <strong>${sign(choice.score || 0)}</strong></span>`,
+        `<span class="toastChip">Para <strong>${sign(choice.money || 0)} ₺</strong></span>`,
+        `<span class="toastChip">İtibar <strong>${sign(choice.reputation || 0)}</strong></span>`,
+        `<span class="toastChip">Stres <strong>${sign(choice.stress || 0)}</strong></span>`
+    ];
 
-    const headline = choice.message
-        ? choice.message
-        : (choice.correct ? "Doğru yaklaşım" : "Riskli karar");
+    const headline = choice.correct
+        ? "Doğru: Tebrikler, sıradaki soru geliyor."
+        : (choice.message || "Riskli karar");
 
     const good = !!choice.correct;
     toast.classList.remove("hidden", "good", "bad", "toastOut");
@@ -2514,9 +2515,9 @@ function refreshScenarioSelect(inst) {
 
 function difficultyBanner(diff) {
     const d = String(diff || "medium").toLowerCase();
-    if (d === "easy" || d === "kolay") return "Kolay Seviye 🟢";
-    if (d === "hard" || d === "zor") return "Zor Seviye 🔴";
-    return "Orta Seviye 🟡";
+    if (d === "easy" || d === "kolay") return "🟢 Kolay Seviye";
+    if (d === "hard" || d === "zor") return "🔴 Zor Seviye";
+    return "🟡 Orta Seviye";
 }
 
 function withDifficultyPrefix(event, text) {
@@ -2524,7 +2525,8 @@ function withDifficultyPrefix(event, text) {
     const banner = difficultyBanner(event.difficulty);
     const body = String(text || "").trim();
     if (!body) return banner;
-    if (body.startsWith("Kolay Seviye") || body.startsWith("Orta Seviye") || body.startsWith("Zor Seviye")) {
+    if (body.startsWith("🟢") || body.startsWith("🟡") || body.startsWith("🔴") ||
+        body.startsWith("Kolay Seviye") || body.startsWith("Orta Seviye") || body.startsWith("Zor Seviye")) {
         return body;
     }
     return banner + ": " + body;
