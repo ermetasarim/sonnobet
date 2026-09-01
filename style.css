@@ -8311,3 +8311,10 @@ html, body, button, input, select, textarea {
     padding: 6px 4px !important;
     border-radius: 8px !important;
 }
+
+#menuScreen #startBtn .menuHeroLabel,
+#menuScreen #continueBtn .menuHeroLabel,
+#menuScreen #careerContinueBtn .menuHeroLabel {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+}
