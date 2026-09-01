@@ -96,7 +96,14 @@ function saveCareerMeta() {
             inventory: game.inventory,
             npcs: game.npcs,
             endingsUnlocked: game.endingsUnlocked,
-            lifetimeStats: game.lifetimeStats
+            lifetimeStats: game.lifetimeStats,
+            lastPlayedAt: new Date().toISOString(),
+            startedAt: (function () {
+                try {
+                    const prev = JSON.parse(localStorage.getItem(CAREER_KEY) || "null");
+                    return (prev && prev.startedAt) || new Date().toISOString();
+                } catch (e) { return new Date().toISOString(); }
+            })()
         }));
     } catch (e) {}
 }
@@ -158,47 +165,118 @@ function pushLeaderboard(entry) {
     } catch (e) { console.warn(e); }
 }
 
+
+function lbRankMark(rank) {
+    const n = Number(rank) || 0;
+    if (n === 1) return '<span class="panelRank"><span class="lbMedal gold" title="1">🥇</span></span>';
+    if (n === 2) return '<span class="panelRank"><span class="lbMedal silver" title="2">🥈</span></span>';
+    if (n === 3) return '<span class="panelRank"><span class="lbMedal bronze" title="3">🥉</span></span>';
+    return '<span class="panelRank"><span class="lbRankNum">' + n + '</span></span>';
+}
+function lbRankBadge(rank) { return lbRankMark(rank); }
+window.lbRankBadge = lbRankBadge;
+window.lbRankMark = lbRankMark;
+
+let __lbAllCache = [];
+let __lbAllPage = 0;
+const LB_PAGE_SIZE = 5;
+
+function paintGenelPage() {
+    const listEl = el("leaderboardList");
+    if (!listEl) return;
+    const list = __lbAllCache || [];
+    const pager = el("lbAllPager");
+    const label = el("lbAllPageLabel");
+    const prev = el("lbAllPrev");
+    const next = el("lbAllNext");
+    if (!list.length) {
+        listEl.innerHTML = `<div class="panelTableEmpty">Henüz kayıt yok.</div>`;
+        if (pager) pager.classList.add("hidden");
+        return;
+    }
+    const pages = Math.max(1, Math.ceil(list.length / LB_PAGE_SIZE));
+    if (__lbAllPage >= pages) __lbAllPage = pages - 1;
+    if (__lbAllPage < 0) __lbAllPage = 0;
+    const sorted = list.slice().sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+    const start = __lbAllPage * LB_PAGE_SIZE;
+    const slice = sorted.slice(start, start + LB_PAGE_SIZE);
+    listEl.innerHTML = slice.map((row, i) =>
+        `<div class="panelRow">
+            ${lbRankMark(start + i + 1)}
+            <span class="panelRowText">
+                <strong>${escapeHtml(row.name)}</strong>
+            </span>
+            <span class="panelValue">${row.score}</span>
+        </div>`
+    ).join("");
+    if (pager) pager.classList.toggle("hidden", pages <= 1);
+    if (label) label.textContent = (__lbAllPage + 1) + " / " + pages;
+    if (prev) prev.disabled = __lbAllPage <= 0;
+    if (next) next.disabled = __lbAllPage >= pages - 1;
+}
+
 function renderLeaderboard(preferOnline) {
     const listEl = el("leaderboardList");
     if (!listEl) return;
-
-    const paint = (list, online) => {
-        if (!list || !list.length) {
-            listEl.innerHTML = `<div class="panelTableEmpty">Henüz kayıt yok.</div>`;
-            return;
-        }
-        listEl.innerHTML = list.map((row, i) =>
-            `<div class="panelRow">
-                <span class="panelRank">#${i + 1}</span>
-                <span class="panelRowText">
-                    <strong>${escapeHtml(row.name)}</strong>
-                    <small>${escapeHtml(row.institution || "—")}${online ? " · Online" : " · V" + (row.shift || 1)}</small>
-                </span>
-                <span class="panelValue">${row.score}</span>
-            </div>`
-        ).join("");
-    };
-
-    // Genel: sadece online — önce boş göster
     listEl.innerHTML = `<div class="panelTableEmpty">Yükleniyor…</div>`;
-
+    const isToday = (iso) => {
+        if (!iso) return false;
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return false;
+        const n = new Date();
+        return d.getFullYear() === n.getFullYear() && d.getMonth() === n.getMonth() && d.getDate() === n.getDate();
+    };
+    const load = (rows) => {
+        __lbAllCache = rows || [];
+        __lbAllPage = 0;
+        paintGenelPage();
+    };
     try {
-        if (window.SNSupabase && typeof SNSupabase.fetchTopScores === "function") {
-            listEl.dataset.loading = "1";
-            SNSupabase.fetchTopScores(20).then((rows) => {
-                listEl.dataset.loading = "0";
-                paint(rows || [], true);
-            }).catch(() => {
-                listEl.dataset.loading = "0";
-                paint([], true);
-            });
+        if (window.SNSupabase && typeof SNSupabase.fetchScoreRows === "function") {
+            SNSupabase.fetchScoreRows(200).then((rows) => {
+                const mapped = (rows || []).map((r) => ({
+                    name: r.player_name, institution: "Toplam", score: Number(r.score) || 0, at: r.created_at
+                })).filter((r) => isToday(r.at));
+                const map = {};
+                mapped.forEach((r) => {
+                    const k = String(r.name || "").toLocaleLowerCase("tr");
+                    if (!k) return;
+                    if (!map[k]) map[k] = { name: r.name, score: 0 };
+                    map[k].score += r.score;
+                });
+                load(Object.values(map).sort((a, b) => b.score - a.score));
+            }).catch(() => load([]));
+        } else if (window.SNSupabase && typeof SNSupabase.fetchTopScores === "function") {
+            SNSupabase.fetchTopScores(200).then((rows) => load(rows || [])).catch(() => load([]));
         } else {
-            paint([], true);
+            load([]);
         }
     } catch (e) {
-        paint([], true);
+        load([]);
     }
 }
+
+(function bindLbPager() {
+    function go(delta) {
+        const pages = Math.max(1, Math.ceil((__lbAllCache || []).length / LB_PAGE_SIZE));
+        __lbAllPage = Math.max(0, Math.min(pages - 1, __lbAllPage + delta));
+        paintGenelPage();
+    }
+    function attach() {
+        const prev = el("lbAllPrev");
+        const next = el("lbAllNext");
+        if (prev && !prev.__lbBound) {
+            prev.__lbBound = true;
+            prev.addEventListener("click", () => go(-1));
+        }
+        if (next && !next.__lbBound) {
+            next.__lbBound = true;
+            next.addEventListener("click", () => go(1));
+        }
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", attach);
+    else attach();
+})();
 
 function renderMap(activeZone) {
     const map = el("zoneMap");
@@ -679,27 +757,37 @@ function refreshCareerMenuUI() {
             careerBtn.disabled = false;
             careerBtn.classList.remove("hidden");
             const lab = el("careerContinueLabel");
-            const txt = "KARİYERE DEVAM (V" + (meta.careerShift || 1) + ")";
-            if (lab) lab.textContent = txt;
-            else careerBtn.textContent = txt;
+            if (lab) lab.textContent = "DEVAM";
+            else careerBtn.textContent = "DEVAM";
         }
         if (status) {
             status.classList.remove("hidden");
             status.textContent = "Kayıtlı kariyer: " + (meta.rank || "—") + " · V" + (meta.careerShift || 1) + " · " + (meta.playerName || "");
         }
         if (resetBtn) resetBtn.classList.remove("hidden");
+        const cHint = el("careerDateHint");
+        if (cHint) {
+            const iso = meta.lastPlayedAt || meta.startedAt || null;
+            const d = iso ? new Date(iso) : null;
+            const txt = (d && !isNaN(d.getTime()))
+                ? String(d.getDate()).padStart(2,"0") + "/" + String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear()
+                : "—";
+            cHint.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>` + txt + "</em>";
+        }
     } else {
         if (careerBtn) {
             careerBtn.disabled = true;
             const lab = el("careerContinueLabel");
-            if (lab) lab.textContent = "KARİYERE DEVAM";
-            else careerBtn.textContent = "KARİYERE DEVAM";
+            if (lab) lab.textContent = "DEVAM";
+            else careerBtn.textContent = "DEVAM";
         }
         if (status) {
             status.textContent = "Kayıtlı kariyer yok — BAŞLA ile yeni kariyer.";
             status.classList.remove("hidden");
         }
         if (resetBtn) resetBtn.classList.add("hidden");
+        const cHint2 = el("careerDateHint");
+        if (cHint2) cHint2.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em>`;
     }
 }
 

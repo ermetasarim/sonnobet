@@ -201,7 +201,6 @@
         <div class="menuBrand">
             <img id="menuLogo" class="menuLogo" src="logo.png" width="380" height="auto" alt="Son Nöbet — Güvenlik Görevlisi Simülasyonu">
         </div>
-
         <div id="accountStrip" class="accountStrip officerCard hidden">
             <span class="officerLabel">GÖREVLİ</span>
             <div class="officerMain">
@@ -220,28 +219,15 @@
                     <span class="officerMetaLine"><span class="officerIco">🛡️</span> Rütbe: <span id="officerRank">Acemi</span></span>
                     <span class="officerMetaLine"><span class="officerIco">📅</span> Görev Süresi: <span id="officerDays">0</span> gün</span>
                 </div>
-<div class="officerBadgeArt" aria-hidden="true">
-  <svg viewBox="0 0 88 120" width="88" height="120" fill="none">
-    <rect x="26" y="36" width="36" height="62" rx="8" stroke="#3d5578" stroke-width="3"/>
-    <line x1="44" y1="16" x2="44" y2="36" stroke="#3d5578" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="44" cy="16" r="4" stroke="#3d5578" stroke-width="2.2"/>
-    <circle cx="44" cy="58" r="8" stroke="#3d5578" stroke-width="2.2"/>
-    <line x1="34" y1="78" x2="54" y2="78" stroke="#3d5578" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="34" y1="86" x2="48" y2="86" stroke="#3d5578" stroke-width="2.5" stroke-linecap="round"/>
-  </svg>
-</div>
+                </div>
+            <div class="officerFooterRow">
+                <span id="pwaStatus" class="pwaStatus officerOnlineBtn"><svg class="pwaUsersIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86efac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg> ÇEVRİMİÇİ</span>
+                <button type="button" id="logoutBtn" class="officerLogout" title="Çıkış">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    ÇIKIŞ YAP
+                </button>
             </div>
-            <button type="button" id="logoutBtn" class="officerLogout" title="Çıkış">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                ÇIKIŞ
-            </button>
         </div>
-        <div id="versionNotice" class="versionNotice" role="status">
-            <strong>Sürüm 6.0</strong>
-            <span>Yepyeni arayüzü keşfet, kariyer geçmişini incele ve güncellenen yasal koşulları onaylayarak operasyona hemen başla.</span>
-            <button type="button" id="versionNoticeClose" class="versionNoticeClose" aria-label="Kapat">×</button>
-        </div>
-        <p id="pwaStatus" class="pwaStatus">Bağlantı kontrol ediliyor…</p>
         <div id="guestNameWrap">
             <label class="fieldLabel" for="playerName">Görevli adı</label>
             <input id="playerName" type="text" placeholder="ADINI GİR" maxlength="24" autocomplete="off">
@@ -252,12 +238,59 @@
             <option value="1" selected>Normal</option>
         </select>
 
-        <details class="modeToggles optionsDrawer settingsTable">
-            <summary class="optionsDrawerSummary">
-                <span class="modeTogglesLabel">Oyun seçenekleri</span>
-                <span class="optionsDrawerChevron" aria-hidden="true">▾</span>
+
+        <div id="versionBoard" class="versionBoard">
+            <div class="versionBoardTop">
+                <span class="versionBoardLabel">Sürüm <strong class="versionBoardValue">6.0</strong></span>
+                <button type="button" id="versionBoardClose" class="versionBoardClose" aria-label="Kapat">×</button>
+            </div>
+            <p class="versionBoardList">Günlük, haftalık ve aylık liderlik puanları artık tek hesapta toplanıyor. Vardiya puanların gün, hafta ve ay tablolarında birleşik görünür. Liderlik yenilendi: günlük skor haftaya, haftalık skor aya eklenir.</p>
+        </div>
+        <div class="menuHeroStack">
+            <button id="startBtn" class="menuHeroBtn menuHeroStart" type="button">
+                <span class="menuHeroLabel">BAŞLA</span>
+                <span class="startHint"><svg class="startHintIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Yeni Kariyer</span>
+            </button>
+            <div class="menuHeroPair">
+                <button id="continueBtn" class="menuHeroBtn menuHeroLoad" type="button" disabled>
+                    <span class="menuHeroLabel">YÜKLE</span>
+                    <span id="loadDateHint" class="heroDateHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em></span>
+                </button>
+                <button id="careerContinueBtn" class="menuHeroBtn menuHeroContinue" type="button" disabled>
+                    <span class="menuHeroLabel" id="careerContinueLabel">DEVAM</span>
+                    <span id="careerDateHint" class="heroDateHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em></span>
+                </button>
+            </div>
+            <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
+        </div>
+        <p id="careerMenuStatus" class="sectionHint careerMenuStatus">Kayıtlı kariyer kontrol ediliyor…</p>
+        <p id="saveStatus" class="saveStatus hidden"></p>
+
+        <div class="menuToolsGrid">
+
+            <details class="modeToggles optionsDrawer settingsTable">
+            <summary class="optionsDrawerSummary menuToolBtn">
+                <span class="menuToolIcon" aria-hidden="true">⚙️</span>
+                <span class="menuToolLabel">Ayarlar</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
             </summary>
             <div class="settingsTableBody optionsDrawerBody">
+                <label class="settingsRow" for="soundToggleBtn">
+                    <input id="soundToggleBtn" type="checkbox" checked>
+                    <span class="settingsRowText">
+                        <strong>Efekt</strong>
+                        <small id="soundToggleLabel">Açık</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
+                <label class="settingsRow" for="musicToggleBtn">
+                    <input id="musicToggleBtn" type="checkbox" checked>
+                    <span class="settingsRowText">
+                        <strong>Müzik</strong>
+                        <small id="musicToggleLabel">Açık</small>
+                    </span>
+                    <span class="settingsRowMark" aria-hidden="true"></span>
+                </label>
                 <label class="settingsRow" for="ttsToggle">
                     <input id="ttsToggle" type="checkbox">
                     <span class="settingsRowText">
@@ -295,50 +328,21 @@
                     <span class="settingsRowText"><strong>Renk körü</strong></span>
                 </label>
             </div>
-        </details>
+            </details>
 
-        <div class="menuHeroStack">
-            <button id="startBtn" class="menuHeroBtn menuHeroBlue" type="button">
-                <span class="menuHeroIcon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg>
-                </span>
-                <span class="menuHeroLabel">BAŞLA</span>
-                <span class="menuHeroChevron" aria-hidden="true">›</span>
+            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
+                <span class="menuToolIcon" aria-hidden="true">📊</span>
+                <span class="menuToolLabel">İstatistik</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
-            <button id="continueBtn" class="menuHeroBtn menuHeroNavy" type="button" disabled>
-                <span class="menuHeroIcon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 10 9 10"/></svg>
-                </span>
-                <span class="menuHeroLabel">KAYITTAN DEVAM ET</span>
-            </button>
-            <button id="careerContinueBtn" class="menuHeroBtn menuHeroGreen" type="button" disabled>
-                <span class="menuHeroIcon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
-                </span>
-                <span class="menuHeroLabel" id="careerContinueLabel">KARİYERE DEVAM</span>
-            </button>
-        </div>
-        <p id="careerMenuStatus" class="sectionHint careerMenuStatus">Kayıtlı kariyer kontrol ediliyor…</p>
-        <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
-        <p id="saveStatus" class="saveStatus hidden"></p>
-
-        <div class="menuToolsGrid">
-            <button id="soundToggleBtn" class="menuToolBtn toolSun" type="button">
-                <span class="menuToolIcon" aria-hidden="true">☀️</span>
-                <span class="menuToolLabel" id="soundToggleLabel">Efekt: Açık</span>
-            </button>
-            <button id="musicToggleBtn" class="menuToolBtn toolNote" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🎵</span>
-                <span class="menuToolLabel" id="musicToggleLabel">Müzik: Açık</span>
+            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🛡️</span>
+                <span class="menuToolLabel">Görevler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
             <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
                 <span class="menuToolIcon" aria-hidden="true">🏆</span>
                 <span class="menuToolLabel">Liderlik</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
-            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
-                <span class="menuToolIcon" aria-hidden="true">📊</span>
-                <span class="menuToolLabel">İstatistik</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
             <button id="openBadgesBtn" class="menuToolBtn toolMedal" type="button">
@@ -346,9 +350,9 @@
                 <span class="menuToolLabel">Rozetler</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
-            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🛡️</span>
-                <span class="menuToolLabel">Görevler</span>
+            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Admin">
+                <span class="menuToolIcon" aria-hidden="true">⚙️</span>
+                <span class="menuToolLabel">Admin</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
         </div>
@@ -357,118 +361,45 @@
 
     <!-- Admin kök ekranı -->
     <section id="adminRoot" class="screen hidden">
-        <p id="adminFlash" class="saveStatus hidden" role="status"></p>
-        <p id="adminDirtyHint" class="adminDirtyHint hidden"></p>
-
-        
-        <div id="adminLoginScreen">
-            <h2>Admin Giriş</h2>
-            <p class="sectionHint">Yönetim paneline erişmek için şifre girin.</p>
-            <label class="fieldLabel" for="adminPasswordInput">Şifre</label>
-            <input id="adminPasswordInput" type="password" placeholder="Şifre" maxlength="64" autocomplete="current-password">
-            <p id="adminLoginError" class="saveStatus error hidden" role="alert"></p>
-            <button id="adminLoginBtn" class="primaryBtn" type="button">Giriş yap</button>
-            <button id="adminLoginCancelBtn" class="ghostBtn" type="button">← Geri dön (Menü)</button>
-            <p class="appVersion">Admin · güvenli giriş</p>
-        </div>
-
-        <div id="adminHubScreen" class="hidden">
-            <h2>Admin</h2>
-            <p class="sectionHint">Yönetmek istediğin alanı seç.</p>
-            <div class="adminHubGrid">
-                <button type="button" id="adminHubKurumlarBtn" class="adminHubTile">
-                    <span class="adminHubIcon" aria-hidden="true">🏢</span>
-                    <strong>Kurumlar</strong>
-                    <small>Senaryo ve soru düzenle</small>
-                </button>
-                <button type="button" id="adminHubUyelerBtn" class="adminHubTile">
-                    <span class="adminHubIcon" aria-hidden="true">👥</span>
-                    <strong>Üyeler</strong>
-                    <small>Kayıtlı oyuncular</small>
-                </button>
+        <div class="authCard authCardV2 adminAuthCard">
+            <div class="authBadge" aria-hidden="true">
+                <img class="authLogo" src="logo.png" alt="Son Nöbet" width="200" height="auto">
             </div>
-            <div class="adminFooterActions adminHubFooter">
-                <button id="adminClearLbBtn" class="adminActionBtn adminActionTeal" type="button">LİDERLİĞİ SIFIRLA</button>
-                <button id="adminHubBackMenuBtn" class="ghostBtn" type="button">← Geri dön (Menü)</button>
-            </div>
-            <p class="appVersion">Admin · v6.0</p>
-        </div>
-
-        <div id="adminInstScreen" class="hidden">
-            <h2>Admin · Kurum Seç</h2>
-            <p class="sectionHint">Düzenlemek istediğin kurumu seç. Senaryo ve sorular sonraki ekranda açılır.</p>
-            <div id="adminInstGrid" class="adminInstGrid"></div>
-            <div class="adminFooterActions adminInstActions">
-                <button id="adminSaveBtn" class="adminActionBtn adminActionTeal" type="button">KAYDET</button>
-                <button id="adminExportBtn" class="adminActionBtn adminActionTeal" type="button">İNDİR</button>
-                <label class="adminActionBtn adminActionGray adminImportLabel" for="adminImportFile">YÜKLE
-                    <input id="adminImportFile" type="file" accept="application/json,.json" hidden>
-                </label>
-                <button id="adminBackToHubBtn" class="ghostBtn" type="button">← Geri dön</button>
-            </div>
-            <p class="appVersion">Admin · v6.0</p>
-        </div>
-
-        <div id="adminMembersScreen" class="hidden">
-            <h2>Admin · Üyeler</h2>
-            <p class="sectionHint">Kayıtlı oyuncular — düzenlemek için üyeye dokun.</p>
-            <div id="adminMembersList" class="panelTable adminMembersList"></div>
-            <p id="adminMembersEmpty" class="adminMuted hidden">Henüz üye yok veya liste yüklenemedi.</p>
-
-            <div id="adminMemberEdit" class="adminMemberEdit hidden">
-                <h3 class="adminMemberEditTitle">Üye düzenle</h3>
-                <input type="hidden" id="adminMemId">
-                <label class="fieldLabel" for="adminMemName">Kullanıcı adı</label>
-                <input id="adminMemName" type="text" maxlength="32" placeholder="Kullanıcı adı">
-                <label class="fieldLabel" for="adminMemEmail">E-posta</label>
-                <input id="adminMemEmail" type="text" readonly placeholder="E-posta yok" class="adminMemEmailReadonly">
-                <label class="fieldLabel" for="adminMemRole">Rol</label>
-                <select id="adminMemRole" class="adminMemRoleSelect">
-                    <option value="user">Normal üye</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <p id="adminMemMeta" class="adminMuted"></p>
-                <div id="adminMemScores" class="adminMemScores"></div>
-                <div class="adminFooterActions adminMemberEditActions">
-                    <button id="adminMemSaveBtn" class="adminActionBtn adminActionTeal" type="button">KAYDET</button>
-                    <button id="adminMemCancelBtn" class="ghostBtn" type="button">Vazgeç</button>
+            <h1 class="authTitle">Admin Giriş</h1>
+            <form id="adminAuthForm" class="authForm" autocomplete="on">
+                <div class="authField">
+                    <label class="fieldLabel" for="adminAuthEmail">E-posta</label>
+                    <div class="authInputWrap">
+                        <span class="authInputIcon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        <input id="adminAuthEmail" type="email" required placeholder="E-posta adresinizi girin" autocomplete="username">
+                    </div>
                 </div>
-            </div>
-
-            <div class="adminFooterActions" id="adminMembersFooter">
-                <button id="adminMembersRefreshBtn" class="adminActionBtn adminActionTeal" type="button">YENİLE</button>
-                <button id="adminMembersBackBtn" class="ghostBtn" type="button">← Geri dön</button>
-            </div>
-            <p class="appVersion">Admin · üyeler</p>
+                <div class="authField">
+                    <label class="fieldLabel" for="adminAuthPassword">Şifre</label>
+                    <div class="authInputWrap">
+                        <span class="authInputIcon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><rect x="5" y="10" width="14" height="11" rx="2.5"/></svg></span>
+                        <input id="adminAuthPassword" type="password" required minlength="6" placeholder="Şifrenizi girin" autocomplete="current-password">
+                    </div>
+                </div>
+                <p id="adminAuthError" class="authError hidden" role="alert"></p>
+                <button type="submit" id="adminAuthSubmit" class="authSubmitBtn">GİRİŞ YAP</button>
+                <button type="button" id="adminAuthBack" class="ghostBtn">← Ana menü</button>
+            </form>
+            <p class="appVersion authVersion">Admin · v6.0</p>
         </div>
-
-        <div id="adminScenarioScreen" class="hidden">
-            <h2 id="adminScenarioTitle">Senaryolar</h2>
-            <p class="sectionHint">Bir senaryoya dokunarak soruları düzenle.</p>
-            <div id="adminScenarioList" class="panelTable adminScenarioList"></div>
-            <div class="adminScenarioActions">
-                <button id="adminAddScenarioBtn" class="adminActionBtn adminActionTeal" type="button">YENİ</button>
-                <button id="adminResetInstBtn" class="adminActionBtn adminActionGray" type="button">SIFIRLA</button>
-                <button id="adminSaveBtn2" class="adminActionBtn adminActionTeal" type="button">KAYDET</button>
+        <div id="adminHomeScreen" class="hidden">
+            <h2>Admin</h2>
+            <div class="adminHomeGrid">
+                <button type="button" id="adminTileUyeler" class="adminHomeTile">
+                    <span class="adminHomeTileIcon" aria-hidden="true">👥</span>
+                    <strong>Üyeler</strong>
+                </button>
+                <button type="button" id="adminTileSorular" class="adminHomeTile">
+                    <span class="adminHomeTileIcon" aria-hidden="true">❓</span>
+                    <strong>Sorular</strong>
+                </button>
             </div>
-            <div class="adminFooterActions">
-                <button id="adminBackToInstBtn" class="ghostBtn" type="button">← Geri dön (Kurumlar)</button>
-            </div>
-            <p class="appVersion">Admin · senaryo listesi</p>
-        </div>
-
-        <div id="adminQuestionScreen" class="hidden">
-            <div id="adminQuestionHead" class="adminQuestionHead"></div>
-            <div id="adminQuestionBody" class="adminQuestionBody"></div>
-            <div class="adminQuestionActions">
-                <button type="button" id="adminAddQuestionBtn" class="adminActionBtn adminActionTeal">EKLE</button>
-                <button id="adminDeleteScenarioBtn" class="adminActionBtn adminActionDanger" type="button">SİL</button>
-                <button id="adminSaveBtn3" class="adminActionBtn adminActionBlue" type="button">KAYDET</button>
-            </div>
-            <div class="adminFooterActions">
-                <button id="adminBackToScenariosBtn" class="ghostBtn" type="button">← Geri dön (Senaryolar)</button>
-            </div>
-            <p class="appVersion">Admin · soru düzenleyici</p>
+            <button type="button" id="adminHomeBack" class="ghostBtn">← Ana menü</button>
         </div>
     </section>
 
@@ -601,12 +532,26 @@
     <div class="modalCard">
         <div class="modalHead"><h3>Liderlik Tablosu</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
         <div class="lbTabs" role="tablist">
-            <button type="button" class="lbTab active" data-lb-tab="all" role="tab" aria-selected="true">Genel</button>
-            <button type="button" class="lbTab" data-lb-tab="weekly" role="tab" aria-selected="false">Haftalık</button>
-            <button type="button" class="lbTab" data-lb-tab="monthly" role="tab" aria-selected="false">Aylık</button>
+            <button type="button" class="lbTab active" data-lb-tab="daily" role="tab" aria-selected="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                Günlük
+            </button>
+            <button type="button" class="lbTab" data-lb-tab="weekly" role="tab" aria-selected="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M8 2v4"></path><path d="M17 14h-6"></path><path d="M13 18H7"></path><path d="M7 14h.01"></path><path d="M17 18h.01"></path></svg>
+                Haftalık
+            </button>
+            <button type="button" class="lbTab" data-lb-tab="monthly" role="tab" aria-selected="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
+                Aylık
+            </button>
         </div>
-        <div id="lbPaneAll" class="lbPane" data-lb-pane="all">
+        <div id="lbPaneAll" class="lbPane" data-lb-pane="daily">
             <div id="leaderboardList" class="panelTable"></div>
+            <div id="lbAllPager" class="lbPager hidden">
+                <button type="button" id="lbAllPrev" class="ghostBtn">‹</button>
+                <span id="lbAllPageLabel">1 / 1</span>
+                <button type="button" id="lbAllNext" class="ghostBtn">›</button>
+            </div>
         </div>
         <div id="lbPaneWeekly" class="lbPane hidden" data-lb-pane="weekly">
             <div id="weeklyLeaderboardList" class="panelTable"></div>
@@ -721,30 +666,12 @@
     </div>
 </div>
 
-<!-- Kütüphaneler ve Oyun Kodları Sıralaması -->
-<!-- 1. Dış Bağımlılıklar / SDK'lar -->
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="supabaseClient.js?v=76"></script>
-
-<!-- 2. Yardımcı & Modüller -->
-<script defer src="senaryo_soru_bankasi.js"></script>
-<script defer src="ads.js"></script>
-
-<!-- 3. Ana Uygulama Mantığı -->
-<script defer src="script.js?v=76"></script>
-
-<!-- 4. Ek Özellikler & Admin Modülleri -->
-<script defer src="admin.js?v=76"></script>
-<script defer src="systems.js?v=76"></script>
-<script defer src="features.js?v=76"></script>
-
-<!-- 5. Service Worker Kaydı -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=76').catch(err => console.log('SW Hata:', err));
-    });
-  }
-</script>
+<script src="senaryo_soru_bankasi.js"></script>
+<script src="admin.js?v=75"></script>
+<script src="ads.js"></script>
+<script src="supabaseClient.js?v=75"></script>
+<script src="script.js?v=75"></script>
+<script src="systems.js?v=75"></script>
+<script src="features.js?v=75"></script>
 </body>
 </html>

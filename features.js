@@ -232,18 +232,12 @@ const Features = (() => {
         const online = navigator.onLine;
         let swReady = false;
         const finish = () => {
-            const parts = [];
-            const dot = online
-                ? '<span class="pwaDot" aria-hidden="true">🟢</span> Çevrimiçi'
-                : '<span class="pwaDot" aria-hidden="true">🔴</span> Çevrimdışı';
-            parts.push(dot);
             if (swReady) {
-                parts.push("önbellek hazır");
-                unlockBadge("offline_ready");
-            } else if ("serviceWorker" in navigator) {
-                parts.push("önbellek kontrol ediliyor…");
+                try { unlockBadge("offline_ready"); } catch (e) {}
             }
-            el.innerHTML = parts.join(" · ");
+            el.innerHTML = (online
+                ? `<svg class="pwaUsersIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86efac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg> ÇEVRİMİÇİ`
+                : `<svg class="pwaUsersIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#86efac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg> ÇEVRİMDIŞI`);
             el.classList.toggle("offline", !online);
         };
         if ("serviceWorker" in navigator) {
@@ -584,28 +578,80 @@ window.Features = Features;
         renderWeekly();
     }
 
-    function renderWeekly() {
-        const el = $("weeklyLeaderboardList");
+    function sameWeek(iso) {
+        if (!iso) return false;
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return false;
+        const onejan = new Date(d.getFullYear(), 0, 1);
+        const week = Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+        return (d.getFullYear() + "-W" + week) === weekId();
+    }
+    function sameMonth(iso) {
+        if (!iso) return false;
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return false;
+        return (d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0")) === monthId();
+    }
+    
+function lbRankMarkFeat(rank) {
+    if (typeof window.lbRankMark === "function") return window.lbRankMark(rank);
+    const n = Number(rank) || 0;
+    if (n === 1) return '<span class="panelRank"><span class="lbMedal gold">🥇</span></span>';
+    if (n === 2) return '<span class="panelRank"><span class="lbMedal silver">🥈</span></span>';
+    if (n === 3) return '<span class="panelRank"><span class="lbMedal bronze">🥉</span></span>';
+    return '<span class="panelRank"><span class="lbRankNum">' + n + '</span></span>';
+}
+
+    function paintLb5(el, list) {
         if (!el) return;
+        if (!list || !list.length) {
+            el.innerHTML = `<div class="panelTableEmpty">Henüz kayıt yok.</div>`;
+            return;
+        }
+        const top = list.slice().sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0)).slice(0, 5);
+        el.innerHTML = top.map((r, i) =>
+            `<div class="panelRow">
+                ${lbRankMarkFeat(i + 1)}
+                <span class="panelRowText">
+                    <strong>${escape(r.name)}</strong>
+                </span>
+                <span class="panelValue">${r.score}</span>
+            </div>`
+        ).join("");
+    }
+    function mergeLb(localList, onlineList) {
+        const map = {};
+        (localList || []).concat(onlineList || []).forEach((r) => {
+            const name = String(r.name || "").trim();
+            if (!name) return;
+            const key = name.toLocaleLowerCase("tr");
+            if (!map[key]) {
+                map[key] = { name, institution: "Toplam", score: 0, at: r.at || null };
+            }
+            map[key].score += Number(r.score) || 0;
+            if (r.at && (!map[key].at || String(r.at) > String(map[key].at))) map[key].at = r.at;
+        });
+        return Object.values(map).sort((a, b) => (b.score || 0) - (a.score || 0));
+    }
+    function renderWeekly() {
+        const box = $("weeklyLeaderboardList");
+        if (!box) return;
         const id = weekId();
         let data = loadJSON(WEEKLY_KEY, { week: id, list: [] });
         if (data.week !== id) data = { week: id, list: [] };
         const label = $("weeklyWeekLabel");
         if (label) label.textContent = id;
-        if (!data.list.length) {
-            el.innerHTML = `<div class="panelTableEmpty">Bu hafta henüz kayıt yok.</div>`;
-            return;
+        const local = (data.list || []);
+        const paintLocal = () => paintLb5(box, mergeLb(local, []));
+        paintLocal();
+        if (window.SNSupabase && typeof SNSupabase.fetchScoreRows === "function") {
+            SNSupabase.fetchScoreRows(300).then((rows) => {
+                const online = (rows || []).map((r) => ({
+                    name: r.player_name, score: Number(r.score) || 0, at: r.created_at
+                })).filter((r) => sameWeek(r.at));
+                paintLb5(box, mergeLb([], online));
+            }).catch(paintLocal);
         }
-        el.innerHTML = data.list.map((r, i) =>
-            `<div class="panelRow">
-                <span class="panelRank">#${i + 1}</span>
-                <span class="panelRowText">
-                    <strong>${escape(r.name)}</strong>
-                    <small>${escape(r.institution || "—")}</small>
-                </span>
-                <span class="panelValue">${r.score}</span>
-            </div>`
-        ).join("");
     }
 
     function pushMonthly(entry) {
@@ -620,27 +666,26 @@ window.Features = Features;
     }
 
     function renderMonthly() {
-        const el = $("monthlyLeaderboardList");
-        if (!el) return;
+        const box = $("monthlyLeaderboardList");
+        if (!box) return;
         const id = monthId();
         let data = loadJSON(MONTHLY_KEY, { month: id, list: [] });
         if (data.month !== id) data = { month: id, list: [] };
         const label = $("monthlyMonthLabel");
         if (label) label.textContent = id;
-        if (!data.list.length) {
-            el.innerHTML = `<div class="panelTableEmpty">Bu ay henüz kayıt yok.</div>`;
-            return;
+        const local = (data.list || []);
+        const paintLocal = () => paintLb5(box, mergeLb(local, []));
+        paintLocal();
+        if (window.SNSupabase && typeof SNSupabase.fetchScoreRows === "function") {
+            SNSupabase.fetchScoreRows(300).then((rows) => {
+                const mapped = (rows || []).map((r) => ({
+                    name: r.player_name, score: Number(r.score) || 0, at: r.created_at
+                }));
+                const monthRows = mapped.filter((r) => sameMonth(r.at));
+                const weekRows = mapped.filter((r) => sameWeek(r.at));
+                paintLb5(box, mergeLb(monthRows, weekRows));
+            }).catch(paintLocal);
         }
-        el.innerHTML = data.list.map((r, i) =>
-            `<div class="panelRow">
-                <span class="panelRank">#${i + 1}</span>
-                <span class="panelRowText">
-                    <strong>${escape(r.name)}</strong>
-                    <small>${escape(r.institution || "—")}</small>
-                </span>
-                <span class="panelValue">${r.score}</span>
-            </div>`
-        ).join("");
     }
 
     function escape(s) {
@@ -829,6 +874,7 @@ window.Features = Features;
             });
             if (name === "weekly") renderWeekly();
             else if (name === "monthly") renderMonthly();
+            else if (name === "daily" && typeof renderLeaderboard === "function") renderLeaderboard();
             else if (typeof renderLeaderboard === "function") renderLeaderboard();
         }
 
@@ -836,7 +882,7 @@ window.Features = Features;
             if (btn.__lbBound) return;
             btn.__lbBound = true;
             btn.addEventListener("click", () => {
-                showLbTab(btn.getAttribute("data-lb-tab") || "all");
+                showLbTab(btn.getAttribute("data-lb-tab") || "daily");
             });
         });
 
@@ -846,7 +892,7 @@ window.Features = Features;
             } catch (e) {}
             renderWeekly();
             renderMonthly();
-            showLbTab("all");
+            showLbTab("daily");
             const m = $("leaderboardModal");
             if (m) {
                 m.classList.remove("hidden");

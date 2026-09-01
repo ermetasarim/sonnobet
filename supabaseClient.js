@@ -286,29 +286,70 @@
     }
 
 
+    function aggregateScoresByName(rows) {
+        const map = {};
+        (rows || []).forEach((r) => {
+            const name = String(r.player_name || r.name || "").trim();
+            if (!name) return;
+            const key = name.toLocaleLowerCase("tr");
+            const score = Number(r.score) || 0;
+            const at = r.created_at || r.at || null;
+            if (!map[key]) {
+                map[key] = {
+                    name,
+                    institution: "Toplam",
+                    score: 0,
+                    accuracy: 0,
+                    money: 0,
+                    rank: r.rank_title || r.rank || "",
+                    at,
+                    online: true,
+                    shifts: 0
+                };
+            }
+            map[key].score += score;
+            map[key].money += Number(r.money) || 0;
+            map[key].shifts += 1;
+            if (at && (!map[key].at || String(at) > String(map[key].at))) {
+                map[key].at = at;
+                if (r.rank_title || r.rank) map[key].rank = r.rank_title || r.rank;
+            }
+        });
+        return Object.values(map).sort((a, b) => b.score - a.score);
+    }
+
     async function fetchTopScores(limit) {
         const sb = await init();
         if (!sb) return [];
-        const n = Math.min(50, Math.max(5, limit || 20));
+        const n = Math.min(500, Math.max(20, limit || 200));
         const { data, error } = await sb
             .from("scores")
             .select("player_name, institution, score, accuracy, money, rank_title, created_at")
-            .order("score", { ascending: false })
+            .order("created_at", { ascending: false })
             .limit(n);
         if (error) {
             console.warn("fetchTopScores:", error.message || error);
             return [];
         }
-        return (data || []).map((r) => ({
-            name: r.player_name,
-            institution: r.institution,
-            score: r.score,
-            accuracy: r.accuracy,
-            money: r.money,
-            rank: r.rank_title,
-            at: r.created_at,
-            online: true
-        }));
+        const aggregated = aggregateScoresByName(data || []);
+        const cap = Math.min(50, Math.max(5, limit || 20));
+        return aggregated.slice(0, cap);
+    }
+
+    async function fetchScoreRows(limit) {
+        const sb = await init();
+        if (!sb) return [];
+        const n = Math.min(500, Math.max(20, limit || 200));
+        const { data, error } = await sb
+            .from("scores")
+            .select("player_name, institution, score, accuracy, money, rank_title, created_at")
+            .order("created_at", { ascending: false })
+            .limit(n);
+        if (error) {
+            console.warn("fetchScoreRows:", error.message || error);
+            return [];
+        }
+        return data || [];
     }
 
     window.SNSupabase = {
@@ -325,6 +366,8 @@
         getSession: () => session,
         submitScore,
         fetchTopScores,
+        fetchScoreRows,
+        aggregateScoresByName,
         clearAllScores
     };
 

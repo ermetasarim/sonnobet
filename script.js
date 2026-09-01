@@ -848,29 +848,40 @@ if (continueBtn) {
     });
 }
 
-const soundToggleBtn = $("soundToggleBtn");
+function syncAudioOptionLabels() {
+    const sLab = $("soundToggleLabel");
+    const mLab = $("musicToggleLabel");
+    const sBtn = $("soundToggleBtn");
+    const mBtn = $("musicToggleBtn");
+    const sOn = !!(window.game && game.soundEnabled);
+    const mOn = (typeof SFX !== "undefined" && SFX.isMusicOn) ? SFX.isMusicOn() : true;
+    if (sLab) sLab.textContent = sOn ? "Açık" : "Kapalı";
+    if (mLab) mLab.textContent = mOn ? "Açık" : "Kapalı";
+    if (sBtn && sBtn.type === "checkbox") sBtn.checked = sOn;
+    if (mBtn && mBtn.type === "checkbox") mBtn.checked = mOn;
+}
 
+const soundToggleBtn = $("soundToggleBtn");
 if (soundToggleBtn) {
-    soundToggleBtn.addEventListener("click", () => {
-        const on = SFX.toggle();
-        const sLab = $("soundToggleLabel");
-        if (sLab) sLab.textContent = on ? "Efekt: Açık" : "Efekt: Kapalı";
-        else soundToggleBtn.textContent = on ? "Efekt: Açık" : "Efekt: Kapalı";
-        soundToggleBtn.classList.toggle("muted", !on);
+    soundToggleBtn.addEventListener("change", () => {
+        const want = !!soundToggleBtn.checked;
+        const now = !!(window.game && game.soundEnabled);
+        if (want !== now) SFX.toggle();
+        syncAudioOptionLabels();
     });
 }
 
 const musicToggleBtn = $("musicToggleBtn");
 if (musicToggleBtn) {
-    musicToggleBtn.addEventListener("click", () => {
+    musicToggleBtn.addEventListener("change", () => {
         SFX.unlock();
-        const on = SFX.toggleMusic();
-        const mLab = $("musicToggleLabel");
-        if (mLab) mLab.textContent = on ? "Müzik: Açık" : "Müzik: Kapalı";
-        else musicToggleBtn.textContent = on ? "Müzik: Açık" : "Müzik: Kapalı";
-        musicToggleBtn.classList.toggle("muted", !on);
+        const want = !!musicToggleBtn.checked;
+        const now = (typeof SFX !== "undefined" && SFX.isMusicOn) ? SFX.isMusicOn() : true;
+        if (want !== now) SFX.toggleMusic();
+        syncAudioOptionLabels();
     });
 }
+try { syncAudioOptionLabels(); } catch (e) {}
 
 const deleteSaveBtn = $("deleteSaveBtn");
 if (deleteSaveBtn) {
@@ -2114,6 +2125,16 @@ function flashSaveStatus(text, isError = false) {
     }, 2800);
 }
 
+function formatPlayDate(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "—";
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = d.getFullYear();
+    return dd + "/" + mm + "/" + yy;
+}
+
 function updateContinueButton() {
     const btn = $("continueBtn");
     if (!btn) return;
@@ -2121,6 +2142,16 @@ function updateContinueButton() {
     btn.disabled = !ok;
     btn.classList.toggle("is-disabled", !ok);
     btn.setAttribute("aria-disabled", ok ? "false" : "true");
+    const hint = $("loadDateHint");
+    if (hint) {
+        let iso = null;
+        try {
+            const meta = typeof getSaveMeta === "function" ? getSaveMeta() : null;
+            iso = meta && meta.savedAt;
+        } catch (e) {}
+        const fmt = (typeof formatPlayDate === "function") ? formatPlayDate(iso) : "—";
+        hint.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>` + fmt + "</em>";
+    }
 }
 
 function resumeFromSave() {
@@ -4015,6 +4046,30 @@ if (playerNameInput) {
         box.classList.remove("hidden");
         if (btn && !btn.__v6Bound) {
             btn.__v6Bound = true;
+            btn.addEventListener("click", () => {
+                box.classList.add("hidden");
+                try { localStorage.setItem(KEY, "1"); } catch (e) {}
+            });
+        }
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+    else run();
+})();
+
+(function versionBoardClose() {
+    const KEY = "son_nobet_v6_board_dismissed";
+    function run() {
+        const box = document.getElementById("versionBoard");
+        const btn = document.getElementById("versionBoardClose");
+        if (!box) return;
+        try {
+            if (localStorage.getItem(KEY) === "1") {
+                box.classList.add("hidden");
+                return;
+            }
+        } catch (e) {}
+        if (btn && !btn.__bound) {
+            btn.__bound = true;
             btn.addEventListener("click", () => {
                 box.classList.add("hidden");
                 try { localStorage.setItem(KEY, "1"); } catch (e) {}
