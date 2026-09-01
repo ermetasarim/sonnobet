@@ -203,8 +203,12 @@ const SFX = (() => {
         }
 
         try {
-            const tracks = ["music1.mp3", "music2.mp3", "music3.mp3"];
-            const pick = tracks[Math.floor(Math.random() * tracks.length)];
+            const tracks = ["music1.mp3", "music2.mp3", "music3.mp3", "music4.mp3"];
+            let last = "";
+            try { last = localStorage.getItem("sn_last_music") || ""; } catch (e) {}
+            const pool = tracks.filter((t) => t !== last);
+            const pick = (pool.length ? pool : tracks)[Math.floor(Math.random() * (pool.length ? pool.length : tracks.length))];
+            try { localStorage.setItem("sn_last_music", pick); } catch (e) {}
 
             if (musicAudio) {
                 try {
@@ -217,7 +221,7 @@ const SFX = (() => {
             musicAudio = new Audio(pick);
             musicAudio.loop = false;
             musicAudio.preload = "auto";
-            musicAudio.volume = 0.35;
+            musicAudio.volume = 0.18;
             musicAudio.onended = function () {
                 musicPlaying = false;
             };
@@ -226,7 +230,7 @@ const SFX = (() => {
                 try {
                     musicAudio = new Audio("music.mp3");
                     musicAudio.loop = false;
-                    musicAudio.volume = 0.35;
+                    musicAudio.volume = 0.18;
                     musicAudio.onended = function () { musicPlaying = false; };
                     const p2 = musicAudio.play();
                     if (p2 && p2.then) {
