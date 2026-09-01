@@ -8252,3 +8252,9 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, li, small, strong,
 #menuScreen #careerContinueBtn .menuHeroLabel {
     font-weight: 900 !important;
 }
+
+#menuScreen .startHint em {
+    font-style: normal;
+    font-weight: 600;
+    color: inherit;
+}
