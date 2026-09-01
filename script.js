@@ -2414,7 +2414,7 @@ function showChoiceFeedback(choice) {
 
     const headline = choice.correct
         ? "Doğru: Tebrikler, sıradaki soru geliyor."
-        : (choice.message || "Riskli karar");
+        : "Yanlış: Üzgünüz! Bu doğru bir tercih değil.";
 
     const good = !!choice.correct;
     toast.classList.remove("hidden", "good", "bad", "toastOut");
