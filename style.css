@@ -8318,3 +8318,125 @@ html, body, button, input, select, textarea {
     font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
     font-weight: 800 !important;
 }
+
+#menuScreen .menuVersionMark {
+    margin: 8px 0 10px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+#menuScreen .siteFooter {
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+    background: #111827;
+    border-top: 1px solid #1f2937;
+}
+#menuScreen .siteFooter p { margin: 0; }
+#menuScreen .siteFooter a {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+}
+#menuScreen .siteFooter a:hover { text-decoration: underline; }
+
+#menuScreen {
+    gap: 10px;
+}
+#menuScreen .officerCard,
+#menuScreen .menuHeroStack,
+#menuScreen .menuToolsGrid,
+#menuScreen .careerMenuStatus,
+#menuScreen .siteFooter,
+#menuScreen #guestNameWrap {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+#menuScreen .menuHeroStack {
+    gap: 10px !important;
+    margin-top: 0 !important;
+}
+#menuScreen .menuToolsGrid {
+    gap: 10px !important;
+    margin-top: 0 !important;
+}
+#menuScreen .siteFooter {
+    margin-top: 10px !important;
+}
+#menuScreen .menuVersionMark { display: none !important; }
+
+#menuScreen .careerMenuStatus { display: none !important; }
+#menuScreen .siteFooter {
+    width: 100%;
+    padding: 16px 8px;
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+    background: #111827;
+    border-top: 1px solid #1f2937;
+}
+#menuScreen .siteFooter a {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+}
+#menuScreen .siteFooter a:hover { text-decoration: underline; }
+
+#menuScreen .menuHeroStack {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+#menuScreen .menuResetLink {
+    margin-bottom: 0 !important;
+}
+#menuScreen .saveStatus {
+    margin: 0 !important;
+}
+#menuScreen .menuToolsGrid {
+    margin-top: 10px !important;
+}
+#menuScreen .menuHeroStack + .menuToolsGrid,
+#menuScreen .menuHeroStack + .saveStatus + .menuToolsGrid,
+#menuScreen .menuHeroStack + p + .menuToolsGrid {
+    margin-top: 10px !important;
+}
+
+#menuScreen {
+    gap: 12px !important;
+}
+#menuScreen .menuHeroStack {
+    gap: 12px !important;
+}
+#menuScreen .menuHeroPair {
+    gap: 12px !important;
+}
+#menuScreen .menuToolsGrid {
+    gap: 12px !important;
+    margin-top: 12px !important;
+}
+#menuScreen .menuHeroStack + .menuToolsGrid,
+#menuScreen .menuHeroStack + .saveStatus + .menuToolsGrid {
+    margin-top: 12px !important;
+}
+#menuScreen .officerOnlineRow {
+    gap: 12px !important;
+}
+#menuScreen .siteFooter {
+    margin-top: 12px !important;
+}
+
+#leaderboardModal .lbModalTitle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+#leaderboardModal .lbTrophyIcon {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+}

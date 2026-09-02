@@ -71,6 +71,14 @@
                 showError((res && res.error) || "Giriş başarısız");
                 return;
             }
+            if (typeof SNSupabase.refreshProfile === "function") {
+                await SNSupabase.refreshProfile();
+            }
+            if (!SNSupabase.isAdmin || !SNSupabase.isAdmin()) {
+                showError("Bu hesap admin değil. Supabase profiles.is_admin = true olmalı.");
+                setHome(false);
+                return;
+            }
             if ($("adminAuthPassword")) $("adminAuthPassword").value = "";
             setHome(true);
         } catch (err) {

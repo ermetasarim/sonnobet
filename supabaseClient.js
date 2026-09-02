@@ -88,14 +88,12 @@
             } catch (e2) {}
         }
         const display = (metaName || dbName || stored || email.split("@")[0] || "Görevli").trim();
-        // Bootstrap: listede tanımlı e-posta otomatik admin
-        const bootAdmin = BOOTSTRAP_ADMIN_EMAILS.includes(String(email).toLowerCase());
-        const isAdmin = dbAdmin || bootAdmin;
+        const isAdminFlag = !!dbAdmin;
         profile = {
             id: uid,
             display_name: display,
             email: dbEmail || email,
-            is_admin: isAdmin
+            is_admin: isAdminFlag
         };
         try {
             if (display) localStorage.setItem("son_nobet_display_name", display);
@@ -104,8 +102,7 @@
             await client.from("profiles").upsert({
                 id: uid,
                 display_name: display,
-                email: email || dbEmail || null,
-                is_admin: isAdmin
+                email: email || dbEmail || null
             });
         } catch (e) {}
         return profile;
@@ -198,7 +195,6 @@
     const BOOTSTRAP_ADMIN_EMAILS = ["ermetasarim@gmail.com"];
 
     function isAdmin() {
-        // Tek kaynak: profiles.is_admin (loadProfile bootstrap e-postaya is_admin yazar)
         try {
             if (!profile) return false;
             const flag = profile.is_admin;

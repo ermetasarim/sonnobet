@@ -239,13 +239,6 @@
         </select>
 
 
-        <div id="versionBoard" class="versionBoard">
-            <div class="versionBoardTop">
-                <span class="versionBoardLabel">Sürüm <strong class="versionBoardValue">6.0</strong></span>
-                <button type="button" id="versionBoardClose" class="versionBoardClose" aria-label="Kapat">×</button>
-            </div>
-            <p class="versionBoardList">Günlük, haftalık ve aylık liderlik puanları artık tek hesapta toplanıyor. Vardiya puanların gün, hafta ve ay tablolarında birleşik görünür. Liderlik yenilendi: günlük skor haftaya, haftalık skor aya eklenir.</p>
-        </div>
         <div class="menuHeroStack">
             <button id="startBtn" class="menuHeroBtn menuHeroStart" type="button">
                 <span class="menuHeroLabel">BAŞLA</span>
@@ -263,7 +256,6 @@
             </div>
             <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
         </div>
-        <p id="careerMenuStatus" class="sectionHint careerMenuStatus">Kayıtlı kariyer kontrol ediliyor…</p>
         <p id="saveStatus" class="saveStatus hidden"></p>
 
         <div class="menuToolsGrid">
@@ -348,7 +340,9 @@
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
         </div>
-        <p class="appVersion" id="appVersion">v6.0</p>
+        <footer class="siteFooter">
+            <p>Sizin için ❤️ <a href="https://ermetasarim.github.io/parsstudio/" target="_blank" rel="noopener noreferrer">Pars Studio</a> tasarladı.</p>
+        </footer>
     </section>
 
     <!-- Admin kök ekranı -->
@@ -522,7 +516,7 @@
 <!-- Modals -->
 <div id="leaderboardModal" class="modal hidden">
     <div class="modalCard">
-        <div class="modalHead"><h3>Liderlik Tablosu</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
+        <div class="modalHead"><h3 class="lbModalTitle"><svg class="lbTrophyIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg> Liderlik Tablosu</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
         <div class="lbTabs" role="tablist">
             <button type="button" class="lbTab active" data-lb-tab="daily" role="tab" aria-selected="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
