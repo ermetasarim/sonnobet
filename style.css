@@ -8772,3 +8772,29 @@ html, body, button, input, select, textarea {
 #adminHomeScreen .adminQTile small {
     font-size: 13px;
 }
+
+#menuScreen .menuLogoCard {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    line-height: 0;
+}
+#menuScreen .menuLogo {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    border-radius: 14px;
+}
+
+#menuScreen .menuLogoCard {
+    border: 1px solid #314866;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(8, 15, 28, 0.96));
+}
+#menuScreen .menuLogo {
+    border-radius: 16px;
+}
