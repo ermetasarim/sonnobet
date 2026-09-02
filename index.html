@@ -199,7 +199,9 @@
 
     <section id="menuScreen" class="screen hidden">
         <div class="menuBrand">
-            <img id="menuLogo" class="menuLogo" src="logo.png" width="380" height="auto" alt="Son Nöbet — Güvenlik Görevlisi Simülasyonu">
+            <div class="menuLogoCard">
+                <img id="menuLogo" class="menuLogo" src="logo.png" width="380" height="auto" alt="Son Nöbet — Güvenlik Görevlisi Simülasyonu">
+            </div>
         </div>
         <div id="accountStrip" class="accountStrip officerCard hidden">
             <span class="officerLabel">GÖREVLİ</span>
@@ -374,18 +376,120 @@
             <p class="appVersion authVersion">Admin · v6.0</p>
         </div>
         <div id="adminHomeScreen" class="hidden">
-            <h2>Admin</h2>
-            <div class="adminHomeGrid">
-                <button type="button" id="adminTileUyeler" class="adminHomeTile">
-                    <span class="adminHomeTileIcon" aria-hidden="true">👥</span>
+            <h2 id="adminHomeTitle">Admin</h2>
+            <div class="adminHomeGrid adminQGrid2">
+                <button type="button" id="adminTileUyeler" class="adminQTile">
+                    <span class="adminQTileIcon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </span>
                     <strong>Üyeler</strong>
+                    <small>Kayıtlı oyuncular</small>
                 </button>
-                <button type="button" id="adminTileSorular" class="adminHomeTile">
-                    <span class="adminHomeTileIcon" aria-hidden="true">❓</span>
+                <button type="button" id="adminTileSorular" class="adminQTile">
+                    <span class="adminQTileIcon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"></path><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"></path><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M7 21h10"></path></svg>
+                    </span>
                     <strong>Sorular</strong>
+                    <small>Kurum ve senaryolar</small>
                 </button>
             </div>
             <button type="button" id="adminHomeBack" class="ghostBtn">← Ana menü</button>
+
+            <div id="adminQPortal" class="adminQPortal hidden">
+                <div id="adminQViewInst">
+                    <h3>Kurumlar</h3>
+                    <p class="sectionHint">Düzenlemek için kurum seç.</p>
+                    <div id="adminQInstGrid" class="adminQGrid2"></div>
+                    <button type="button" id="adminQBackHome" class="ghostBtn">← Admin</button>
+                </div>
+                <div id="adminQViewScen" class="hidden">
+                    <h3 id="adminQScenTitle">Senaryolar</h3>
+                    <div id="adminQScenList" class="adminQList"></div>
+                    <button type="button" id="adminQAddScen" class="adminQAddBtn">+ Yeni senaryo</button>
+                    <button type="button" id="adminQBackInst" class="ghostBtn">← Kurumlar</button>
+                </div>
+                <div id="adminQViewScenEdit" class="hidden">
+                    <h3 id="adminQScenEditTitle">Senaryo düzenle</h3>
+                    <label class="fieldLabel" for="adminQScenId">Senaryo ID</label>
+                    <input id="adminQScenId" type="text" placeholder="ornek_senaryo_id">
+                    <label class="fieldLabel" for="adminQScenName">Başlık</label>
+                    <input id="adminQScenName" type="text" placeholder="Senaryo başlığı">
+                    <label class="fieldLabel" for="adminQScenDesc">Açıklama</label>
+                    <textarea id="adminQScenDesc" class="adminStem" rows="3" placeholder="Kısa açıklama"></textarea>
+                    <div class="adminQEditActions">
+                        <button type="button" id="adminQScenSave" class="adminQSaveBtn">KAYDET</button>
+                        <button type="button" id="adminQScenDelete" class="adminQDelBtn">SİL</button>
+                    </div>
+                    <button type="button" id="adminQBackScenEdit" class="ghostBtn">← Senaryolar</button>
+                </div>
+                <div id="adminQViewList" class="hidden">
+                    <h3 id="adminQListTitle">Sorular</h3>
+                    <p id="adminQListHint" class="sectionHint"></p>
+                    <div id="adminQList" class="adminQList"></div>
+                    <button type="button" id="adminQAdd" class="adminQAddBtn">+ Yeni soru</button>
+                    <button type="button" id="adminQBackScen" class="ghostBtn">← Senaryolar</button>
+                </div>
+                <div id="adminQViewEdit" class="hidden">
+                    <h3 id="adminQEditTitle">Soru düzenle</h3>
+                    <label class="fieldLabel" for="adminQStem">Soru</label>
+                    <textarea id="adminQStem" class="adminStem" rows="4" placeholder="Soru metni"></textarea>
+                    <p class="fieldLabel">Şıklar (doğru olanı işaretle)</p>
+                    <div class="adminQOpts">
+                        <label class="adminQOptRow"><input type="radio" name="adminQCorrect" id="adminQCorrect0" checked><input type="text" id="adminQOpt0" placeholder="A şıkkı"></label>
+                        <label class="adminQOptRow"><input type="radio" name="adminQCorrect" id="adminQCorrect1"><input type="text" id="adminQOpt1" placeholder="B şıkkı"></label>
+                        <label class="adminQOptRow"><input type="radio" name="adminQCorrect" id="adminQCorrect2"><input type="text" id="adminQOpt2" placeholder="C şıkkı"></label>
+                        <label class="adminQOptRow"><input type="radio" name="adminQCorrect" id="adminQCorrect3"><input type="text" id="adminQOpt3" placeholder="D şıkkı"></label>
+                    </div>
+                    <label class="fieldLabel" for="adminQDiff">Zorluk</label>
+                    <select id="adminQDiff" class="selectField">
+                        <option value="easy">🟢 Kolay</option>
+                        <option value="medium" selected>🟡 Orta</option>
+                        <option value="hard">🔴 Zor</option>
+                    </select>
+                    <div class="adminQEditActions">
+                        <button type="button" id="adminQSave" class="adminQSaveBtn">KAYDET</button>
+                        <button type="button" id="adminQDelete" class="adminQDelBtn">SİL</button>
+                    </div>
+                    <button type="button" id="adminQBackEdit" class="ghostBtn">← Sorular</button>
+                </div>
+            </div>
+
+            <div id="adminMPortal" class="adminQPortal hidden">
+                <div id="adminMViewList">
+                    <h3>Üyeler</h3>
+                    <p id="adminMCount" class="sectionHint">A–Z · 20 üye / sayfa</p>
+                    <div id="adminMLetters" class="adminMLetters"></div>
+                    <div id="adminMList" class="adminQList"></div>
+                    <div id="adminMPager" class="adminMPager">
+                        <button type="button" id="adminMPrev" class="ghostBtn">‹</button>
+                        <span id="adminMPageLabel">1 / 1</span>
+                        <button type="button" id="adminMNext" class="ghostBtn">›</button>
+                    </div>
+                    <button type="button" id="adminMAdd" class="adminQAddBtn">+ Yeni üye</button>
+                    <button type="button" id="adminMBackHome" class="ghostBtn">← Admin</button>
+                </div>
+                <div id="adminMViewEdit" class="hidden">
+                    <h3 id="adminMEditTitle">Üye düzenle</h3>
+                    <label class="fieldLabel" for="adminMName">Kullanıcı adı</label>
+                    <input id="adminMName" type="text" maxlength="24" placeholder="Kullanıcı adı">
+                    <label class="fieldLabel" for="adminMEmail">E-posta</label>
+                    <input id="adminMEmail" type="email" placeholder="E-posta">
+                    <div id="adminMPassWrap">
+                        <label class="fieldLabel" for="adminMPass">Şifre</label>
+                        <input id="adminMPass" type="text" minlength="6" placeholder="En az 6 karakter">
+                    </div>
+                    <label class="fieldLabel" for="adminMRole">Rol</label>
+                    <select id="adminMRole" class="selectField">
+                        <option value="user">Normal üye</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <div class="adminQEditActions">
+                        <button type="button" id="adminMSave" class="adminQSaveBtn">KAYDET</button>
+                        <button type="button" id="adminMDelete" class="adminQDelBtn">SİL</button>
+                    </div>
+                    <button type="button" id="adminMBackList" class="ghostBtn">← Üyeler</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -653,11 +757,11 @@
 </div>
 
 <script src="senaryo_soru_bankasi.js"></script>
-<script src="admin.js?v=75"></script>
+<script src="admin.js?v=81"></script>
 <script src="ads.js"></script>
-<script src="supabaseClient.js?v=75"></script>
-<script src="script.js?v=75"></script>
-<script src="systems.js?v=75"></script>
-<script src="features.js?v=75"></script>
+<script src="supabaseClient.js?v=77"></script>
+<script src="script.js?v=76"></script>
+<script src="systems.js?v=76"></script>
+<script src="features.js?v=76"></script>
 </body>
 </html>

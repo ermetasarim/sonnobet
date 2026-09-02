@@ -8440,3 +8440,284 @@ html, body, button, input, select, textarea {
     height: 20px;
     flex: 0 0 auto;
 }
+
+
+/* —— Admin soru portalı —— */
+#adminRoot .adminQPortal { margin-top: 4px; }
+#adminRoot .adminQPortal h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+}
+#adminRoot .adminQGrid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0 14px;
+}
+#adminRoot .adminQTile {
+    margin: 0;
+    padding: 16px 12px;
+    min-height: 92px;
+    background: #0a1322;
+    border: 1px solid #314866;
+    border-radius: 12px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: none;
+    text-align: center;
+}
+#adminRoot .adminQTile:hover:not(:disabled) {
+    background: #152238;
+    border-color: #4b678a;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+#adminRoot .adminQTileIcon { font-size: 22px; line-height: 1; }
+#adminRoot .adminQTile strong { font-size: 14px; }
+#adminRoot .adminQTile small { color: #94a3b8; font-size: 11px; font-weight: 500; }
+
+#adminRoot .adminQList { display: grid; gap: 8px; margin: 8px 0 12px; }
+#adminRoot .adminQRow {
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    background: #0a1322;
+    border: 1px solid #314866;
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: none;
+}
+#adminRoot .adminQRow:hover:not(:disabled) {
+    background: #152238;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+#adminRoot .adminQRow span:first-child { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+#adminRoot .adminQRow strong { font-size: 13px; font-weight: 650; line-height: 1.35; }
+#adminRoot .adminQRow small { color: #94a3b8; font-size: 11px; }
+#adminRoot .adminQRowArrow { color: #93c5fd; font-size: 12px; font-weight: 700; flex: 0 0 auto; }
+
+#adminRoot .adminQAddBtn {
+    margin-top: 0;
+    background: #0f766e;
+    border: 1px solid #314866;
+}
+#adminRoot .adminQAddBtn:hover:not(:disabled) {
+    background: #0d9488;
+    box-shadow: none;
+    transform: none;
+}
+#adminRoot .adminQSaveBtn {
+    background: #0f766e;
+    border: 1px solid #314866;
+    margin-top: 0;
+}
+#adminRoot .adminQSaveBtn:hover:not(:disabled) {
+    background: #0d9488;
+    box-shadow: none;
+    transform: none;
+}
+#adminRoot .adminQDelBtn {
+    background: #7f1d1d;
+    border: 1px solid #314866;
+    margin-top: 0;
+}
+#adminRoot .adminQDelBtn:hover:not(:disabled) {
+    background: #991b1b;
+    box-shadow: none;
+    transform: none;
+}
+#adminRoot .adminQEditActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0 8px;
+}
+#adminRoot textarea.adminStem {
+    width: 100%;
+    min-height: 96px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #314866;
+    background: #0a1322;
+    color: #fff;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+#adminRoot .adminQOpts { display: grid; gap: 8px; margin-bottom: 10px; }
+#adminRoot .adminQOptRow {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 8px;
+    align-items: center;
+}
+#adminRoot .adminQOptRow input[type="text"] { margin: 0; }
+#adminRoot .adminQOptRow input[type="radio"] { width: 16px; height: 16px; margin: 0; accent-color: #22c55e; }
+
+@media (max-width: 520px) {
+    #adminRoot .adminQGrid2 { grid-template-columns: 1fr 1fr; }
+}
+
+#adminRoot .adminMPager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0 12px;
+}
+#adminRoot .adminMPager .ghostBtn {
+    width: auto;
+    min-width: 44px;
+    margin: 0;
+    padding: 8px 12px;
+}
+#adminRoot .adminMPager span {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#adminRoot .adminMLetters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 12px;
+}
+#adminRoot .adminMLetter {
+    width: auto;
+    min-width: 32px;
+    margin: 0;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid #314866;
+    background: #0a1322;
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: none;
+}
+#adminRoot .adminMLetter:hover:not(:disabled) {
+    background: #152238;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+#adminRoot .adminMLetter.on {
+    background: #1d4ed8;
+    border-color: #314866;
+    color: #fff;
+}
+#adminRoot .adminMLetter.off,
+#adminRoot .adminMLetter:disabled {
+    opacity: 0.35;
+}
+
+#adminHomeScreen .adminHomeGrid.adminQGrid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0 14px;
+}
+#adminHomeScreen .adminQTile .adminQTileIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #93c5fd;
+}
+#adminHomeScreen .adminQTile .adminQTileIcon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+#adminTileUyeler .adminQTileIcon { color: #93c5fd; }
+#adminTileSorular .adminQTileIcon { color: #fb7185; }
+
+#adminRoot .adminQScenRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+}
+#adminRoot .adminQScenOpen {
+    flex: 1;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: left;
+    padding: 6px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+#adminRoot .adminQScenOpen:hover:not(:disabled) {
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+#adminRoot .adminQMini {
+    width: auto;
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 12px;
+    background: #1e3a5f;
+    border: 1px solid #314866;
+    box-shadow: none;
+}
+#adminRoot .adminQMini:hover:not(:disabled) {
+    background: #254a75;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+
+#menuScreen .menuBrand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0 12px;
+}
+#menuScreen .menuLogoCard {
+    width: min(380px, 100%);
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: rgba(10, 19, 34, 0.45);
+    border: 1px solid rgba(49, 72, 102, 0.35);
+    box-shadow: none;
+}
+#menuScreen .menuLogo {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+#menuScreen .menuBrand {
+    width: 100%;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+}
+#menuScreen .menuLogoCard {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+#menuScreen .menuLogo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}

@@ -348,6 +348,107 @@
         return data || [];
     }
 
+    function asAdminFlag(v) {
+        return v === true || v === "true" || v === 1 || v === "1" || v === "t";
+    }
+
+    async function listProfiles() {
+        const sb = await init();
+        if (!sb) return { ok: false, error: "client", rows: [] };
+        let { data, error } = await sb
+            .from("profiles")
+            .select("id, display_name, email, is_admin, created_at")
+            .limit(1000);
+        if (error) {
+            const second = await sb.from("profiles").select("id, display_name, email, is_admin").limit(1000);
+            data = second.data;
+            error = second.error;
+        }
+        if (error) return { ok: false, error: error.message || String(error), rows: [] };
+        const rows = (data || []).map((r) => ({
+            id: r.id,
+            display_name: r.display_name || "",
+            email: r.email || "",
+            is_admin: asAdminFlag(r.is_admin),
+            created_at: r.created_at || null
+        }));
+        rows.sort((a, b) => {
+            const an = String(a.display_name || a.email || "").toLocaleLowerCase("tr");
+            const bn = String(b.display_name || b.email || "").toLocaleLowerCase("tr");
+            const c = an.localeCompare(bn, "tr");
+            if (c !== 0) return c;
+            return String(a.created_at || "").localeCompare(String(b.created_at || ""));
+        });
+        return { ok: true, rows };
+    }
+
+    async function updateProfileRow(id, fields) {
+        const sb = await init();
+        if (!sb) return { ok: false, error: "client" };
+        const patch = {};
+        if (fields.display_name != null) patch.display_name = String(fields.display_name).trim().slice(0, 32);
+        if (fields.email != null) patch.email = String(fields.email).trim().toLowerCase();
+        if (fields.is_admin != null) patch.is_admin = !!fields.is_admin;
+        const { error } = await sb.from("profiles").update(patch).eq("id", id);
+        if (error) return { ok: false, error: error.message || String(error) };
+        return { ok: true };
+    }
+
+    async function deleteProfileRow(id) {
+        const sb = await init();
+        if (!sb) return { ok: false, error: "client" };
+        if (session && session.user && session.user.id === id) {
+            return { ok: false, error: "Kendi hesabını silemezsin." };
+        }
+        const { error } = await sb.from("profiles").delete().eq("id", id);
+        if (error) return { ok: false, error: error.message || String(error) };
+        return { ok: true };
+    }
+
+    async function createMember({ name, email, password, isAdmin }) {
+        const sb = await init();
+        if (!sb) return { ok: false, error: "client" };
+        const display = String(name || "").trim().slice(0, 24);
+        const em = String(email || "").trim().toLowerCase();
+        const pw = String(password || "");
+        if (display.length < 2) return { ok: false, error: "Kullanıcı adı en az 2 karakter" };
+        if (!em.includes("@")) return { ok: false, error: "Geçerli e-posta girin" };
+        if (pw.length < 6) return { ok: false, error: "Şifre en az 6 karakter" };
+
+        const { data: sessWrap } = await sb.auth.getSession();
+        const saved = sessWrap && sessWrap.session ? sessWrap.session : session;
+
+        const { data, error } = await sb.auth.signUp({
+            email: em,
+            password: pw,
+            options: { data: { display_name: display } }
+        });
+        if (saved && saved.access_token && saved.refresh_token) {
+            try {
+                await sb.auth.setSession({
+                    access_token: saved.access_token,
+                    refresh_token: saved.refresh_token
+                });
+                session = saved;
+            } catch (e) {}
+        } else {
+            session = saved;
+        }
+
+        if (error) return { ok: false, error: error.message || String(error) };
+        const uid = data && data.user && data.user.id;
+        if (uid) {
+            const { error: upErr } = await sb.from("profiles").upsert({
+                id: uid,
+                display_name: display,
+                email: em,
+                is_admin: !!isAdmin
+            });
+            if (upErr) return { ok: false, error: upErr.message || String(upErr) };
+        }
+        return { ok: true, id: uid };
+    }
+
     window.SNSupabase = {
         init,
         signUp,
@@ -364,7 +465,11 @@
         fetchTopScores,
         fetchScoreRows,
         aggregateScoresByName,
-        clearAllScores
+        clearAllScores,
+        listProfiles,
+        updateProfileRow,
+        deleteProfileRow,
+        createMember
     };
 
     if (document.readyState === "loading") {
