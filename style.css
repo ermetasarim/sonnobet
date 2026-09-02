@@ -8721,3 +8721,54 @@ html, body, button, input, select, textarea {
     max-width: 100%;
     height: auto;
 }
+
+#adminRoot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+#adminRoot .adminAuthCard {
+    width: min(380px, 100%);
+    margin: 0 auto;
+}
+#adminRoot #adminHomeScreen {
+    width: 100%;
+    max-width: 100%;
+}
+#adminRoot #adminHomeScreen:not(.hidden) {
+    width: 100%;
+}
+#adminRoot .adminAuthCard.hidden + #adminHomeScreen,
+#adminRoot #adminHomeScreen:not(.hidden) {
+    align-self: stretch;
+}
+
+#adminRoot:has(#adminHomeScreen:not(.hidden)) {
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-top: 12px;
+}
+#adminHomeScreen h2 {
+    text-align: left;
+    margin-bottom: 14px;
+}
+#adminHomeScreen .adminHomeGrid.adminQGrid2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+#adminHomeScreen .adminQTile {
+    min-height: 140px;
+    padding: 22px 16px;
+}
+#adminHomeScreen .adminQTile .adminQTileIcon svg {
+    width: 32px;
+    height: 32px;
+}
+#adminHomeScreen .adminQTile strong {
+    font-size: 18px;
+}
+#adminHomeScreen .adminQTile small {
+    font-size: 13px;
+}
