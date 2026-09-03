@@ -512,7 +512,7 @@ function setAuthMode(mode) {
     if (userWrap) userWrap.classList.toggle("hidden", __authMode !== "register");
     if (btn) btn.textContent = __authMode === "register" ? "KAYIT OL" : "GİRİŞ YAP";
     const title = $("authTitle");
-    if (title) title.textContent = __authMode === "register" ? "Hesap Yarat" : "Giriş Yap";
+    if (title) title.textContent = __authMode === "register" ? "🪪 Kayıt" : "🔐 Giriş";
     if (pw) pw.autocomplete = __authMode === "register" ? "new-password" : "current-password";
     showAuthError("");
 }

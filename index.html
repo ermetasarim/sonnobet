@@ -145,11 +145,11 @@
     <!-- Hesap: Kayıt / Giriş -->
     <section id="authScreen" class="screen hidden" aria-labelledby="authTitle">
         <div class="authCard authCardV2">
-            <h1 id="authTitle" class="authTitle">Hesap Yarat</h1>
+            <h1 id="authTitle" class="authTitle">🔐 Giriş</h1>
 
             <div class="authTabs" role="tablist">
-                <button type="button" class="authTab active" id="authTabLogin" data-auth-tab="login">Giriş</button>
-                <button type="button" class="authTab" id="authTabRegister" data-auth-tab="register">Kayıt Ol</button>
+                <button type="button" class="authTab active" id="authTabLogin" data-auth-tab="login">🔐 Giriş</button>
+                <button type="button" class="authTab" id="authTabRegister" data-auth-tab="register">🪪 Kayıt</button>
             </div>
 
             <form id="authForm" class="authForm" autocomplete="on">
@@ -240,16 +240,16 @@
         <div class="menuHeroStack">
             <button id="startBtn" class="menuHeroBtn menuHeroStart" type="button">
                 <span class="menuHeroLabel">BAŞLA</span>
-                <span class="startHint"><svg class="startHintIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Yeni Kariyer, Tarih: <em id="careerStartDate">—</em></span>
+                <span class="startHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em id="careerStartDate">—</em></span>
             </button>
             <div class="menuHeroPair">
                 <button id="continueBtn" class="menuHeroBtn menuHeroLoad" type="button" disabled>
                     <span class="menuHeroLabel">YÜKLE</span>
-                    <span id="loadDateHint" class="heroDateHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em></span>
+                    <span id="loadDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">📂</span> Son Tarih: <em>—</em></span>
                 </button>
                 <button id="careerContinueBtn" class="menuHeroBtn menuHeroContinue" type="button" disabled>
                     <span class="menuHeroLabel" id="careerContinueLabel">DEVAM</span>
-                    <span id="careerDateHint" class="heroDateHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em></span>
+                    <span id="careerDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">➡️</span> Son Tarih: <em>—</em></span>
                 </button>
             </div>
             <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
@@ -312,14 +312,9 @@
             </div>
             </details>
 
-            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
-                <span class="menuToolIcon" aria-hidden="true">📊</span>
-                <span class="menuToolLabel">İstatistik</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
-            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🛡️</span>
-                <span class="menuToolLabel">Görevler</span>
+            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Yönetim Araçları">
+                <span class="menuToolIcon" aria-hidden="true">🔐</span>
+                <span class="menuToolLabel">Yönetim Araçları</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
             <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
@@ -329,12 +324,17 @@
             </button>
             <button id="openBadgesBtn" class="menuToolBtn toolMedal" type="button">
                 <span class="menuToolIcon" aria-hidden="true">🎖️</span>
-                <span class="menuToolLabel">Rozetler</span>
+                <span class="menuToolLabel">Başarılar</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
-            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Admin">
-                <span class="menuToolIcon" aria-hidden="true">⚙️</span>
-                <span class="menuToolLabel">Admin</span>
+            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🎯</span>
+                <span class="menuToolLabel">Görevler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
+                <span class="menuToolIcon" aria-hidden="true">📊</span>
+                <span class="menuToolLabel">İstatistikler</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
         </div>
@@ -364,7 +364,7 @@
                 </div>
                 <p id="adminAuthError" class="authError hidden" role="alert"></p>
                 <button type="submit" id="adminAuthSubmit" class="authSubmitBtn">GİRİŞ YAP</button>
-                <button type="button" id="adminAuthBack" class="ghostBtn">← Ana menü</button>
+                <button type="button" id="adminAuthBack" class="ghostBtn">← Geri Dön</button>
             </form>
         </div>
         <div id="adminHomeScreen" class="hidden">
@@ -385,20 +385,20 @@
                     <small>Kurum ve senaryolar</small>
                 </button>
             </div>
-            <button type="button" id="adminHomeBack" class="ghostBtn">← Ana menü</button>
+            <button type="button" id="adminHomeBack" class="ghostBtn">← Geri Dön</button>
 
             <div id="adminQPortal" class="adminQPortal hidden">
                 <div id="adminQViewInst">
                     <h3>Kurumlar</h3>
                     <p class="sectionHint">Düzenlemek için kurum seç.</p>
                     <div id="adminQInstGrid" class="adminQGrid2"></div>
-                    <button type="button" id="adminQBackHome" class="ghostBtn">← Admin</button>
+                    <button type="button" id="adminQBackHome" class="ghostBtn">← Geri Dön</button>
                 </div>
                 <div id="adminQViewScen" class="hidden">
                     <h3 id="adminQScenTitle">Senaryolar</h3>
                     <div id="adminQScenList" class="adminQList"></div>
-                    <button type="button" id="adminQAddScen" class="adminQAddBtn">+ Yeni senaryo</button>
-                    <button type="button" id="adminQBackInst" class="ghostBtn">← Kurumlar</button>
+                    <button type="button" id="adminQAddScen" class="adminQAddBtn">+ Yeni Senaryo</button>
+                    <button type="button" id="adminQBackInst" class="ghostBtn">← Geri Dön</button>
                 </div>
                 <div id="adminQViewScenEdit" class="hidden">
                     <h3 id="adminQScenEditTitle">Senaryo düzenle</h3>
@@ -412,14 +412,14 @@
                         <button type="button" id="adminQScenSave" class="adminQSaveBtn">KAYDET</button>
                         <button type="button" id="adminQScenDelete" class="adminQDelBtn">SİL</button>
                     </div>
-                    <button type="button" id="adminQBackScenEdit" class="ghostBtn">← Senaryolar</button>
+                    <button type="button" id="adminQBackScenEdit" class="ghostBtn">← Geri Dön</button>
                 </div>
                 <div id="adminQViewList" class="hidden">
                     <h3 id="adminQListTitle">Sorular</h3>
                     <p id="adminQListHint" class="sectionHint"></p>
                     <div id="adminQList" class="adminQList"></div>
-                    <button type="button" id="adminQAdd" class="adminQAddBtn">+ Yeni soru</button>
-                    <button type="button" id="adminQBackScen" class="ghostBtn">← Senaryolar</button>
+                    <button type="button" id="adminQAdd" class="adminQAddBtn">+ Yeni Soru</button>
+                    <button type="button" id="adminQBackScen" class="ghostBtn">← Geri Dön</button>
                 </div>
                 <div id="adminQViewEdit" class="hidden">
                     <h3 id="adminQEditTitle">Soru düzenle</h3>
@@ -442,7 +442,7 @@
                         <button type="button" id="adminQSave" class="adminQSaveBtn">KAYDET</button>
                         <button type="button" id="adminQDelete" class="adminQDelBtn">SİL</button>
                     </div>
-                    <button type="button" id="adminQBackEdit" class="ghostBtn">← Sorular</button>
+                    <button type="button" id="adminQBackEdit" class="ghostBtn">← Geri Dön</button>
                 </div>
             </div>
 
@@ -457,8 +457,8 @@
                         <span id="adminMPageLabel">1 / 1</span>
                         <button type="button" id="adminMNext" class="ghostBtn">›</button>
                     </div>
-                    <button type="button" id="adminMAdd" class="adminQAddBtn">+ Yeni üye</button>
-                    <button type="button" id="adminMBackHome" class="ghostBtn">← Admin</button>
+                    <button type="button" id="adminMAdd" class="adminQAddBtn">+ Yeni Üye</button>
+                    <button type="button" id="adminMBackHome" class="ghostBtn">← Geri Dön</button>
                 </div>
                 <div id="adminMViewEdit" class="hidden">
                     <h3 id="adminMEditTitle">Üye düzenle</h3>
@@ -479,7 +479,7 @@
                         <button type="button" id="adminMSave" class="adminQSaveBtn">KAYDET</button>
                         <button type="button" id="adminMDelete" class="adminQDelBtn">SİL</button>
                     </div>
-                    <button type="button" id="adminMBackList" class="ghostBtn">← Üyeler</button>
+                    <button type="button" id="adminMBackList" class="ghostBtn">← Geri Dön</button>
                 </div>
             </div>
         </div>

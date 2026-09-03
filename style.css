@@ -8798,3 +8798,47 @@ html, body, button, input, select, textarea {
 #menuScreen .menuLogo {
     border-radius: 16px;
 }
+
+#menuScreen .menuLogoCard {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(8, 15, 28, 0.96)) !important;
+    border: 1px solid #314866 !important;
+}
+
+#menuScreen #startBtn .startHint,
+#menuScreen #startBtn .startHint em,
+#menuScreen .heroDateHint,
+#menuScreen .heroDateHint em {
+    color: #94a3b8 !important;
+}
+
+#menuScreen #startBtn .startHint,
+#menuScreen .heroDateHint {
+    margin-top: 2px !important;
+    display: block;
+}
+
+#menuScreen #startBtn.menuHeroStart,
+#menuScreen #continueBtn.menuHeroLoad,
+#menuScreen #careerContinueBtn.menuHeroContinue {
+    gap: 2px !important;
+}
+
+#menuScreen #startBtn .startHint,
+#menuScreen .heroDateHint {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    line-height: 1 !important;
+}
+#menuScreen .heroDateIcon,
+#menuScreen .startHintIcon,
+#menuScreen .startHint svg,
+#menuScreen .heroDateHint svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    position: relative;
+    top: 0;
+}

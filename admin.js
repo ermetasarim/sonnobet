@@ -182,13 +182,16 @@
             const ids = Object.keys(pack);
             if (!ids.length) list.innerHTML = `<p class="adminMuted">Bu kurumda senaryo yok.</p>`;
             else {
-                list.innerHTML = ids.map((sid) => {
+                const marks = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"];
+                list.innerHTML = ids.map((sid, i) => {
                     const s = pack[sid] || {};
                     const n = (s.questions || []).length;
+                    const mark = marks[i] || ((i + 1) + ".");
                     return `<div class="adminQRow adminQScenRow">
                         <button type="button" class="adminQScenOpen" data-sid="${escapeAttr(sid)}">
-                            <strong>${escapeHtml(s.title || sid)}</strong>
-                            <small>${n} soru · ${escapeHtml(sid)}</small>
+                            <strong>${mark} - ${escapeHtml(s.title || sid)}</strong>
+                            <small>Soru: ${n}</small>
+                            <small>ID: ${escapeHtml(sid)}</small>
                         </button>
                         <button type="button" class="adminQMini" data-edit-sid="${escapeAttr(sid)}">Düzenle</button>
                     </div>`;
@@ -212,7 +215,7 @@
         const isNew = !sid;
         scenEditOldId = isNew ? "" : sid;
         const s = isNew ? { title: "", description: "", questions: [] } : (((bank()[curInst] || {})[sid]) || {});
-        if ($("adminQScenEditTitle")) $("adminQScenEditTitle").textContent = isNew ? "Yeni senaryo" : "Senaryo düzenle";
+        if ($("adminQScenEditTitle")) $("adminQScenEditTitle").textContent = isNew ? "Yeni Senaryo" : "Senaryo düzenle";
         if ($("adminQScenId")) {
             $("adminQScenId").value = sid || "";
             $("adminQScenId").disabled = false;
@@ -319,7 +322,7 @@
         const qs = ((((bank()[curInst] || {})[curSid]) || {}).questions) || [];
         const q = index < 0 ? emptyQuestion() : clone(qs[index] || emptyQuestion());
         const title = $("adminQEditTitle");
-        if (title) title.textContent = index < 0 ? "Yeni soru" : ("Soru " + (index + 1));
+        if (title) title.textContent = index < 0 ? "Yeni Soru" : ("Soru " + (index + 1));
         if ($("adminQStem")) $("adminQStem").value = q.stem || "";
         const opts = q.options || ["", "", "", ""];
         for (let i = 0; i < 4; i++) {
@@ -535,7 +538,7 @@
     function openMemberEditor(row) {
         memberEditId = row && row.id ? row.id : null;
         const title = $("adminMEditTitle");
-        if (title) title.textContent = memberEditId ? "Üye düzenle" : "Yeni üye";
+        if (title) title.textContent = memberEditId ? "Üye düzenle" : "Yeni Üye";
         if ($("adminMName")) $("adminMName").value = (row && row.display_name) || "";
         if ($("adminMEmail")) $("adminMEmail").value = (row && row.email) || "";
         if ($("adminMPass")) $("adminMPass").value = "";
