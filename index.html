@@ -145,11 +145,11 @@
     <!-- Hesap: Kayıt / Giriş -->
     <section id="authScreen" class="screen hidden" aria-labelledby="authTitle">
         <div class="authCard authCardV2">
-            <h1 id="authTitle" class="authTitle">🔐 Giriş</h1>
+            <h1 id="authTitle" class="authTitle hidden" hidden></h1>
 
             <div class="authTabs" role="tablist">
-                <button type="button" class="authTab active" id="authTabLogin" data-auth-tab="login">🔐 Giriş</button>
-                <button type="button" class="authTab" id="authTabRegister" data-auth-tab="register">🪪 Kayıt</button>
+                <button type="button" class="authTab active" id="authTabLogin" data-auth-tab="login">Giriş Yap</button>
+                <button type="button" class="authTab" id="authTabRegister" data-auth-tab="register">Kayıt Ol</button>
             </div>
 
             <form id="authForm" class="authForm" autocomplete="on">
@@ -612,7 +612,7 @@
 <!-- Modals -->
 <div id="leaderboardModal" class="modal hidden">
     <div class="modalCard">
-        <div class="modalHead"><h3 class="lbModalTitle"><svg class="lbTrophyIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg> Liderlik Tablosu</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
+        <div class="modalHead"><h3 class="lbModalTitle">🏆 Liderlik</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
         <div class="lbTabs" role="tablist">
             <button type="button" class="lbTab active" data-lb-tab="daily" role="tab" aria-selected="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
@@ -705,7 +705,7 @@
 <div id="badgesModal" class="modal hidden" aria-hidden="true">
     <div class="modalCard">
         <div class="modalHead">
-            <h3>Rozetler</h3>
+            <h3>🎖️ Başarılar</h3>
             <button type="button" class="ghostBtn" data-close-modal="badgesModal">Kapat</button>
         </div>
         <div id="badgesGrid" class="badgesGrid"></div>
@@ -734,7 +734,7 @@
 <div id="chainModal" class="modal hidden" aria-hidden="true">
     <div class="modalCard">
         <div class="modalHead">
-            <h3>Haftalık Görev Zinciri</h3>
+            <h3>🎯 Görevler</h3>
             <button type="button" class="ghostBtn" data-close-modal="chainModal">Kapat</button>
         </div>
         <div id="chainList" class="panelTable chainList"></div>
@@ -743,7 +743,7 @@
 
 <div id="statsModal" class="modal hidden">
     <div class="modalCard">
-        <div class="modalHead"><h3>İstatistik & Sonlar</h3><button type="button" class="ghostBtn" data-close-modal="statsModal">Kapat</button></div>
+        <div class="modalHead"><h3>📊 İstatistikler</h3><button type="button" class="ghostBtn" data-close-modal="statsModal">Kapat</button></div>
         <div id="statsPanelList" class="panelTable"></div>
     </div>
 </div>
