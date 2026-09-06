@@ -2516,6 +2516,12 @@ function refreshScenarioSelect(inst) {
     // Senaryo artık kurum içinden otomatik seçilir; UI yok.
 }
 
+function escapeQuestionHtml(s) {
+    return String(s || "").replace(/[&<>"]/g, function (c) {
+        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c];
+    });
+}
+
 function difficultyBanner(diff) {
     const d = String(diff || "medium").toLowerCase();
     if (d === "easy" || d === "kolay") return "🟢 Kolay Seviye";
@@ -2577,14 +2583,11 @@ function questionToEvent(question, index, scenarioTitle, shiftType, scenarioDesc
     const shuffled = shuffleChoices(choices);
     const diffLabel = diff === "hard" ? " · Zor" : diff === "easy" ? " · Temel" : "";
 
-    const zoneText = (scenarioDesc && String(scenarioDesc).trim())
-        ? String(scenarioDesc).trim()
-        : (scenarioTitle || "");
     return {
-        title: `Soru ${index + 1}/15 · ${scenarioTitle}${diffLabel}`,
+        title: `Soru: ${index + 1}/15 - Senaryo: ${scenarioTitle || ""}`,
         description: question.stem,
         hint: "",
-        zone: zoneText,
+        zone: "",
         icon: diff === "hard" ? "⚠️" : "📋",
         shiftType: question.shift || shiftType || "both",
         difficulty: diff,
@@ -2820,7 +2823,23 @@ function nextEvent() {
     if (et2) et2.classList.remove("hidden");
     const ic2 = $("eventIcon");
     if (ic2) ic2.classList.remove("hidden");
-    $("eventDescription").textContent = withDifficultyPrefix(event, description);
+    const descEl = $("eventDescription");
+    if (descEl) {
+        descEl.classList.remove("qDiffEasy", "qDiffMid", "qDiffHard");
+        const d = String((event && event.difficulty) || "").toLowerCase();
+        const prefixed = withDifficultyPrefix(event, description);
+        if (event && event.scenarioQuestion) {
+            if (d === "easy" || d === "kolay") descEl.classList.add("qDiffEasy");
+            else if (d === "hard" || d === "zor") descEl.classList.add("qDiffHard");
+            else descEl.classList.add("qDiffMid");
+            const banner = difficultyBanner(event.difficulty);
+            let body = String(description || "").trim();
+            body = body.replace(/^(🟢|🟡|🔴)\s*(Kolay Seviye|Orta Seviye|Zor Seviye)\s*:?\s*/i, "");
+            descEl.innerHTML = `<span class="qDiffTag">${escapeQuestionHtml(banner)}:</span> <span class="qDiffBody">${escapeQuestionHtml(body)}</span>`;
+        } else {
+            descEl.textContent = prefixed;
+        }
+    }
     const stEv = $("shiftTypeDisplay");
     if (stEv) stEv.textContent = formatShiftDisplay(event.shiftType || (window.game && game.shiftType) || "day");
     clearRadio();
@@ -2944,6 +2963,9 @@ function openRetryAdModal(reason) {
     m.classList.remove("hidden");
     m.setAttribute("aria-hidden", "false");
     m.style.display = "flex";
+    if (window.AdReward && typeof window.AdReward.fillAdSenseSlots === "function") {
+        window.AdReward.fillAdSenseSlots();
+    }
 }
 
 function playFakeAdThen(cb) {

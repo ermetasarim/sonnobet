@@ -2396,7 +2396,7 @@ body.theme-day #eventArea {
 body.theme-day #eventTitle { color: #fff !important; }
 body.theme-day #eventDescription {
     background: rgba(255,255,255,0.06);
-    border-left: 3px solid #fbbf24;
+    border-left: none;
     color: #e8eef6 !important;
 }
 body.theme-day .choice {
@@ -8842,3 +8842,83 @@ html, body, button, input, select, textarea {
     position: relative;
     top: 0;
 }
+
+.adSlot{width:100%;min-height:90px;margin:12px 0;overflow:hidden;border:1px solid #314866;border-radius:12px;background:rgba(15,23,42,.55)}
+.adSlot ins.adsbygoogle{display:block;min-height:90px}
+
+#eventDescription.qDiffEasy,
+#eventDescription.qDiffMid,
+#eventDescription.qDiffHard {
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #314866;
+}
+#eventDescription.qDiffEasy {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: #34d399;
+    color: #ecfdf5;
+}
+#eventDescription.qDiffMid {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: #fbbf24;
+    color: #fffbeb;
+}
+#eventDescription.qDiffHard {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: #f87171;
+    color: #fef2f2;
+}
+
+
+#eventDescription,
+body.theme-day #eventDescription,
+body.theme-night #eventDescription {
+    border-left: none !important;
+}
+body.theme-day #eventArea {
+    border-color: #314866 !important;
+    box-shadow: none !important;
+}
+
+
+#gameScreen #eventDescription.qDiffEasy,
+#gameScreen #eventDescription.qDiffMid,
+#gameScreen #eventDescription.qDiffHard,
+body.theme-day #eventDescription.qDiffEasy,
+body.theme-day #eventDescription.qDiffMid,
+body.theme-day #eventDescription.qDiffHard,
+body.theme-night #eventDescription.qDiffEasy,
+body.theme-night #eventDescription.qDiffMid,
+body.theme-night #eventDescription.qDiffHard {
+    display: block;
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+    border: 1px solid #314866 !important;
+    border-left: 1px solid #314866 !important;
+    line-height: 1.55 !important;
+    font-size: 14px !important;
+}
+#gameScreen #eventDescription.qDiffEasy {
+    background: rgba(16, 185, 129, 0.14) !important;
+    border-color: #22c55e !important;
+    color: #f8fafc !important;
+}
+#gameScreen #eventDescription.qDiffMid {
+    background: rgba(234, 179, 8, 0.12) !important;
+    border-color: #eab308 !important;
+    color: #f8fafc !important;
+}
+#gameScreen #eventDescription.qDiffHard {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: #ef4444 !important;
+    color: #f8fafc !important;
+}
+#eventDescription .qDiffTag {
+    font-weight: 700;
+    margin-right: 4px;
+}
+#eventDescription.qDiffEasy .qDiffTag { color: #4ade80; }
+#eventDescription.qDiffMid .qDiffTag { color: #facc15; }
+#eventDescription.qDiffHard .qDiffTag { color: #f87171; }
+#eventDescription .qDiffBody { color: #e2e8f0; font-weight: 500; }
+

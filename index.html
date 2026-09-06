@@ -10,7 +10,10 @@
     <meta name="theme-color" content="#0b1524">
     <meta name="description" content="Son Nöbet — Güvenlik Görevlisi Karar Simülasyonu">
     <meta name="google-adsense-account" content="ca-pub-2582945796090029">
+    <meta name="google-admob-app-id" content="ca-app-pub-2582945796090029~7170643036">
     <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <title>Son Nöbet: Kriz Operasyonu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -646,14 +649,21 @@
 
 <div id="adOverlay" class="adOverlay hidden" aria-hidden="true">
     <div class="adOverlayCard">
-        <div class="adOverlayBadge">TEST REKLAM</div>
-        <h3>Ödüllü reklam simülasyonu</h3>
-        <p>Canlıda burada gerçek reklam ağı çalışır. Test için süre dolunca ödülü alabilirsin.</p>
-        <div class="adOverlayTimerWrap">
-            <span id="adOverlayTimer">5</span> sn
+        <div class="adOverlayBadge">REKLAM</div>
+        <h3 id="adOverlayHeading">Reklam</h3>
+        <p id="adOverlayDesc">Reklamı izleyin. Süre bitince ödülünüz tanımlanır.</p>
+        <div class="adSlot" aria-label="Reklam">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2582945796090029"
+                 data-ad-slot="8406986470"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
         </div>
-        <button id="adOverlayClose" type="button" disabled>Ödül için bekleyin…</button>
-        <small>Bu panel yalnızca test modundadır (ads.js → provider: "test").</small>
+        <div class="adOverlayTimerWrap">
+            <span id="adOverlayTimer">8</span> sn
+        </div>
+        <button id="adOverlayClose" type="button" disabled>Bekleyin…</button>
     </div>
 </div>
 

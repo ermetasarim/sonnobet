@@ -888,8 +888,8 @@ window.GameHooks = {
 
         if (el("eventIcon")) el("eventIcon").textContent = event.icon || "📡";
         if (el("eventZoneLabel")) {
-            const z = event.zone || (window.game && (game.scenarioDesc || game.scenarioTitle)) || "";
-            el("eventZoneLabel").textContent = z ? `Senaryo: ${z}` : "";
+            el("eventZoneLabel").textContent = "";
+            el("eventZoneLabel").classList.add("hidden");
         }
         if (el("shiftTypeDisplay") && typeof formatShiftDisplay === "function") {
             el("shiftTypeDisplay").textContent = formatShiftDisplay(event.shiftType || game.shiftType || "day");

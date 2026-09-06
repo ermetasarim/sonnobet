@@ -1,11 +1,30 @@
 /**
- * Son Nöbet — web prototip reklam (tek kanal)
- * - Vardiya sonu 2× kazanç
- * - Yanlış cevap / süre dolunca tekrar deneme
- * Play Store + AdMob gelince showRewarded() gerçek API'ye bağlanır.
+ * Son Nöbet — reklam kanalı
+ * Web: AdSense görüntülü birim
+ * Uygulama: AdMob ödüllü
  */
 (function () {
-    const AD_SECONDS = 3;
+    const ADMOB = {
+        APP_ID: "ca-app-pub-2582945796090029~7170643036",
+        REWARDED: "ca-app-pub-2582945796090029/2508131848",
+        TEST_REWARDED_ANDROID: "ca-app-pub-3940256099942544/5224354917",
+        USE_TEST: true
+    };
+    const AD_SECONDS = 8;
+    const ADSENSE_SLOT = "8406986470";
+
+    function fillAdSenseSlots() {
+        const nodes = document.querySelectorAll("ins.adsbygoogle");
+        if (!nodes.length) return;
+        window.adsbygoogle = window.adsbygoogle || [];
+        nodes.forEach(function (el) {
+            if (el.getAttribute("data-adsbygoogle-status")) return;
+            try {
+                window.adsbygoogle.push({});
+            } catch (e) {}
+        });
+    }
+
     let claimedThisShift = false;
     let shiftBaseline = { money: 0, score: 0 };
     let adBusy = false;
@@ -25,11 +44,11 @@
         el.innerHTML = `
             <div class="adOverlayCard">
                 <span class="adOverlayBadge">REKLAM</span>
-                <h3 id="adOverlayHeading">Reklam oynatılıyor</h3>
-                <p id="adOverlayDesc">Kısa bir reklam izliyorsunuz. Lütfen bekleyin…</p>
-                <div class="adOverlayTimerWrap"><span id="adOverlayTimer">3</span>s</div>
+                <h3 id="adOverlayHeading">Reklam</h3>
+                <p id="adOverlayDesc">Reklamı izleyin. Süre bitince ödülünüz tanımlanır.</p>
+                <div class="adSlot" aria-label="Reklam"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2582945796090029" data-ad-slot="8406986470" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+                <div class="adOverlayTimerWrap"><span id="adOverlayTimer">8</span> sn</div>
                 <button id="adOverlayClose" class="ghostBtn" type="button" disabled>Bekleyin…</button>
-                <small>Web prototip simülasyonu · Play Store’da gerçek reklam gelecek</small>
             </div>`;
         document.body.appendChild(el);
         return el;
@@ -43,7 +62,46 @@
      * @param {string} [opts.desc]
      * @returns {Promise<boolean>}
      */
+    function rewardedUnitId() {
+        return ADMOB.USE_TEST ? ADMOB.TEST_REWARDED_ANDROID : ADMOB.REWARDED;
+    }
+
+    function hasNativeAdMob() {
+        try {
+            return !!(window.Capacitor && (window.AdMob || (window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob)));
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function showRewardedNative() {
+        const AdMob = window.AdMob || (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob);
+        const unitId = rewardedUnitId();
+        return Promise.resolve()
+            .then(function () {
+                if (AdMob.prepareRewardVideoAd) {
+                    return AdMob.prepareRewardVideoAd({ adId: unitId, isTesting: !!ADMOB.USE_TEST });
+                }
+            })
+            .then(function () {
+                if (AdMob.showRewardVideoAd) return AdMob.showRewardVideoAd();
+                if (AdMob.showRewardedAd) return AdMob.showRewardedAd({ adId: unitId });
+                throw new Error("AdMob eklentisi yok");
+            })
+            .then(function () { return true; });
+    }
+
     function showRewarded(opts) {
+        opts = opts || {};
+        if (hasNativeAdMob()) {
+            return showRewardedNative().catch(function () {
+                return showRewardedWeb(opts);
+            });
+        }
+        return showRewardedWeb(opts);
+    }
+
+    function showRewardedWeb(opts) {
         opts = opts || {};
         const autoClose = opts.autoClose !== false;
         return new Promise((resolve) => {
@@ -57,8 +115,8 @@
             const closeBtn = $("adOverlayClose");
             const heading = $("adOverlayHeading");
             const desc = $("adOverlayDesc");
-            if (heading) heading.textContent = opts.title || "Reklam oynatılıyor";
-            if (desc) desc.textContent = opts.desc || "Kısa bir reklam izliyorsunuz. Lütfen bekleyin…";
+            if (heading) heading.textContent = opts.title || "Reklam";
+            if (desc) desc.textContent = opts.desc || "Reklamı izleyin. Süre bitince ödülünüz tanımlanır.";
             let left = AD_SECONDS;
             if (timerEl) timerEl.textContent = String(left);
             if (closeBtn) {
@@ -66,6 +124,8 @@
                 closeBtn.textContent = "Bekleyin…";
             }
             overlay.classList.remove("hidden");
+            overlay.setAttribute("aria-hidden", "false");
+            fillAdSenseSlots();
 
             const finish = (ok) => {
                 adBusy = false;
@@ -132,6 +192,7 @@
     }
 
     function onShiftEnd() {
+        fillAdSenseSlots();
         claimedThisShift = false;
         const panel = $("adRewardPanel");
         const btn = $("watchAdBtn");
@@ -200,15 +261,21 @@
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", bindShiftEndButton);
+        document.addEventListener("DOMContentLoaded", function () {
+            bindShiftEndButton();
+            fillAdSenseSlots();
+        });
     } else {
         bindShiftEndButton();
+        fillAdSenseSlots();
     }
 
     window.AdReward = {
         onShiftEnd,
         onShiftStart,
         showRewarded,
-        applyDoubleReward
+        applyDoubleReward,
+        fillAdSenseSlots,
+        ADMOB
     };
 })();
