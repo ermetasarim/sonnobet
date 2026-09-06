@@ -8922,3 +8922,89 @@ body.theme-night #eventDescription.qDiffHard {
 #eventDescription.qDiffHard .qDiffTag { color: #f87171; }
 #eventDescription .qDiffBody { color: #e2e8f0; font-weight: 500; }
 
+
+.toastChips {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto !important;
+    gap: 8px !important;
+    width: 100%;
+}
+.toastChip {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 8px 6px !important;
+    border-radius: 10px !important;
+}
+
+
+.feedbackToast .toastIcon { display: none !important; }
+.feedbackToast {
+    justify-content: center !important;
+    text-align: center !important;
+}
+.feedbackToast .toastBody {
+    width: 100%;
+    text-align: center;
+}
+.feedbackToast .toastTitle {
+    text-align: center;
+    display: block;
+}
+.feedbackToast .toastChips {
+    margin: 0 auto;
+    justify-items: stretch;
+}
+.feedbackToast .toastChip strong {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+
+#eventDescription.readyBox {
+    min-height: 88px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 22px 16px !important;
+}
+
+
+#streakDisplay,
+.streakChip,
+.streakInline,
+.seriBonus { display: none !important; }
+
+
+#institutionScreen .instBrand,
+#institutionScreen .instLogoCard {
+    width: 100%;
+    box-sizing: border-box;
+}
+#institutionScreen .instLogoCard {
+    margin: 0 0 12px;
+    padding: 0;
+    overflow: hidden;
+    line-height: 0;
+    border: 1px solid #314866;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(8, 15, 28, 0.96));
+}
+#institutionScreen .instLogo {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 16px;
+}
+#institutionScreen > h2 { display: none !important; }
+

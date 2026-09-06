@@ -489,7 +489,11 @@
     </section>
 
     <section id="institutionScreen" class="screen hidden">
-        <h2>Kurumunu Seç</h2>
+        <div class="menuBrand instBrand">
+            <div class="menuLogoCard instLogoCard">
+                <img class="menuLogo instLogo" src="logo.png" width="380" height="auto" alt="Son Nöbet">
+            </div>
+        </div>
         <p class="sectionHint">Her kurumun bölgeleri, riskleri ve hikâye hattı farklıdır.</p>
         <!-- Gizli varsayılan: shiftType her zaman day (gece/gündüz seçimi kaldırıldı) -->
         <select id="shiftTypeSelect" class="hidden" aria-hidden="true" hidden>
@@ -536,7 +540,7 @@
         </div>
 
         <!-- Gizli / sade: meter değerleri JS için korunuyor, görsel sade -->
-        <div class="meters compactMeters">
+        <div class="meters compactMeters hidden" aria-hidden="true" hidden>
             <div class="meter"><div class="meterLabel"><span>İtibar</span><span id="repMeterVal">50</span></div><div class="meterTrack"><div id="repMeter" class="meterFill rep"></div></div></div>
             <div class="meter"><div class="meterLabel"><span>Stres</span><span id="stressMeterVal">0</span></div><div class="meterTrack"><div id="stressMeter" class="meterFill stress"></div></div></div>
             <div class="meter"><div class="meterLabel"><span>Risk</span><span id="riskMeterVal">20</span></div><div class="meterTrack"><div id="riskMeter" class="meterFill risk"></div></div></div>
@@ -581,7 +585,7 @@
                     <span class="timerBarLabel">Geri sayım · <strong id="timerValue">20</strong>s</span>
                 </div>
             </div>
-            <div class="hintRow">
+            <div class="hintRow hidden" id="hintRow">
                 <button id="hintBtn" class="ghostBtn hintBtn" type="button">💡 İpucu · 100 ₺</button>
             </div>
             <div id="choices"></div>

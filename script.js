@@ -1180,6 +1180,9 @@ function startShift() {
 
     $("eventDescription").textContent =
         "Hazırlan. Oyun başlıyor";
+    $("eventDescription").classList.add("readyBox");
+    const hintRow0 = $("hintRow");
+    if (hintRow0) hintRow0.classList.add("hidden");
 
     clearRadio();
 
@@ -2372,17 +2375,19 @@ let __feedbackToastTimer = null;
 
 function positionFeedbackToast(toast) {
     if (!toast) return;
-    // 2. şık (index 1) ile aynı dikey hiza; yatayda ekran ortası
+    // 2. ve 3. şık arası dikey orta; yatayda ekran ortası
     const choices = document.querySelectorAll("#choices .choice");
-    let anchor = choices[1] || choices[0] || document.getElementById("choices");
-    if (!anchor) {
+    const a = choices[1] || choices[0];
+    const b = choices[2] || choices[1] || choices[0];
+    if (!a) {
         toast.style.top = "42%";
         toast.style.left = "50%";
         toast.style.transform = "translate(-50%, -50%)";
         return;
     }
-    const rect = anchor.getBoundingClientRect();
-    const midY = rect.top + rect.height / 2;
+    const ra = a.getBoundingClientRect();
+    const rb = b.getBoundingClientRect();
+    const midY = (ra.bottom + rb.top) / 2;
     // Ekran dışına taşmasın
     const minY = 80;
     const maxY = window.innerHeight - 80;
@@ -2424,7 +2429,6 @@ function showChoiceFeedback(choice) {
     toast.classList.add(good ? "good" : "bad", "toastIn");
     toast.setAttribute("aria-hidden", "false");
     toast.innerHTML =
-        `<div class="toastIcon">${good ? "✓" : "!"}</div>` +
         `<div class="toastBody">` +
         `<strong class="toastTitle">${headline}</strong>` +
         (chips.length ? `<div class="toastChips">${chips.join("")}</div>` : `<div class="toastChips"><span class="toastChip">Etki sınırlı</span></div>`) +
@@ -2828,6 +2832,9 @@ function nextEvent() {
         descEl.classList.remove("qDiffEasy", "qDiffMid", "qDiffHard");
         const d = String((event && event.difficulty) || "").toLowerCase();
         const prefixed = withDifficultyPrefix(event, description);
+        descEl.classList.remove("readyBox");
+        const hintRow = $("hintRow");
+        if (hintRow) hintRow.classList.toggle("hidden", !(event && event.scenarioQuestion));
         if (event && event.scenarioQuestion) {
             if (d === "easy" || d === "kolay") descEl.classList.add("qDiffEasy");
             else if (d === "hard" || d === "zor") descEl.classList.add("qDiffHard");

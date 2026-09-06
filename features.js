@@ -512,11 +512,14 @@ window.Features = Features;
     /* 3 — Seri */
     function updateStreakUI() {
         const el = $("streakDisplay");
-        if (!el || !window.game) return;
-        const s = game.consecutiveGood || 0;
-        el.textContent = s > 0 ? `Seri ${s}` : "Seri —";
-        el.classList.toggle("hot", s >= 3);
-        el.classList.toggle("hidden", false);
+        if (el) {
+            el.textContent = "";
+            el.classList.add("hidden");
+        }
+        document.querySelectorAll(".streakChip, .streakInline, .seriBonus").forEach((n) => {
+            n.classList.add("hidden");
+            n.textContent = "";
+        });
     }
 
     /* 4 — Telsiz TTS kısa kanal */
@@ -805,7 +808,7 @@ function lbRankMarkFeat(rank) {
         updateStreakUI();
         radioBlip(choice.correct ? "good" : "bad");
         if (choice.correct && (window.game?.consecutiveGood || 0) >= 5) {
-            spawnFloat("Seri bonus!", true);
+            
         }
     }
 
