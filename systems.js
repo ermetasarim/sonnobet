@@ -548,26 +548,23 @@ function npcFlavor(event) {
     return "";
 }
 
-function stopEventTimer() {
+function stopEventTimer(hideBox) {
     if (activeTimer) clearInterval(activeTimer);
     activeTimer = null;
     const box = el("timerBox");
-    if (box) box.classList.add("hidden");
+    if (box && hideBox) box.classList.add("hidden");
+    if (box && !hideBox) box.classList.remove("urgent");
 }
 
 function startEventTimer(event) {
     try {
         if (localStorage.getItem("son_nobet_timer_on") === "0") {
-            stopEventTimer();
-            const box = el("timerBox");
-            if (box) box.classList.add("hidden");
+            stopEventTimer(true);
             return;
         }
         const tt = el("timerToggle");
         if (tt && !tt.checked) {
-            stopEventTimer();
-            const box = el("timerBox");
-            if (box) box.classList.add("hidden");
+            stopEventTimer(true);
             return;
         }
     } catch (e) {}
@@ -860,7 +857,7 @@ window.GameHooks = {
         renderInventory();
         renderCareerBadge();
         renderMap(null);
-        if (el("eventIcon")) el("eventIcon").textContent = "📡";
+        if (el("eventIcon")) el("eventIcon").textContent = "🤔";
         if (el("procedureBadge")) {
             el("procedureBadge").classList.toggle("hidden", !game.procedureMode);
         }
@@ -886,7 +883,7 @@ window.GameHooks = {
         renderCamera(event);
         renderCoopHint(event);
 
-        if (el("eventIcon")) el("eventIcon").textContent = event.icon || "📡";
+        if (el("eventIcon")) el("eventIcon").textContent = "🤔";
         if (el("eventZoneLabel")) {
             el("eventZoneLabel").textContent = "";
             el("eventZoneLabel").classList.add("hidden");

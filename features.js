@@ -1245,7 +1245,7 @@ function lbRankMarkFeat(rank) {
         if (!g) {
             btn.disabled = true;
             btn.classList.add("disabled");
-            btn.textContent = "💡 İpucu · " + HINT_COST + " ₺";
+            btn.textContent = "💡 İpucu";
             return;
         }
         // window.game senkron
@@ -1258,10 +1258,10 @@ function lbRankMarkFeat(rank) {
         const can = !used && canPay;
 
         if (used) {
-            btn.textContent = "💡 İpucu kullanıldı";
+            btn.textContent = "💡 İpucu";
             btn.title = "Bu soruda ipucu kullanıldı";
         } else {
-            btn.textContent = "💡 İpucu · " + HINT_COST + " ₺";
+            btn.textContent = "💡 İpucu";
             btn.title = canPay
                 ? ("2 yanlış şıkkı eleyin (−" + HINT_COST + " ₺)")
                 : ("Yetersiz para (" + cash + " ₺ / " + HINT_COST + " ₺)");

@@ -1241,7 +1241,7 @@ function startShift() {
 
 
 /* =========================================================
-   SONRAKİ OLAY
+   SONRAKİ SORU
    ========================================================= */
 
 $("nextEventBtn").addEventListener(
@@ -2231,7 +2231,7 @@ function resumeFromSave() {
     $("choices").innerHTML = "";
     $("nextEventBtn").classList.remove("hidden");
     $("nextEventBtn").textContent =
-        game.eventCount >= SHIFT_LENGTH ? "VARDİYAYI BİTİR" : "SONRAKİ OLAY";
+        game.eventCount >= SHIFT_LENGTH ? "VARDİYAYI BİTİR" : "SONRAKİ SORU";
 
     updateUI();
 }
@@ -2630,7 +2630,7 @@ function questionToEvent(question, index, scenarioTitle, shiftType, scenarioDesc
     const diffLabel = diff === "hard" ? " · Zor" : diff === "easy" ? " · Temel" : "";
 
     return {
-        title: `Soru: ${index + 1}/15`,
+        title: `🤔 Soru: ${String(index + 1).padStart(2, "0")}/${String(15).padStart(2, "0")} - Bol Şans!`,
         description: question.stem,
         hint: "",
         zone: "",
@@ -2868,7 +2868,7 @@ function nextEvent() {
     const et2 = $("eventTitle");
     if (et2) et2.classList.remove("hidden");
     const ic2 = $("eventIcon");
-    if (ic2) ic2.classList.remove("hidden");
+    if (ic2) ic2.classList.add("hidden");
     const descEl = $("eventDescription");
     if (descEl) {
         descEl.classList.remove("qDiffEasy", "qDiffMid", "qDiffHard");
@@ -3085,7 +3085,7 @@ function finalizeFailedChoice() {
     } catch (e) {}
     $("nextEventBtn").classList.remove("hidden");
     $("nextEventBtn").textContent =
-        game.eventCount >= SHIFT_LENGTH ? "VARDİYAYI BİTİR" : "SONRAKİ OLAY";
+        game.eventCount >= SHIFT_LENGTH ? "VARDİYAYI BİTİR" : "SONRAKİ SORU";
 }
 
 function offerRetryOrContinue(event, choice, button, reason) {
@@ -3162,7 +3162,7 @@ function selectChoice(button, choice, event) {
     $("nextEventBtn").textContent =
         game.eventCount >= SHIFT_LENGTH
             ? "VARDİYAYI BİTİR"
-            : "SONRAKİ OLAY";
+            : "SONRAKİ SORU";
 }
 
 
