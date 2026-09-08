@@ -9008,3 +9008,143 @@ body.theme-night #eventDescription.qDiffHard {
 }
 #institutionScreen > h2 { display: none !important; }
 
+#retryAdModal { display: none !important; }
+
+
+#eventDescription.readyBox,
+body.theme-day #eventDescription.readyBox,
+body.theme-night #eventDescription.readyBox,
+#gameScreen #eventDescription.readyBox {
+    background: rgba(37, 99, 235, 0.12) !important;
+    border: 1px solid #3b82f6 !important;
+    border-left: 1px solid #3b82f6 !important;
+    color: #e2e8f0 !important;
+    box-shadow: none !important;
+}
+
+
+#gameScreen .infoTable3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 8px !important;
+}
+#gameScreen .hintRow #hintBtn.hintBtn,
+#gameScreen #hintBtn.hintBtn {
+    background: #14352c !important;
+    border: 1px solid #22c55e !important;
+    color: #ffffff !important;
+}
+#gameScreen #hintBtn.hintBtn:hover:not(:disabled) {
+    background: #17463a !important;
+    border-color: #4ade80 !important;
+}
+#gameScreen #hintBtn.hintBtn:disabled,
+#gameScreen #hintBtn.hintBtn.disabled {
+    background: #14352c !important;
+    border-color: #166534 !important;
+    color: #86efac !important;
+    opacity: 0.55;
+}
+
+
+#gameScreen .infoTable,
+#gameScreen .infoTable2x2,
+#gameScreen .infoTable3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 8px !important;
+}
+#gameScreen .infoCell:has(#shiftTypeDisplay),
+#gameScreen .infoCell:has(.idLabel):nth-child(4) {
+    display: none !important;
+}
+
+
+#gameScreen .timerRow,
+#gameScreen .hintRow {
+    margin: 0 !important;
+    margin-top: 10px !important;
+    gap: 0;
+}
+#gameScreen .timerRow + .hintRow {
+    margin-top: 10px !important;
+}
+#gameScreen #timerBox.timerBar,
+#gameScreen #hintBtn.hintBtn {
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 14px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+}
+
+
+#gameScreen .infoTable,
+#gameScreen .infoTable2x2,
+#gameScreen .infoTable3 {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+
+#menuScreen #startBtn .menuHeroLabel {
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    padding-left: 0 !important;
+}
+#menuScreen #continueBtn .menuHeroLabel,
+#menuScreen #careerContinueBtn .menuHeroLabel {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    padding-left: 0 !important;
+}
+
+
+#menuScreen #startBtn .menuHeroLabel,
+#menuScreen #continueBtn .menuHeroLabel,
+#menuScreen #careerContinueBtn .menuHeroLabel {
+    letter-spacing: 0.2em !important;
+}
+
+
+#menuScreen #startBtn .menuHeroLabel,
+#menuScreen #continueBtn .menuHeroLabel,
+#menuScreen #careerContinueBtn .menuHeroLabel {
+    letter-spacing: 0.1em !important;
+}
+
+
+#menuScreen .menuHeroBtn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+#menuScreen .menuHeroBtn .menuHeroLabel,
+#menuScreen #startBtn .menuHeroLabel,
+#menuScreen #continueBtn .menuHeroLabel,
+#menuScreen #careerContinueBtn .menuHeroLabel {
+    text-align: center !important;
+    width: 100% !important;
+    display: block !important;
+}
+#menuScreen .startHint,
+#menuScreen .heroDateHint {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+

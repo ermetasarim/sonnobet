@@ -781,7 +781,7 @@ function refreshCareerMenuUI() {
             const txt = (d && !isNaN(d.getTime()))
                 ? String(d.getDate()).padStart(2,"0") + "/" + String(d.getMonth()+1).padStart(2,"0")
                 : "—";
-            cHint.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>` + txt + "</em>";
+            cHint.innerHTML = `<span class="heroDateIcon" aria-hidden="true">⚡</span> Son Tarih: <em>` + txt + "</em>";
         }
     } else {
         if (careerBtn) {
@@ -798,7 +798,7 @@ function refreshCareerMenuUI() {
         const cHint2 = el("careerDateHint");
         const startEl2 = el("careerStartDate");
         if (startEl2) startEl2.textContent = "—";
-        if (cHint2) cHint2.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>—</em>`;
+        if (cHint2) cHint2.innerHTML = `<span class="heroDateIcon" aria-hidden="true">⚡</span> Son Tarih: <em>—</em>`;
     }
 }
 

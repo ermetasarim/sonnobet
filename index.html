@@ -243,16 +243,16 @@
         <div class="menuHeroStack">
             <button id="startBtn" class="menuHeroBtn menuHeroStart" type="button">
                 <span class="menuHeroLabel">BAŞLA</span>
-                <span class="startHint"><svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em id="careerStartDate">—</em></span>
+                <span class="startHint"><span class="heroDateIcon" aria-hidden="true">🚀</span> Son Tarih: <em id="careerStartDate">—</em></span>
             </button>
             <div class="menuHeroPair">
                 <button id="continueBtn" class="menuHeroBtn menuHeroLoad" type="button" disabled>
                     <span class="menuHeroLabel">YÜKLE</span>
-                    <span id="loadDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">📂</span> Son Tarih: <em>—</em></span>
+                    <span id="loadDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">💾</span> Son Tarih: <em>—</em></span>
                 </button>
                 <button id="careerContinueBtn" class="menuHeroBtn menuHeroContinue" type="button" disabled>
                     <span class="menuHeroLabel" id="careerContinueLabel">DEVAM</span>
-                    <span id="careerDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">➡️</span> Son Tarih: <em>—</em></span>
+                    <span id="careerDateHint" class="heroDateHint"><span class="heroDateIcon" aria-hidden="true">⚡</span> Son Tarih: <em>—</em></span>
                 </button>
             </div>
             <button id="resetCareerBtn" class="ghostBtn menuResetLink hidden" type="button">KARİYERİ SIFIRLA</button>
@@ -514,12 +514,10 @@
 
     <section id="gameScreen" class="screen hidden">
         <header class="gameHeader">
-            <!-- 2x2: Görevli | Rütbe / Kurum | Vardiya -->
-            <div class="infoTable infoTable2x2">
+            <div class="infoTable infoTable3">
                 <div class="infoCell"><span class="idLabel">Görevli</span><strong id="playerDisplay">—</strong></div>
                 <div class="infoCell"><span class="idLabel">Rütbe</span><strong id="rankDisplay">Aday Güvenlik</strong></div>
                 <div class="infoCell"><span class="idLabel">Kurum</span><strong id="institutionDisplay">—</strong></div>
-                <div class="infoCell"><span class="idLabel">Vardiya</span><strong id="shiftTypeDisplay">—</strong></div>
             </div>
             <!-- JS uyumluluğu için gizli stublar -->
             <div class="hudStubs hidden" aria-hidden="true" hidden>
@@ -528,6 +526,7 @@
                 <span id="careerBadge" class="chip">V1</span>
                 <span id="eventNumber" class="chip chipStrong">0/15</span>
                 <strong id="shiftTime">22:00</strong>
+                <strong id="shiftTypeDisplay">—</strong>
             </div>
             <div class="progressWrap slim hidden" aria-hidden="true" hidden><div id="shiftProgress" class="progressBar"></div></div>
         </header>

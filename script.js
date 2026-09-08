@@ -1220,6 +1220,7 @@ function startShift() {
 
     $("eventDescription").textContent =
         "Hazırlan. Oyun başlıyor";
+    $("eventDescription").classList.remove("qDiffEasy", "qDiffMid", "qDiffHard");
     $("eventDescription").classList.add("readyBox");
     const hintRow0 = $("hintRow");
     if (hintRow0) hintRow0.classList.add("hidden");
@@ -2196,7 +2197,7 @@ function updateContinueButton() {
             iso = meta && meta.savedAt;
         } catch (e) {}
         const fmt = (typeof formatPlayDate === "function") ? formatPlayDate(iso) : "—";
-        hint.innerHTML = `<svg class="heroDateIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Son Tarih: <em>` + fmt + "</em>";
+        hint.innerHTML = `<span class="heroDateIcon" aria-hidden="true">💾</span> Son Tarih: <em>` + fmt + "</em>";
     }
 }
 
@@ -2442,7 +2443,8 @@ function positionFeedbackToast(toast) {
 
 
 function showChoiceFeedback(choice) {
-    // Eski satır içi kutu kullanılmaz
+    hideChoiceFeedback();
+    return;
     const inline = $("feedbackBox");
     if (inline) {
         inline.classList.add("hidden");
@@ -2628,7 +2630,7 @@ function questionToEvent(question, index, scenarioTitle, shiftType, scenarioDesc
     const diffLabel = diff === "hard" ? " · Zor" : diff === "easy" ? " · Temel" : "";
 
     return {
-        title: `Soru: ${index + 1}/15 - Senaryo: ${scenarioTitle || ""}`,
+        title: `Soru: ${index + 1}/15`,
         description: question.stem,
         hint: "",
         zone: "",
@@ -3088,11 +3090,9 @@ function finalizeFailedChoice() {
 
 function offerRetryOrContinue(event, choice, button, reason) {
     __retryPending = { event, choice, button, reason };
-    // Disable choices while deciding
     document.querySelectorAll(".choice").forEach((btn) => { btn.disabled = true; });
     if (button) button.classList.add("wrong");
-    $("nextEventBtn")?.classList.add("hidden");
-    openRetryAdModal(reason);
+    finalizeFailedChoice();
 }
 
 function bindRetryAdUi() {
