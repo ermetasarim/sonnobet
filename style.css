@@ -9544,34 +9544,5 @@ body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) #app {
 }
 
 
-#rotateLock {
-    display: none;
-}
-@media screen and (orientation: landscape) and (max-height: 500px) {
-    #rotateLock {
-        display: flex !important;
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 8px;
-        background: #070e1a;
-        color: #f3f6fb;
-        text-align: center;
-        padding: 24px;
-        font-family: "IBM Plex Sans", sans-serif;
-        font-weight: 800;
-        font-size: 18px;
-        letter-spacing: 0.04em;
-    }
-    #rotateLock small {
-        font-weight: 500;
-        font-size: 14px;
-        color: #94a3b8;
-        letter-spacing: 0;
-    }
-    #app { visibility: hidden; pointer-events: none; }
-}
+
 
