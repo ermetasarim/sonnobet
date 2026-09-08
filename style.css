@@ -9234,45 +9234,7 @@ body.theme-night #eventDescription.readyBox,
 }
 
 
-html, body {
-    min-height: 100%;
-}
-body:has(#authScreen:not(.hidden)),
-body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) {
-    min-height: 100dvh;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-body:has(#authScreen:not(.hidden)) #app,
-body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) #app {
-    margin-top: 0;
-    margin-bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100dvh;
-    min-height: 100vh;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    box-sizing: border-box;
-}
-#authScreen:not(.hidden),
-#adminRoot:not(.hidden):has(.adminAuthCard:not(.hidden)) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-top: 0 !important;
-    width: min(420px, 100%) !important;
-    box-sizing: border-box;
-}
-#authScreen .authCard,
-#adminRoot .adminAuthCard {
-    margin: 0 auto;
-    width: 100%;
-}
+
 
 
 #adminRoot .adminWelcomeTitle {
@@ -9545,4 +9507,32 @@ body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) #app {
 
 
 
+
+
+html, body {
+    min-height: 100%;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+}
+#app {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    min-height: 0 !important;
+}
+#authScreen,
+#adminRoot,
+#menuScreen,
+#institutionScreen,
+#gameScreen,
+#consentScreen {
+    margin-top: 0 !important;
+    align-self: flex-start;
+}
+#authScreen:not(.hidden),
+#adminRoot:not(.hidden) {
+    display: block !important;
+    width: 100% !important;
+}
 
