@@ -9536,3 +9536,21 @@ html, body {
     width: 100% !important;
 }
 
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    #rotateLock {
+        display: block !important;
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #070e1a;
+    }
+    #app, .bgGlow {
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+@media screen and (orientation: portrait) {
+    #rotateLock { display: none !important; }
+}
+
