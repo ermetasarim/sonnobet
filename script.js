@@ -371,11 +371,15 @@ function clearRadio() {
 
 /* Dikey oynanış tercihi (destekleyen tarayıcılarda) */
 (function lockPortrait() {
-    try {
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock("portrait").catch(() => {});
-        }
-    } catch (e) {}
+    function tryLock() {
+        try {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock("portrait").catch(() => {});
+            }
+        } catch (e) {}
+    }
+    tryLock();
+    document.addEventListener("click", tryLock, { once: true });
 })();
 
 (function bootMusic() {
