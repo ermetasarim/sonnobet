@@ -449,7 +449,8 @@ window.Features = Features;
 (function FeaturesV54() {
     const INST_KEY = "son_nobet_inst_counts_v1";
     const WEEKLY_KEY = "son_nobet_weekly_lb_v4";
-    const MONTHLY_KEY = "son_nobet_monthly_lb_v4";
+    const ALLTIME_KEY = "son_nobet_alltime_lb_v1";
+    const MONTHLY_KEY = ALLTIME_KEY;
     const CHAPTER_KEY = "son_nobet_chapter_v1";
 
     const BRIEFINGS = {
@@ -570,15 +571,25 @@ window.Features = Features;
     }
 
     /* 5 — Haftalık liderlik */
+    function addToNamedList(list, entry) {
+        const name = String((entry && entry.name) || "").trim();
+        if (!name) return list;
+        const key = name.toLocaleLowerCase("tr");
+        const hit = (list || []).find((r) => String(r.name || "").toLocaleLowerCase("tr") === key);
+        if (hit) hit.score = (Number(hit.score) || 0) + (Number(entry.score) || 0);
+        else list.push({ name, institution: entry.institution || "", score: Number(entry.score) || 0, at: entry.at || new Date().toISOString() });
+        return list;
+    }
+
     function pushWeekly(entry) {
         const id = weekId();
         let data = loadJSON(WEEKLY_KEY, { week: id, list: [] });
         if (data.week !== id) data = { week: id, list: [] };
-        data.list.push(entry);
-        data.list.sort((a, b) => b.score - a.score);
-        data.list = data.list.slice(0, 10);
+        data.list = addToNamedList(data.list || [], entry);
+        data.list.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
         saveJSON(WEEKLY_KEY, data);
         renderWeekly();
+        pushAllTime(entry);
     }
 
     function sameWeek(iso) {
@@ -657,36 +668,34 @@ function lbRankMarkFeat(rank) {
         }
     }
 
-    function pushMonthly(entry) {
-        const id = monthId();
-        let data = loadJSON(MONTHLY_KEY, { month: id, list: [] });
-        if (data.month !== id) data = { month: id, list: [] };
-        data.list.push(entry);
-        data.list.sort((a, b) => b.score - a.score);
-        data.list = data.list.slice(0, 15);
-        saveJSON(MONTHLY_KEY, data);
+    function pushAllTime(entry) {
+        let data = loadJSON(ALLTIME_KEY, { list: [] });
+        if (!data || !Array.isArray(data.list)) data = { list: [] };
+        data.list = addToNamedList(data.list, entry);
+        data.list.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+        saveJSON(ALLTIME_KEY, data);
         renderMonthly();
+    }
+
+    function pushMonthly(entry) {
+        pushAllTime(entry);
     }
 
     function renderMonthly() {
         const box = $("monthlyLeaderboardList");
         if (!box) return;
-        const id = monthId();
-        let data = loadJSON(MONTHLY_KEY, { month: id, list: [] });
-        if (data.month !== id) data = { month: id, list: [] };
+        const data = loadJSON(ALLTIME_KEY, { list: [] });
         const label = $("monthlyMonthLabel");
-        if (label) label.textContent = id;
-        const local = (data.list || []);
+        if (label) label.textContent = "Genel";
+        const local = (data && data.list) || [];
         const paintLocal = () => paintLb5(box, mergeLb(local, []));
         paintLocal();
         if (window.SNSupabase && typeof SNSupabase.fetchScoreRows === "function") {
-            SNSupabase.fetchScoreRows(300).then((rows) => {
+            SNSupabase.fetchScoreRows(500).then((rows) => {
                 const mapped = (rows || []).map((r) => ({
                     name: r.player_name, score: Number(r.score) || 0, at: r.created_at
                 }));
-                const monthRows = mapped.filter((r) => sameMonth(r.at));
-                const weekRows = mapped.filter((r) => sameWeek(r.at));
-                paintLb5(box, mergeLb(monthRows, weekRows));
+                paintLb5(box, mergeLb(local, mapped));
             }).catch(paintLocal);
         }
     }
@@ -835,7 +844,6 @@ function lbRankMarkFeat(rank) {
                 score: score || game.score || 0
             };
             pushWeekly(entry);
-            pushMonthly(entry);
             const ep = advanceChapter();
             const box = $("chapterEpilog");
             if (box) {

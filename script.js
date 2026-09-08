@@ -418,6 +418,41 @@ function clearRadio() {
 let __authMode = "login"; // login | register
 
 
+const AVATAR_PALETTE = ["#0f766e", "#2563eb", "#7c3aed", "#be185d", "#b45309", "#047857", "#0369a1", "#4338ca"];
+
+function officerInitial(name) {
+    const s = String(name || "").trim();
+    if (!s) return "?";
+    return s.charAt(0).toLocaleUpperCase("tr");
+}
+
+function officerAvatarColor(name) {
+    const s = String(name || "").trim().toLocaleLowerCase("tr");
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return AVATAR_PALETTE[h % AVATAR_PALETTE.length];
+}
+
+function officerAvatarSvg(name) {
+    const letter = officerInitial(name);
+    const bg = officerAvatarColor(name);
+    return `<svg viewBox="0 0 48 48" width="36" height="36" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="${bg}"/>
+        <text x="24" y="30" text-anchor="middle" font-size="20" font-weight="800" font-family="IBM Plex Sans, sans-serif" fill="#ffffff">${letter}</text>
+    </svg>`;
+}
+
+function paintOfficerAvatar(name) {
+    const box = $("accountAvatar");
+    if (!box) return;
+    const n = name
+        || ($("accountNameDisplay") && $("accountNameDisplay").textContent)
+        || (window.game && game.playerName)
+        || (window.SNSupabase && SNSupabase.getDisplayName && SNSupabase.getDisplayName())
+        || "";
+    box.innerHTML = officerAvatarSvg(n);
+}
+
 function fillOfficerCard() {
     const nameEl = $("accountNameDisplay");
     const rankEl = $("officerRank");
@@ -448,6 +483,11 @@ function fillOfficerCard() {
     const level = Math.max(1, Math.floor(score / 100) + 1);
     const xp = score % 100;
     if (rankEl) rankEl.textContent = rank;
+    paintOfficerAvatar(
+        ($("accountNameDisplay") && $("accountNameDisplay").textContent)
+        || (window.game && game.playerName)
+        || ""
+    );
     if (daysEl) daysEl.textContent = String(days);
     if (lvlEl) lvlEl.textContent = String(level);
     if (bar) bar.style.width = Math.min(100, xp) + "%";
