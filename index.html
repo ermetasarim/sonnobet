@@ -349,7 +349,7 @@
     <!-- Admin kök ekranı -->
     <section id="adminRoot" class="screen hidden">
         <div class="authCard authCardV2 adminAuthCard">
-            <h1 class="authTitle">Admin Giriş</h1>
+            <h1 class="authTitle adminWelcomeTitle">Hoşgeldin Patron <span class="titleEmoji">👑</span></h1>
             <form id="adminAuthForm" class="authForm" autocomplete="on">
                 <div class="authField">
                     <label class="fieldLabel" for="adminAuthEmail">E-posta</label>
@@ -500,13 +500,13 @@
             <option value="day" selected>Gündüz</option>
         </select>
         <div class="institutionGrid">
-            <button class="institutionBtn" data-institution="Site" type="button"><span class="instIcon">🏢</span><strong>Site</strong><small>Giriş · gürültü · gece misafiri</small></button>
-            <button class="institutionBtn" data-institution="AVM" type="button"><span class="instIcon">🏬</span><strong>AVM</strong><small>Kalabalık · kayıp · mağaza</small></button>
-            <button class="institutionBtn" data-institution="Fabrika" type="button"><span class="instIcon">🏭</span><strong>Fabrika</strong><small>Makine · sevkiyat · iş güvenliği</small></button>
-            <button class="institutionBtn" data-institution="Banka" type="button"><span class="instIcon">🏦</span><strong>Banka</strong><small>Gişe · kasa · alarm</small></button>
-            <button class="institutionBtn" data-institution="Belediye" type="button"><span class="instIcon">🏛️</span><strong>Belediye</strong><small>Vatandaş · belge · kamu alanı</small></button>
-            <button class="institutionBtn" data-institution="Hastane" type="button"><span class="instIcon">🏥</span><strong>Hastane</strong><small>Acil · ziyaretçi · kısıtlı alan</small></button>
-            <button class="institutionBtn" data-institution="Havalimanı" type="button"><span class="instIcon">✈️</span><strong>Havalimanı</strong><small>Bagaj · terminal · yüksek prosedür</small></button>
+            <button class="institutionBtn" data-institution="Site" type="button"><span class="instIcon">🏢</span><strong>Site</strong><small>Gece girişleri ve gürültü şikayetleri</small></button>
+            <button class="institutionBtn" data-institution="AVM" type="button"><span class="instIcon">🏬</span><strong>AVM</strong><small>Kalabalık katlar, kayıp ve mağaza alarmı</small></button>
+            <button class="institutionBtn" data-institution="Fabrika" type="button"><span class="instIcon">🏭</span><strong>Fabrika</strong><small>Sevkiyat hattı ve iş güvenliği</small></button>
+            <button class="institutionBtn" data-institution="Banka" type="button"><span class="instIcon">🏦</span><strong>Banka</strong><small>Gişe, kasa ve alarm prosedürü</small></button>
+            <button class="institutionBtn" data-institution="Belediye" type="button"><span class="instIcon">🏛️</span><strong>Belediye</strong><small>Vatandaş, belge ve kamu alanı</small></button>
+            <button class="institutionBtn" data-institution="Hastane" type="button"><span class="instIcon">🏥</span><strong>Hastane</strong><small>Acil servis, ziyaretçi ve kısıtlı alan</small></button>
+            <button class="institutionBtn" data-institution="Havalimanı" type="button"><span class="instIcon">✈️</span><strong>Havalimanı</strong><small>Bagaj, terminal ve yüksek prosedür</small></button>
         </div>
         <button id="backToMenuBtn" class="ghostBtn" type="button">← Menüye Dön</button>
         <p class="appVersion">v6.0</p>
@@ -566,7 +566,7 @@
         <main id="eventArea">
             <div id="storyTag" class="storyTag hidden">HİKÂYE</div>
             <div class="eventHead">
-                <span id="eventIcon" class="eventIcon">📡</span>
+                <span id="eventIcon" class="eventIcon">🤔</span>
                 <div>
                     <div class="eventHeadRow">
                     <h2 id="eventTitle">Olay bekleniyor...</h2>
@@ -578,14 +578,16 @@
             <div id="radioMessage" class="radio hidden" aria-hidden="true"></div>
             <p id="eventDescription">Yeni olayı başlatmak için butona bas.</p>
             <div id="feedbackBox" class="feedback hidden"></div>
-            <div class="hintRow timerRow">
-                <div id="timerBox" class="ghostBtn timerBar hidden" aria-live="polite">
-                    <span class="timerBarIcon" aria-hidden="true">⏱</span>
-                    <span class="timerBarLabel">Geri sayım · <strong id="timerValue">20</strong>s</span>
+            <div class="hintTimerPair">
+                <div class="hintRow hidden" id="hintRow">
+                    <button id="hintBtn" class="ghostBtn hintBtn" type="button">💡 İpucu</button>
                 </div>
-            </div>
-            <div class="hintRow hidden" id="hintRow">
-                <button id="hintBtn" class="ghostBtn hintBtn" type="button">💡 İpucu · 100 ₺</button>
+                <div class="hintRow timerRow">
+                    <div id="timerBox" class="ghostBtn timerBar hidden" aria-live="polite">
+                        <span class="timerBarIcon" aria-hidden="true">⏱</span>
+                        <span class="timerBarLabel">Sayaç · <strong id="timerValue">20</strong>s</span>
+                    </div>
+                </div>
             </div>
             <div id="choices"></div>
             <button id="nextEventBtn" class="nextEventBtn">VARDİYA BAŞLAT</button>

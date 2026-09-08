@@ -9148,3 +9148,398 @@ body.theme-night #eventDescription.readyBox,
     margin-right: auto;
 }
 
+
+#gameScreen .hintTimerPair {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+    width: 100%;
+}
+#gameScreen .hintTimerPair .hintRow,
+#gameScreen .hintTimerPair .timerRow {
+    flex: 1 1 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    min-width: 0;
+}
+#gameScreen .hintTimerPair .hintRow.hidden,
+#gameScreen .hintTimerPair #timerBox.hidden {
+    display: none !important;
+}
+#gameScreen .hintTimerPair #hintBtn.hintBtn,
+#gameScreen .hintTimerPair #timerBox.timerBar {
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    margin: 0 !important;
+}
+
+
+#gameScreen .eventIcon,
+#gameScreen #eventIcon.eventIcon {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    filter: none !important;
+    align-self: center;
+}
+#gameScreen .eventHead {
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+
+#gameScreen .eventHead {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+#gameScreen #eventIcon.eventIcon {
+    font-size: 16px !important;
+    line-height: 16px !important;
+    height: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateY(-1px);
+    position: relative;
+    top: 0 !important;
+    margin: 0 !important;
+    filter: none !important;
+}
+#gameScreen #eventTitle {
+    line-height: 16px !important;
+    display: flex;
+    align-items: center;
+}
+
+
+#gameScreen #eventIcon.hidden,
+#gameScreen .eventIcon.hidden {
+    display: none !important;
+}
+
+
+#gameScreen #eventIcon {
+    display: none !important;
+}
+#gameScreen #eventTitle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
+
+
+html, body {
+    min-height: 100%;
+}
+body:has(#authScreen:not(.hidden)),
+body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) {
+    min-height: 100dvh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body:has(#authScreen:not(.hidden)) #app,
+body:has(#adminRoot:not(.hidden) .adminAuthCard:not(.hidden)) #app {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    min-height: 100vh;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    box-sizing: border-box;
+}
+#authScreen:not(.hidden),
+#adminRoot:not(.hidden):has(.adminAuthCard:not(.hidden)) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 0 !important;
+    width: min(420px, 100%) !important;
+    box-sizing: border-box;
+}
+#authScreen .authCard,
+#adminRoot .adminAuthCard {
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+#adminRoot .adminWelcomeTitle {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+    line-height: 1.2 !important;
+}
+#adminRoot .adminWelcomeTitle .titleEmoji {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: 0.95em;
+    transform: translateY(-1px);
+}
+
+
+#authScreen,
+#authScreen .authCard,
+#authScreen .authCardV2,
+#adminRoot:has(.adminAuthCard:not(.hidden)),
+#adminRoot .adminAuthCard,
+#adminRoot .adminWelcomeTitle,
+#adminRoot .adminWelcomeTitle .titleEmoji {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+
+#adminRoot .adminAuthCard .authForm {
+    gap: 10px !important;
+}
+#adminRoot .adminAuthCard .authSubmitBtn,
+#adminRoot .adminAuthCard #adminAuthBack {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+#adminRoot .adminAuthCard #adminAuthBack {
+    margin-top: 10px !important;
+}
+
+#adminAuthBack,
+#adminHomeBack,
+#adminQBackHome,
+#adminQBackInst,
+#adminQBackScenEdit,
+#adminQBackScen,
+#adminQBackEdit,
+#adminMBackHome,
+#adminMBackList,
+#adminRoot button.ghostBtn {
+    background: #c2410c !important;
+    border: 1px solid #314866 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+#adminRoot button.ghostBtn:hover:not(:disabled) {
+    background: #ea580c !important;
+    border-color: #314866 !important;
+    color: #ffffff !important;
+    filter: none !important;
+}
+
+
+#adminRoot .adminAuthCard .authForm {
+    gap: 8px !important;
+}
+#adminRoot .adminAuthCard .authSubmitBtn {
+    margin: 0 !important;
+}
+#adminRoot .adminAuthCard #adminAuthBack {
+    margin: 4px 0 0 !important;
+}
+
+
+#adminRoot .adminAuthCard .authSubmitBtn {
+    margin-top: 14px !important;
+}
+#adminRoot .adminAuthCard #adminAuthBack {
+    margin-top: 6px !important;
+    background: transparent !important;
+    border: 1px solid #314866 !important;
+    color: #cbd5e1 !important;
+}
+#adminAuthBack,
+#adminHomeBack,
+#adminQBackHome,
+#adminQBackInst,
+#adminQBackScenEdit,
+#adminQBackScen,
+#adminQBackEdit,
+#adminMBackHome,
+#adminMBackList,
+#adminRoot button.ghostBtn {
+    background: transparent !important;
+    border: 1px solid #314866 !important;
+    color: #cbd5e1 !important;
+    box-shadow: none !important;
+}
+#adminRoot button.ghostBtn:hover:not(:disabled) {
+    background: rgba(49, 72, 102, 0.25) !important;
+    border-color: #3d5a7a !important;
+    color: #e2e8f0 !important;
+}
+
+
+#adminAuthBack,
+#adminHomeBack,
+#adminQBackHome,
+#adminQBackInst,
+#adminQBackScenEdit,
+#adminQBackScen,
+#adminQBackEdit,
+#adminMBackHome,
+#adminMBackList {
+    width: 100% !important;
+    margin-top: 10px !important;
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    border: 1px solid #314866 !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    letter-spacing: 0 !important;
+    box-shadow: none !important;
+    text-transform: none !important;
+}
+#adminAuthBack:hover:not(:disabled),
+#adminHomeBack:hover:not(:disabled),
+#adminQBackHome:hover:not(:disabled),
+#adminQBackInst:hover:not(:disabled),
+#adminQBackScenEdit:hover:not(:disabled),
+#adminQBackScen:hover:not(:disabled),
+#adminQBackEdit:hover:not(:disabled),
+#adminMBackHome:hover:not(:disabled),
+#adminMBackList:hover:not(:disabled) {
+    background: rgba(23, 41, 66, 0.8) !important;
+    color: #ffffff !important;
+    border-color: #314866 !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+
+#adminAuthBack:hover:not(:disabled),
+#adminHomeBack:hover:not(:disabled),
+#adminQBackHome:hover:not(:disabled),
+#adminQBackInst:hover:not(:disabled),
+#adminQBackScenEdit:hover:not(:disabled),
+#adminQBackScen:hover:not(:disabled),
+#adminQBackEdit:hover:not(:disabled),
+#adminMBackHome:hover:not(:disabled),
+#adminMBackList:hover:not(:disabled) {
+    background: rgba(23, 41, 66, 0.8) !important;
+    color: #ffffff !important;
+    border: 1px solid #314866 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    transform: none !important;
+    brightness: 1;
+}
+
+
+#adminRoot .adminAuthCard #adminAuthBack {
+    width: 100% !important;
+    margin-top: 10px !important;
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+    background: #0a1322 !important;
+    border: 1px solid #314866 !important;
+    color: #94a3b8 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    letter-spacing: 0 !important;
+    box-shadow: none !important;
+}
+#adminRoot .adminAuthCard #adminAuthBack:hover:not(:disabled) {
+    background: #152238 !important;
+    color: #ffffff !important;
+    border-color: #314866 !important;
+    filter: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+#backToInstBtn,
+#backToMenuBtn,
+#adminAuthBack,
+#adminHomeBack,
+#adminQBackHome,
+#adminQBackInst,
+#adminQBackScenEdit,
+#adminQBackScen,
+#adminQBackEdit,
+#adminMBackHome,
+#adminMBackList {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.04em !important;
+}
+
+
+#gameScreen #manualSaveBtn,
+#gameScreen #manualSaveBtn.saveShiftBtn,
+#backToInstBtn,
+#backToMenuBtn,
+#adminAuthBack,
+#adminHomeBack,
+#adminQBackHome,
+#adminQBackInst,
+#adminQBackScenEdit,
+#adminQBackScen,
+#adminQBackEdit,
+#adminMBackHome,
+#adminMBackList {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.04em !important;
+}
+
+
+#adminRoot button.ghostBtn,
+#adminRoot [id$="Back"],
+#adminRoot [id*="Back"] {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.04em !important;
+}
+
+
+#adminRoot .adminAuthCard #adminAuthBack.ghostBtn,
+#adminRoot .adminAuthCard #adminAuthBack {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.04em !important;
+}
+
+
+#adminRoot .adminWelcomeTitle,
+#adminRoot .adminAuthCard .authTitle {
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.04em !important;
+}
+
+
+#institutionScreen .institutionBtn strong,
+#gameScreen #institutionDisplay,
+#adminRoot .adminQTile strong,
+#adminRoot .adminInstBtn strong {
+    text-transform: uppercase !important;
+}
+
+
+#adminHomeScreen .adminQTile strong {
+    text-transform: none !important;
+}
+#adminQViewInst .adminQTile strong {
+    text-transform: uppercase !important;
+}
+
