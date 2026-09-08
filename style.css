@@ -1372,8 +1372,8 @@ body {
 }
 
 #app {
-    max-width: 480px;
-    min-height: 100dvh;
+    max-width: 920px;
+    min-height: 0;
     padding: 12px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     padding-top: calc(12px + env(safe-area-inset-top, 0px));
@@ -1383,32 +1383,12 @@ body {
     margin-top: 0;
     padding: 18px 16px;
     border-radius: 16px;
-    min-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-}
-
-/* Yatayda bile dikey akışı koru (telefon landscape uyarısı hissi) */
-@media (orientation: landscape) and (max-height: 500px) {
-    body::before {
-        content: "Dikey tutarak oyna";
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(7, 14, 26, 0.94);
-        color: #e2e8f0;
-        font-size: 16px;
-        font-weight: 600;
-        text-align: center;
-        padding: 24px;
-        pointer-events: none;
-    }
+    min-height: 0;
 }
 
 @media (max-width: 900px) {
     #app {
-        max-width: 480px;
+        max-width: 100%;
         padding: 10px;
     }
 
@@ -9552,5 +9532,22 @@ html, body {
 }
 @media screen and (orientation: portrait) {
     #rotateLock { display: none !important; }
+}
+
+
+#app {
+    min-height: 0 !important;
+    max-width: 920px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    display: block !important;
+}
+.screen {
+    min-height: 0 !important;
+    margin-top: 0 !important;
+}
+body {
+    display: block !important;
 }
 
