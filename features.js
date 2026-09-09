@@ -367,7 +367,7 @@ const Features = (() => {
 
         $("openBadgesBtn")?.addEventListener("click", () => {
             renderBadgesGrid();
-            $("badgesModal")?.classList.remove("hidden");
+            if (typeof show === "function") show("badgesModal");
         });
         $("tutorialNextBtn")?.addEventListener("click", tutorialNext);
         $("tutorialSkipBtn")?.addEventListener("click", () => closeTutorial(true));
@@ -904,12 +904,7 @@ function lbRankMarkFeat(rank) {
             renderWeekly();
             renderMonthly();
             showLbTab("daily");
-            const m = $("leaderboardModal");
-            if (m) {
-                m.classList.remove("hidden");
-                m.style.display = "flex";
-                m.setAttribute("aria-hidden", "false");
-            }
+            if (typeof show === "function") show("leaderboardModal");
         });
 
         // chain endShift
@@ -1938,8 +1933,7 @@ function lbRankMarkFeat(rank) {
         });
         $("openChainBtn")?.addEventListener("click", () => {
             renderChain();
-            const m = $("chainModal");
-            if (m) { m.classList.remove("hidden"); m.style.display = "flex"; }
+            if (typeof show === "function") show("chainModal");
         });
         $("openDuelBtn")?.addEventListener("click", () => {
             const m = $("duelModal");

@@ -268,13 +268,35 @@
                 <span class="menuToolLabel">Profil</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
-            <details class="modeToggles optionsDrawer settingsTable">
-            <summary class="optionsDrawerSummary menuToolBtn">
+                        <button id="openSettingsBtn" class="menuToolBtn" type="button">
                 <span class="menuToolIcon" aria-hidden="true">⚙️</span>
                 <span class="menuToolLabel">Ayarlar</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
-            </summary>
-            <div class="settingsTableBody optionsDrawerBody">
+            </button>
+            <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🏆</span>
+                <span class="menuToolLabel">Liderlik</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Yönetim">
+                <span class="menuToolIcon" aria-hidden="true">🔐</span>
+                <span class="menuToolLabel">Yönetim</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+        </div>
+        <footer class="siteFooter">
+            <p>Sizin ❤️ için <a href="https://ermetasarim.github.io/parsstudio/" target="_blank" rel="noopener noreferrer">Pars Studio</a> tasarladı.</p>
+        </footer>
+    </section>
+
+
+
+    <section id="settingsScreen" class="screen hidden">
+        <div class="profilePageHead">
+            <h2>Ayarlar</h2>
+        </div>
+        <div class="settingsPageTable settingsTableBody optionsDrawerBody">
+
                 <label class="settingsRow" for="soundToggleBtn">
                     <input id="soundToggleBtn" type="checkbox" checked>
                     <span class="settingsRowText">
@@ -319,24 +341,10 @@
                     <input id="a11yColorToggle" type="checkbox">
                     <span class="settingsRowText"><strong>Renk körü</strong></span>
                 </label>
-            </div>
-            </details>
-            <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🏆</span>
-                <span class="menuToolLabel">Liderlik</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
-            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Yönetim">
-                <span class="menuToolIcon" aria-hidden="true">🔐</span>
-                <span class="menuToolLabel">Yönetim</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
+            
         </div>
-        <footer class="siteFooter">
-            <p>Sizin ❤️ için <a href="https://ermetasarim.github.io/parsstudio/" target="_blank" rel="noopener noreferrer">Pars Studio</a> tasarladı.</p>
-        </footer>
+        <button type="button" id="settingsBackBtn" class="ghostBtn">← Geri Dön</button>
     </section>
-
 
     <section id="profileScreen" class="screen hidden">
         <div class="profilePageHead">
@@ -644,9 +652,8 @@
 </div>
 
 <!-- Modals -->
-<div id="leaderboardModal" class="modal hidden">
-    <div class="modalCard">
-        <div class="modalHead"><h3 class="lbModalTitle">🏆 Liderlik</h3><button type="button" class="ghostBtn" data-close-modal="leaderboardModal">Kapat</button></div>
+<section id="leaderboardModal" class="screen hidden">
+        <div class="modalHead"><h3 class="lbModalTitle">🏆 Liderlik</h3></div>
         <div class="lbTabs" role="tablist">
             <button type="button" class="lbTab active" data-lb-tab="daily" role="tab" aria-selected="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
@@ -675,8 +682,8 @@
         <div id="lbPaneMonthly" class="lbPane hidden" data-lb-pane="monthly">
             <div id="monthlyLeaderboardList" class="panelTable"></div>
         </div>
-    </div>
-</div>
+        <button type="button" id="lbBackBtn" class="ghostBtn">← Geri Dön</button>
+</section>
 
 <div id="adOverlay" class="adOverlay hidden" aria-hidden="true">
     <div class="adOverlayCard">
@@ -743,15 +750,11 @@
     </div>
 </div>
 
-<div id="badgesModal" class="modal hidden" aria-hidden="true">
-    <div class="modalCard">
-        <div class="modalHead">
-            <h3>🎖️ Başarılar</h3>
-            <button type="button" class="ghostBtn" data-close-modal="badgesModal">Kapat</button>
-        </div>
+<section id="badgesModal" class="screen hidden">
+        <div class="modalHead"><h3>🎖️ Başarılar</h3></div>
         <div id="badgesGrid" class="badgesGrid"></div>
-    </div>
-</div>
+        <button type="button" id="badgesBackBtn" class="ghostBtn">← Geri Dön</button>
+</section>
 
 
 <div id="duelModal" class="modal hidden" aria-hidden="true">
@@ -772,22 +775,17 @@
     </div>
 </div>
 
-<div id="chainModal" class="modal hidden" aria-hidden="true">
-    <div class="modalCard">
-        <div class="modalHead">
-            <h3>🎯 Görevler</h3>
-            <button type="button" class="ghostBtn" data-close-modal="chainModal">Kapat</button>
-        </div>
+<section id="chainModal" class="screen hidden">
+        <div class="modalHead"><h3>🎯 Görevler</h3></div>
         <div id="chainList" class="panelTable chainList"></div>
-    </div>
-</div>
+        <button type="button" id="chainBackBtn" class="ghostBtn">← Geri Dön</button>
+</section>
 
-<div id="statsModal" class="modal hidden">
-    <div class="modalCard">
-        <div class="modalHead"><h3>📊 İstatistikler</h3><button type="button" class="ghostBtn" data-close-modal="statsModal">Kapat</button></div>
+<section id="statsModal" class="screen hidden">
+        <div class="modalHead"><h3>📊 İstatistikler</h3></div>
         <div id="statsPanelList" class="panelTable"></div>
-    </div>
-</div>
+        <button type="button" id="statsBackBtn" class="ghostBtn">← Geri Dön</button>
+</section>
 
 <script src="senaryo_soru_bankasi.js"></script>
 <script src="admin.js?v=81"></script>

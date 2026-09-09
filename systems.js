@@ -1089,11 +1089,11 @@ function bindSystemsUI() {
 
     wire("openLeaderboardBtn", () => {
         renderLeaderboard();
-        openModal("leaderboardModal");
+        if (typeof show === "function") show("leaderboardModal");
     });
     wire("openStatsBtn", () => {
         renderStatsPanel();
-        openModal("statsModal");
+        if (typeof show === "function") show("statsModal");
     });
 
     document.querySelectorAll("[data-close-modal]").forEach(btn => {
@@ -1105,13 +1105,7 @@ function bindSystemsUI() {
     });
 
     // Backdrop tıklayınca kapat
-    ["leaderboardModal", "statsModal"].forEach(id => {
-        const modal = el(id);
-        if (!modal) return;
-        modal.addEventListener("click", (e) => {
-            if (e.target === modal) closeModal(id);
-        });
-    });
+    ["leaderboardModal", "statsModal"].forEach(id => {});
 
     // Scenario editor + export pack
 
@@ -1159,8 +1153,8 @@ window.renderStatsPanel = renderStatsPanel;
 
 function ensureSystemsButtons() {
     const pairs = [
-        ["openLeaderboardBtn", () => { renderLeaderboard(); openModal("leaderboardModal"); }],
-        ["openStatsBtn", () => { renderStatsPanel(); openModal("statsModal"); }]
+        ["openLeaderboardBtn", () => { renderLeaderboard(); if (typeof show === "function") show("leaderboardModal"); }],
+        ["openStatsBtn", () => { renderStatsPanel(); if (typeof show === "function") show("statsModal"); }]
     ];
     pairs.forEach(([id, fn]) => {
         const node = el(id);

@@ -4202,3 +4202,27 @@ function renderProfileHero() {
     if ($("profileHeroShifts")) $("profileHeroShifts").textContent = shifts + " vardiya";
 }
 
+
+
+document.getElementById("openSettingsBtn")?.addEventListener("click", () => {
+    if (typeof show === "function") show("settingsScreen");
+});
+document.getElementById("settingsBackBtn")?.addEventListener("click", () => {
+    if (typeof show === "function") show("menuScreen");
+});
+
+document.getElementById("lbBackBtn")?.addEventListener("click", () => {
+    if (typeof show === "function") show("menuScreen");
+});
+document.getElementById("badgesBackBtn")?.addEventListener("click", () => {
+    if (typeof renderProfileHero === "function") renderProfileHero();
+    if (typeof show === "function") show("profileScreen");
+});
+document.getElementById("chainBackBtn")?.addEventListener("click", () => {
+    if (typeof renderProfileHero === "function") renderProfileHero();
+    if (typeof show === "function") show("profileScreen");
+});
+document.getElementById("statsBackBtn")?.addEventListener("click", () => {
+    if (typeof renderProfileHero === "function") renderProfileHero();
+    if (typeof show === "function") show("profileScreen");
+});

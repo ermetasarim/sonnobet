@@ -9675,3 +9675,28 @@ body {
     color: #f8fafc;
 }
 
+
+#settingsScreen .settingsPageTable {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+#settingsScreen .settingsPageTable .settingsRow {
+    width: 100%;
+}
+
+
+#leaderboardModal.screen,
+#badgesModal.screen,
+#chainModal.screen,
+#statsModal.screen {
+    display: block;
+}
+#leaderboardModal.screen.hidden,
+#badgesModal.screen.hidden,
+#chainModal.screen.hidden,
+#statsModal.screen.hidden {
+    display: none !important;
+}
+
