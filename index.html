@@ -263,7 +263,11 @@
         <p id="saveStatus" class="saveStatus hidden"></p>
 
         <div class="menuToolsGrid">
-
+            <button id="openProfileBtn" class="menuToolBtn toolGold" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🧑</span>
+                <span class="menuToolLabel">Profil</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
             <details class="modeToggles optionsDrawer settingsTable">
             <summary class="optionsDrawerSummary menuToolBtn">
                 <span class="menuToolIcon" aria-hidden="true">⚙️</span>
@@ -317,36 +321,57 @@
                 </label>
             </div>
             </details>
-
-            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Yönetim">
-                <span class="menuToolIcon" aria-hidden="true">🔐</span>
-                <span class="menuToolLabel">Yönetim</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
             <button id="openLeaderboardBtn" class="menuToolBtn toolGold" type="button">
                 <span class="menuToolIcon" aria-hidden="true">🏆</span>
                 <span class="menuToolLabel">Liderlik</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
-            <button id="openBadgesBtn" class="menuToolBtn toolMedal" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🎖️</span>
-                <span class="menuToolLabel">Başarılar</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
-            <button id="openChainBtn" class="menuToolBtn toolShield" type="button">
-                <span class="menuToolIcon" aria-hidden="true">🎯</span>
-                <span class="menuToolLabel">Görevler</span>
-                <span class="menuToolChevron" aria-hidden="true">›</span>
-            </button>
-            <button id="openStatsBtn" class="menuToolBtn toolGreen" type="button">
-                <span class="menuToolIcon" aria-hidden="true">📊</span>
-                <span class="menuToolLabel">İstatistikler</span>
+            <button id="openAdminBtn" class="menuToolBtn toolPurple hidden" type="button" hidden aria-hidden="true" title="Yönetim">
+                <span class="menuToolIcon" aria-hidden="true">🔐</span>
+                <span class="menuToolLabel">Yönetim</span>
                 <span class="menuToolChevron" aria-hidden="true">›</span>
             </button>
         </div>
         <footer class="siteFooter">
             <p>Sizin ❤️ için <a href="https://ermetasarim.github.io/parsstudio/" target="_blank" rel="noopener noreferrer">Pars Studio</a> tasarladı.</p>
         </footer>
+    </section>
+
+
+    <section id="profileScreen" class="screen hidden">
+        <div class="profilePageHead">
+            <h2>Profil</h2>
+        </div>
+        <div class="profileHeroTable">
+            <div class="profileHeroAvatar" id="profileHeroAvatar">?</div>
+            <div class="profileHeroMeta">
+                <strong id="profileHeroName">—</strong>
+                <small id="profileHeroRank">—</small>
+            </div>
+            <div class="profileHeroStats">
+                <div class="profileHeroCell"><span>Başarılar</span><em id="profileHeroBadges">0</em></div>
+                <div class="profileHeroCell"><span>Görevler</span><em id="profileHeroQuests">0</em></div>
+                <div class="profileHeroCell"><span>İstatistik</span><em id="profileHeroShifts">0 vardiya</em></div>
+            </div>
+        </div>
+        <div class="profileTable">
+            <button id="openBadgesBtn" class="menuToolBtn toolMedal profileTableRow" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🎖️</span>
+                <span class="menuToolLabel">Başarılar</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openChainBtn" class="menuToolBtn toolShield profileTableRow" type="button">
+                <span class="menuToolIcon" aria-hidden="true">🎯</span>
+                <span class="menuToolLabel">Görevler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+            <button id="openStatsBtn" class="menuToolBtn toolGreen profileTableRow" type="button">
+                <span class="menuToolIcon" aria-hidden="true">📊</span>
+                <span class="menuToolLabel">İstatistikler</span>
+                <span class="menuToolChevron" aria-hidden="true">›</span>
+            </button>
+        </div>
+        <button type="button" id="profileBackBtn" class="ghostBtn">← Geri Dön</button>
     </section>
 
     <!-- Admin kök ekranı -->
@@ -512,7 +537,6 @@
             <button class="institutionBtn" data-institution="Havalimanı" type="button"><span class="instIcon">✈️</span><strong>Havalimanı</strong><small>Bagaj, terminal ve yüksek prosedür</small></button>
         </div>
         <button id="backToMenuBtn" class="ghostBtn" type="button">← Menüye Dön</button>
-        <p class="appVersion">v6.0</p>
     </section>
 
     <section id="gameScreen" class="screen hidden">
@@ -616,7 +640,6 @@
             <button id="restartBtn">YENİ VARDİYA</button>
             <button id="menuFromReportBtn" class="ghostBtn" type="button">Ana Menü</button>
         </div>
-        <p class="appVersion" id="appVersionGame">v6.0</p>
     </section>
 </div>
 

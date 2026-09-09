@@ -1228,6 +1228,9 @@ function startShift() {
     $("eventDescription").classList.add("readyBox");
     const hintRow0 = $("hintRow");
     if (hintRow0) hintRow0.classList.add("hidden");
+    if (typeof stopEventTimer === "function") stopEventTimer(true);
+    const tb = $("timerBox");
+    if (tb) tb.classList.add("hidden");
 
     clearRadio();
 
@@ -4157,3 +4160,45 @@ if (playerNameInput) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
     else run();
 })();
+
+
+document.getElementById("openProfileBtn")?.addEventListener("click", () => {
+    if (typeof renderProfileHero === "function") renderProfileHero();
+    if (typeof show === "function") show("profileScreen");
+});
+document.getElementById("profileBackBtn")?.addEventListener("click", () => {
+    if (typeof show === "function") show("menuScreen");
+});
+
+function renderProfileHero() {
+    const name =
+        (window.SNSupabase && SNSupabase.getDisplayName && SNSupabase.getDisplayName()) ||
+        (window.game && game.playerName) ||
+        ($("accountNameDisplay") && $("accountNameDisplay").textContent) ||
+        "Görevli";
+    const rank = (window.game && game.rank) || "Aday Güvenlik";
+    const av = $("profileHeroAvatar");
+    if (av) {
+        if (typeof officerAvatarSvg === "function") av.innerHTML = officerAvatarSvg(name);
+        else av.textContent = String(name).trim().charAt(0).toUpperCase() || "?";
+    }
+    if ($("profileHeroName")) $("profileHeroName").textContent = name;
+    if ($("profileHeroRank")) $("profileHeroRank").textContent = rank;
+    let badges = 0;
+    try {
+        const raw = JSON.parse(localStorage.getItem("son_nobet_badges_v1") || "[]");
+        badges = Array.isArray(raw) ? raw.length : 0;
+    } catch (e) {}
+    if ($("profileHeroBadges")) $("profileHeroBadges").textContent = badges + " / 19";
+    let quests = 0;
+    try {
+        const c = JSON.parse(localStorage.getItem("son_nobet_chain_v1") || "null") || {};
+        quests = Array.isArray(c.done) ? c.done.length : 0;
+    } catch (e) {}
+    if ($("profileHeroQuests")) $("profileHeroQuests").textContent = quests + " / 12";
+    const st = (window.game && game.lifetimeStats) || {};
+    const shifts = st.shifts || 0;
+    const score = (window.game && game.lifetimeScore) || 0;
+    if ($("profileHeroShifts")) $("profileHeroShifts").textContent = shifts + " vardiya";
+}
+
